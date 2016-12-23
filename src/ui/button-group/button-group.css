@@ -1,0 +1,28 @@
+.default {
+  display: flex;
+  flex-wrap: nowrap;
+
+  .button {
+    z-index: 1;
+
+    &:focus,
+    &:active,
+    &.active {
+      z-index: 2;
+    }
+  }
+
+  .button:first-child {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  .button + .button {
+    border-radius: 0 !important;
+  }
+
+  .button:last-child {
+    border-top-right-radius: 2px !important;
+    border-bottom-right-radius: 2px !important;
+  }
+}
