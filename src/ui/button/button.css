@@ -1,0 +1,27 @@
+.default {
+  outline: none;
+  -webkit-app-region: no-drag;
+  border: none;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(#ffffff, #f4f4f4);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15), 0 -1px 0 rgba(0, 0, 0, 0.15), 1px 0 0 rgba(0, 0, 0, 0.15), -1px 0 0 rgba(0, 0, 0, 0.15), 0 1px 1px rgba(0, 0, 0, 0.15);
+  padding: 4px 8px;
+
+  &:active {
+    background-image: linear-gradient(to bottom, #4c98fe, #0564e3);
+    color: rgba(255, 255, 255, .9);
+    box-shadow: inherit;
+  }
+
+  &:focus {
+    box-shadow: 0 -1px 1px #329af0, 1px 0 1px #329af0, -1px 0 1px #329af0, 0 1px 1px #329af0;
+  }
+}
+
+.active {
+  background: linear-gradient(to top, #f4f4f4, #e4e4e4)
+}

@@ -1,0 +1,29 @@
+@import "normalize.css";
+
+:global {
+  *,
+  :before,
+  :after {
+    user-select: none;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100vh;
+  }
+
+  body, #root {
+    display: flex;
+  }
+
+  body {
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    overflow: hidden;
+  }
+
+  #root {
+    flex: 1;
+    flex-direction: column;
+    height: 100vh;
+  }}
