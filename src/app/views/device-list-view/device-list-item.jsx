@@ -1,0 +1,42 @@
+// @flow
+
+import React from 'react'
+import relativeDate from 'relative-date'
+import { autobind } from 'core-decorators'
+import { inject, observer } from 'mobx-react'
+
+import Device from 'stores/account/device'
+import { AppState } from 'stores'
+import { View, Text, Gutter } from 'ui'
+import { ListItem } from 'app/components'
+
+@inject('appState')
+@autobind
+@observer
+export default class DeviceListItem extends React.Component {
+  props: {
+    device: Device,
+    appState: AppState
+  }
+
+  onClick() {
+    this.props.appState.connect(this.props.device)
+  }
+
+  render() {
+    const { device } = this.props
+    return (
+      <ListItem key={device.clientIdentifier} onClick={this.onClick}>
+        <View flow="column" style={{ marginRight: 20 }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 18 }}>{device.name}</Text>
+          <Text style={{ fontSize: 12 }}>{relativeDate(device.lastSeenAt)}</Text>
+        </View>
+        <View flow="column" style={{ flex: 1, justifyContent: 'space-between' }}>
+          <Text style={{ fontSize: 14 }}>{device.product} ({device.productVersion})</Text>
+          <Gutter size={4} />
+          <Text style={{ fontSize: 12 }}>{device.platform} ({device.platformVersion})</Text>
+        </View>
+      </ListItem>
+    )
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "presets": ["react"],
+  "plugins": [
+    "lodash",
+    "closure-elimination",
+
+    "transform-react-constant-elements",
+    "transform-react-inline-elements",
+
+    "syntax-trailing-function-commas",
+    "transform-object-rest-spread",
+    ["fast-async", { "useRuntimeModule": true }],
+
+    "transform-decorators-legacy",
+    "transform-decorators",
+    "transform-class-properties",
+
+    "transform-class-constructor-call",
+    "transform-export-extensions",
+  ],
+  "env": {
+    "development": {
+      "plugins": ["react-hot-loader/babel"]
+    }
+  }
+}
