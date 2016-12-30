@@ -8,10 +8,10 @@ const extractCSS = new ExtractTextPlugin('renderer.css')
 
 const cssLoaders = ['css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'postcss-loader']
 
-module.exports = {
-  target: 'electron-renderer',
+const config = {
   devtool: 'source-map',
   entry: [
+    'babel-polyfill',
     './src',
   ],
 
@@ -33,7 +33,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'renderer.js',
-    libraryTarget: 'commonjs2',
   },
   resolve: {
     modules: [path.resolve(__dirname, './src'), 'node_modules'],
@@ -57,3 +56,11 @@ module.exports = {
     ],
   },
 }
+
+if (process.env.NODE_ENV === 'development') {
+  config.output.publicPath = 'http://localhost:8080/'
+  config.entry.unshift('react-hot-loader/patch', 'webpack-dev-server/client?http://localhost:8080/', 'webpack/hot/dev-server')
+  config.plugins.unshift(new webpack.HotModuleReplacementPlugin())
+}
+
+module.exports = config

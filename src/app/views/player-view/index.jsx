@@ -22,7 +22,6 @@ export default class PlayerScreen extends React.Component {
       <View flow="column" style={{ flex: 1 }}>
         <Toolbar>
           <View flow="row" style={{ flex: 1 }}>
-            <Gutter size={70} />
             <FilterGroup />
             <Gutter />
             <OrderButtonGroup />

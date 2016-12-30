@@ -72,10 +72,8 @@ export default class FilterGroup extends React.Component {
           onFocus={() => { this.setIsFocused(true) }}
           onBlur={() => { this.setIsFocused(false) }}
         />
-        <MediaQuery minWidth={1200}>
-          <Gutter />
-          <Text muted italic size={12} style={{ whiteSpace: 'nowrap' }}>{albumStore.matches.length} albums(s)</Text>
-        </MediaQuery>
+        <Gutter />
+        <Text muted italic size={12} style={{ whiteSpace: 'nowrap' }}>{albumStore.matches.length} albums(s)</Text>
         {shouldDisplayClearIcon && <Gutter />}
         {shouldDisplayClearIcon && <ClearIcon size={16} color="#888" onClick={albumStore.clearFilter} />}
       </Frame>
