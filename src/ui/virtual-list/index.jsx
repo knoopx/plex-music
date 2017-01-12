@@ -1,5 +1,5 @@
 import React from 'react'
-import { observable, computed, action, transaction } from 'mobx'
+import { observable, computed, action, runInAction } from 'mobx'
 import { propTypes, observer } from 'mobx-react'
 
 @observer
@@ -49,7 +49,7 @@ export default class VirtualList extends React.Component {
   setContainer = (container) => {
     if (container) {
       this.container = container
-      transaction(() => {
+      runInAction(() => {
         this.setScrollTop(container.scrollTop)
         this.setClientHeight(container.clientHeight)
       })
