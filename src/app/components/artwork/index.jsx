@@ -51,7 +51,7 @@ export default class Artwork extends React.Component {
 
     if (this.isLoading) {
       return (
-        <Container size={size} style={borderColor}>
+        <Container size={size} borderColor={borderColor}>
           <Spinner size={innerSize} color={borderColor} />
         </Container>
       )
