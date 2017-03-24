@@ -1,6 +1,5 @@
 {
   "name": "Plex Music",
-  "start_url": "/",
   "display": "standalone",
   "background_color": "white",
   "theme_color": "black",
