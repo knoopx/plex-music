@@ -4,31 +4,18 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { productName, dependencies } = require('./package.json')
 
-const extractCSS = new ExtractTextPlugin('renderer.css')
-
-const cssLoaders = ['css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'postcss-loader']
-
 module.exports = {
   target: 'electron-renderer',
-  devtool: 'source-map',
-  entry: [
-    './src',
-  ],
+  devtool: 'cheap-module-source-map',
+  entry: ['./src/index.css', './src'],
 
   plugins: [
     new HtmlWebpackPlugin({ title: productName, template: 'src/index.ejs' }),
-    extractCSS,
+    new ExtractTextPlugin('renderer.css'),
     new webpack.ExternalsPlugin('commonjs', Object.keys(dependencies)),
     new webpack.NamedModulesPlugin(),
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        postcss: [require('postcss-smart-import'), require('precss'), require('autoprefixer')],
-        context: __dirname,
-      },
-    }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    }),
+    new webpack.EnvironmentPlugin({ NODE_ENV: 'development' }),
+
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -42,17 +29,27 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.css/,
-        loader: process.env.NODE_ENV === 'production' ? extractCSS.extract({ loader: cssLoaders }) : ['style-loader', ...cssLoaders],
-      },
-      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader?modules&sourceMaps',
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: [require('postcss-smart-import'), require('precss'), require('autoprefixer')] },
+            },
+          ],
+        }),
+      }, {
         test: /\.jsx?$/,
-        loader: 'babel-loader',
-        include: path.resolve('./src'),
-      },
-      {
+        use: 'babel-loader',
+        include: [
+          path.resolve('./src'),
+        ],
+      }, {
         test: /\.json$/,
-        loader: 'json-loader',
+        use: 'json-loader',
       },
     ],
   },

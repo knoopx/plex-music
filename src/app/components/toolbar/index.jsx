@@ -8,7 +8,7 @@ export default class Toolbar extends React.Component {
     const { style, ...props } = this.props
     return (
       <View
-        flow="row" style={{ padding: 8, ...style }} {...props}
+        flow="row" style={{ padding: 8, alignItems: 'center', justifyContent: 'space-between', ...style }} {...props}
       />
     )
   }

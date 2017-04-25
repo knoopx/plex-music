@@ -23,6 +23,7 @@ export default class Button extends React.PureComponent {
           color: 'currentColor',
           outline: 'none',
           borderRadius: 2,
+          fontSize: 'inherit',
           ...style,
           ...(active && activeStyle),
         }} {...props}

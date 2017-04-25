@@ -91,11 +91,15 @@ export default class AlbumListItem extends React.Component {
           <TouchableOpacity onClick={(e) => { e.stopPropagation(); this.onPressYear(album.year) }}>
             <Text muted size={12}>{album.year}</Text>
           </TouchableOpacity>
-          {album.genres.length > 0 && <View flow="row">{_.map(album.genres, (genre, index) => (
-            <TouchableOpacity key={genre} onClick={(e) => { e.stopPropagation(); this.onPressGenre(genre) }}>
-              <Text muted size={12}>{genre}{index !== album.genres.length - 1 && '/'}</Text>
-            </TouchableOpacity>
-            ))}</View>}
+          {album.genres.length > 0 && (
+            <View flow="row">
+              {_.map(album.genres, (genre, index) => (
+                <TouchableOpacity key={genre} onClick={(e) => { e.stopPropagation(); this.onPressGenre(genre) }}>
+                  <Text muted size={12}>{genre}{index !== album.genres.length - 1 && '/'}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
         </View>
         <Gutter />
         <Rating value={album.userRating} onChange={this.onStar} />

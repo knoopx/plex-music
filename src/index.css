@@ -21,6 +21,7 @@
     font-size: 14px;
     overflow: hidden;
     -webkit-app-region: drag;
+    margin: 0;
   }
 
   button, input, textarea {

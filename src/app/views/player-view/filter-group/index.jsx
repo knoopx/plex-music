@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import React from 'react'
+import { findDOMNode } from 'react-dom'
 import mousetrap from 'mousetrap'
 import MediaQuery from 'react-responsive'
 import { autobind } from 'core-decorators'
@@ -42,6 +43,10 @@ export default class FilterGroup extends React.Component {
     this.isFocused = value
   }
 
+  setInput(el) {
+    this.input = findDOMNode(el)
+  }
+
   render() {
     const { style, focusStyle, albumStore } = this.props
     const shouldDisplayClearIcon = !_.isEmpty(albumStore.query)
@@ -63,7 +68,7 @@ export default class FilterGroup extends React.Component {
         {albumStore.isFiltering ? <Spinner size={14} /> : <SearchIcon size={14} />}
         <Gutter size={8} />
         <FauxInput
-          ref={(el) => { this.input = el }}
+          ref={this.setInput}
           placeholder="Search..."
           style={{ flex: 1 }}
           value={albumStore.query}
@@ -73,8 +78,10 @@ export default class FilterGroup extends React.Component {
           onBlur={() => { this.setIsFocused(false) }}
         />
         <MediaQuery minWidth={1200}>
-          <Gutter />
-          <Text muted italic size={12} style={{ whiteSpace: 'nowrap' }}>{albumStore.matches.length} albums(s)</Text>
+          <div>
+            <Gutter />
+            <Text muted italic size={12} style={{ whiteSpace: 'nowrap' }}>{albumStore.matches.length} albums(s)</Text>
+          </div>
         </MediaQuery>
         {shouldDisplayClearIcon && <Gutter />}
         {shouldDisplayClearIcon && <ClearIcon size={16} color="#888" onClick={albumStore.clearFilter} />}
