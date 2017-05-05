@@ -19,8 +19,7 @@ export default class ListItem extends React.Component {
         >
           <View
             flow="row" {...props} style={{
-              display: 'flex',
-              flexDirection: 'row',
+              flex: 1,
               padding: '8px 16px',
               alignItems: 'center',
               ...style,
