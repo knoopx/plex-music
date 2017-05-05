@@ -1,10 +1,12 @@
 // @flow
 
 import React from 'react'
+import mousetrap from 'mousetrap'
 import PlayListView from './play-list-view'
 import AlbumListView from './album-list-view'
 import PlayerView from './player-view'
 import EjectIcon from 'react-icons/lib/fa/eject'
+import { autobind } from 'core-decorators'
 import { inject, observer } from 'mobx-react'
 import { View, Button, Gutter, Divider } from 'ui'
 import { Toolbar } from 'app/components'
@@ -13,8 +15,23 @@ import OrderButtonGroup from './order-button-group'
 import LightIcon from 'react-icons/lib/md/lightbulb-outline'
 
 @inject('appState')
+@inject('albumStore')
+@autobind
 @observer
 export default class PlayerScreen extends React.Component {
+  componentWillMount() {
+    mousetrap.bind('command+r', this.refresh)
+  }
+
+  componentWillUnmount() {
+    mousetrap.unbind('command+r', this.refresh)
+  }
+
+  refresh(e) {
+    this.props.albumStore.fetch(true)
+    e.preventDefault()
+  }
+
   render() {
     const { appState } = this.props
 

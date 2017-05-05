@@ -60,8 +60,8 @@ export default class AlbumStore {
     setItem(this.connection.device.clientIdentifier, this.albums.map(({ connection, ...props }) => props))
   }
 
-  @action async fetch() {
-    this.setIsLoading(this.albums.length === 0)
+  @action async fetch(displaySpinner = this.albums.length === 0) {
+    this.setIsLoading(displaySpinner)
     try {
       this.setAlbums(await this.connection.albums.findAll())
     } finally {
