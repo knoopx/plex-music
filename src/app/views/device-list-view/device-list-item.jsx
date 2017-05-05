@@ -2,7 +2,7 @@
 
 import React from 'react'
 import relativeDate from 'relative-date'
-import { autobind } from 'core-decorators'
+
 import { inject, observer } from 'mobx-react'
 
 import Device from 'stores/account/device'
@@ -11,7 +11,7 @@ import { View, Text, Gutter } from 'ui'
 import { ListItem } from 'app/components'
 
 @inject('appState')
-@autobind
+
 @observer
 export default class DeviceListItem extends React.PureComponent {
   props: {

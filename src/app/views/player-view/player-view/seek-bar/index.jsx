@@ -1,5 +1,5 @@
 import React from 'react'
-import { autobind } from 'core-decorators'
+
 import { inject, observer } from 'mobx-react'
 import { theme } from 'react-theme'
 import { Frame } from 'ui'
@@ -7,7 +7,7 @@ import styles from './seek-bar.css'
 
 @theme('seekBar')
 @inject('playQueue')
-@autobind
+
 @observer
 export default class SeekBar extends React.PureComponent {
   onSeek(e) {

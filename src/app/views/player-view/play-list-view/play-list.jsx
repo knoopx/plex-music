@@ -2,14 +2,14 @@
 
 import React from 'react'
 import { observer } from 'mobx-react'
-import { autobind } from 'core-decorators'
+
 
 import { List } from 'ui'
 import type { PlayListItem as TPlayListItem } from 'stores/play-queue/types'
 
 import PlayListItem from './play-list-item'
 
-@autobind
+
 @observer
 export default class PlayList extends React.PureComponent {
   props: {

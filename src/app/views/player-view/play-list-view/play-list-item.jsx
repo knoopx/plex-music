@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { autobind } from 'core-decorators'
+
 
 import type { PlayListItem as TPlayListItem } from 'stores/play-queue/types'
 
@@ -11,7 +11,7 @@ import { TouchableOpacity, View, Text, Gutter } from 'ui'
 import { Artwork, ListItem } from 'app/components'
 
 @inject('playQueue')
-@autobind
+
 @observer
 export default class PlayListItem extends React.PureComponent {
   props: {

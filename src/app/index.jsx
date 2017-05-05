@@ -2,10 +2,10 @@
 
 import React from 'react'
 import { inject, observer, Provider } from 'mobx-react'
-import { autobind } from 'core-decorators'
+
 import { ThemeProvider, theme } from 'react-theme'
 
-import { AppState, Account, AlbumStore } from 'stores'
+import { AppState, Account } from 'stores'
 import { LoadingSlate, Transition, View } from 'ui'
 
 import { LoginView, DeviceListView, PlayerView } from './views'
@@ -13,7 +13,7 @@ import { LoginView, DeviceListView, PlayerView } from './views'
 @theme('app')
 @inject('account')
 @inject('appState')
-@autobind
+
 @observer
 class App extends React.PureComponent {
   props: {

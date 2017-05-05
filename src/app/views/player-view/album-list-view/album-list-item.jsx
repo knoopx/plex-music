@@ -4,7 +4,7 @@ import React from 'react'
 import _ from 'lodash'
 import { action } from 'mobx'
 import { inject, observer } from 'mobx-react'
-import { autobind } from 'core-decorators'
+
 
 import { AppState, PlayQueue, AlbumStore } from 'stores'
 import { Album } from 'models'
@@ -16,7 +16,7 @@ import { ListItem, Artwork } from 'app/components'
 @inject('appState')
 @inject('albumStore')
 @inject('playQueue')
-@autobind
+
 @observer
 export default class AlbumListItem extends React.PureComponent {
   props: {

@@ -1,12 +1,12 @@
 // @flow
 
 import { observable, computed, action, IObservableArray } from 'mobx'
-import { autobind } from 'core-decorators'
+
 import mousetrap from 'mousetrap'
 
 import { PlayListItem } from './types'
 
-@autobind
+
 export default class PlayQueue {
   audio = new Audio()
   @observable currentTime = 0

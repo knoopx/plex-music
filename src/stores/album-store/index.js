@@ -2,7 +2,7 @@
 
 import _ from 'lodash'
 import mousetrap from 'mousetrap'
-import { autobind } from 'core-decorators'
+
 import { observable, computed, autorunAsync, action, IObservableArray } from 'mobx'
 import { Album } from 'models'
 import { getItem, setItem } from 'support/storage'
@@ -11,7 +11,7 @@ import Connection from 'stores/connection'
 import { OrderFn, match } from './support'
 import type { FilterSet, OrderType } from './types'
 
-@autobind
+
 export default class AlbumStore {
   connection: Connection;
   @observable isLoading: boolean = false;

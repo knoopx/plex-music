@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { autobind } from 'core-decorators'
+
 
 import { Text, View, Gutter, List, Button, Frame } from 'ui'
 
@@ -10,7 +10,7 @@ import Device from 'stores/account/device'
 import DeviceListItem from './device-list-item'
 
 @inject('account')
-@autobind
+
 @observer
 export default class DeviceList extends React.PureComponent {
   render() {

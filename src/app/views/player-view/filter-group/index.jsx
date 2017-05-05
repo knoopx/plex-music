@@ -3,7 +3,7 @@ import React from 'react'
 import { findDOMNode } from 'react-dom'
 import mousetrap from 'mousetrap'
 import MediaQuery from 'react-responsive'
-import { autobind } from 'core-decorators'
+
 import { action, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import { theme } from 'react-theme'
@@ -15,7 +15,7 @@ import { Text, Frame, Spinner, Gutter, FauxInput } from 'ui'
 
 @theme('filterGroup')
 @inject('albumStore')
-@autobind
+
 @observer
 export default class FilterGroup extends React.PureComponent {
   @observable isFocused = false

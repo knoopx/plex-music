@@ -3,13 +3,13 @@
 import React from 'react'
 import { observable, action } from 'mobx'
 import { inject, observer } from 'mobx-react'
-import { autobind } from 'core-decorators'
+
 import { Text, View, Button, Input, Gutter } from 'ui'
 
 import type { LoginParams } from 'stores/account/types'
 
 @inject('account')
-@autobind
+
 @observer
 export default class LoginView extends React.PureComponent {
   @observable loginParams: LoginParams = {

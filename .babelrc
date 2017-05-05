@@ -1,8 +1,10 @@
 {
   "presets": ["react"],
   "plugins": [
+    "closure-elimination",
     "transform-export-extensions",
     "transform-decorators-legacy",
+    "autobind-class-methods",
     "transform-class-properties",
     "syntax-trailing-function-commas",
     "transform-object-rest-spread",

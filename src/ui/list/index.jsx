@@ -1,8 +1,8 @@
 import React from 'react'
 import { observer, PropTypes } from 'mobx-react'
-import { autobind } from 'core-decorators'
 
-@autobind
+
+
 @observer
 export default class List extends React.PureComponent {
   static propTypes = {

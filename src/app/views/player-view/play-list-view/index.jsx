@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { autobind } from 'core-decorators'
+
 
 import { View, LoadingSlate, Transition, Divider } from 'ui'
 
@@ -10,7 +10,7 @@ import NowPlaying from './now-playing'
 import PlayList from './play-list'
 
 @inject('playQueue')
-@autobind
+
 @observer
 export default class PlaylistView extends React.PureComponent {
   render() {

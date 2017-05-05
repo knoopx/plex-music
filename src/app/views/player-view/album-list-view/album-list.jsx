@@ -1,13 +1,13 @@
 // @flow
 
 import React from 'react'
-import { autobind } from 'core-decorators'
+
 
 import { View, VirtualList } from 'ui'
 
 import AlbumListItem from './album-list-item'
 
-@autobind
+
 export default class AlbumList extends React.PureComponent {
   props: {
     albums: Array<Object>,
