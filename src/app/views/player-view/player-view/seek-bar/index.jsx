@@ -9,7 +9,7 @@ import styles from './seek-bar.css'
 @inject('playQueue')
 @autobind
 @observer
-export default class SeekBar extends React.Component {
+export default class SeekBar extends React.PureComponent {
   onSeek(e) {
     this.props.playQueue.seekTo(e.nativeEvent.offsetX / e.target.clientWidth * this.props.playQueue.duration)
   }

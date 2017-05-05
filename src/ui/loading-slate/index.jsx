@@ -1,7 +1,7 @@
 import React from 'react'
 import Spinner from '../spinner'
 
-export default class LoadingSlate extends React.Component {
+export default class LoadingSlate extends React.PureComponent {
   render() {
     const { style } = this.props
     return (

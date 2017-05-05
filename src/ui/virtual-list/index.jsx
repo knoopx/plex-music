@@ -3,7 +3,7 @@ import { observable, computed, action, runInAction } from 'mobx'
 import { propTypes, observer } from 'mobx-react'
 
 @observer
-export default class VirtualList extends React.Component {
+export default class VirtualList extends React.PureComponent {
   static propTypes = {
     items: propTypes.arrayOrObservableArray.isRequired,
     itemHeight: React.PropTypes.number.isRequired,

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class FauxInput extends React.Component {
+export default class FauxInput extends React.PureComponent {
   render() {
     const { style, ...props } = this.props
     return (

@@ -4,7 +4,7 @@ import { autobind } from 'core-decorators'
 
 @autobind
 @observer
-export default class List extends React.Component {
+export default class List extends React.PureComponent {
   static propTypes = {
     items: PropTypes.arrayOrObservableArray.isRequired,
     selected: React.PropTypes.object,

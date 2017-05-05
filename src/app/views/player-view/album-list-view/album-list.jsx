@@ -8,7 +8,7 @@ import { View, VirtualList } from 'ui'
 import AlbumListItem from './album-list-item'
 
 @autobind
-export default class AlbumList extends React.Component {
+export default class AlbumList extends React.PureComponent {
   props: {
     albums: Array<Object>,
   }

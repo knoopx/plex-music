@@ -11,7 +11,7 @@ import PlayListItem from './play-list-item'
 
 @autobind
 @observer
-export default class PlayList extends React.Component {
+export default class PlayList extends React.PureComponent {
   props: {
     items: Array<TPlayListItem>,
   }

@@ -13,7 +13,7 @@ import PauseIcon from 'react-icons/lib/fa/pause'
 
 @inject('playQueue')
 @observer
-export default class PlaybackButtons extends React.Component {
+export default class PlaybackButtons extends React.PureComponent {
   render() {
     const { playQueue } = this.props
 

@@ -15,7 +15,7 @@ import { LoginView, DeviceListView, PlayerView } from './views'
 @inject('appState')
 @autobind
 @observer
-class App extends React.Component {
+class App extends React.PureComponent {
   props: {
     appState: AppState,
     account: Account
@@ -72,7 +72,7 @@ class App extends React.Component {
 
 @inject('appState')
 @observer
-export default class Container extends React.Component {
+export default class Container extends React.PureComponent {
   render() {
     const { appState } = this.props
     return <ThemeProvider theme={appState.theme} ><App /></ThemeProvider>

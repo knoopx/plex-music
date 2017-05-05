@@ -10,7 +10,7 @@ import { Artwork } from 'app/components'
 
 @theme('nowPlaying')
 @observer
-export default class NowPlaying extends React.Component {
+export default class NowPlaying extends React.PureComponent {
   render() {
     const { style, activeItem } = this.props
 

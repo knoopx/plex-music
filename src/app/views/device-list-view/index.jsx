@@ -12,7 +12,7 @@ import DeviceListItem from './device-list-item'
 @inject('account')
 @autobind
 @observer
-export default class DeviceList extends React.Component {
+export default class DeviceList extends React.PureComponent {
   render() {
     const { account } = this.props
 

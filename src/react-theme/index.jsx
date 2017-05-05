@@ -4,7 +4,7 @@ import { observer, inject, Provider } from 'mobx-react'
 import { merge } from 'lodash'
 
 @observer
-export class ThemeProvider extends React.Component {
+export class ThemeProvider extends React.PureComponent {
   @observable theme = {}
 
   constructor(props, context) {
@@ -27,7 +27,7 @@ export function theme(key, contextTypes) {
   return Component => (
     @inject('theme')
     @observer
-    class extends React.Component {
+    class extends React.PureComponent {
       static displayName = `@theme(${Component.name})`
 
       render() {

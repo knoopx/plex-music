@@ -13,7 +13,7 @@ import { Artwork, ListItem } from 'app/components'
 @inject('playQueue')
 @autobind
 @observer
-export default class PlayListItem extends React.Component {
+export default class PlayListItem extends React.PureComponent {
   props: {
     item: TPlayListItem
   }

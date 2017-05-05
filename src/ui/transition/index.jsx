@@ -1,7 +1,7 @@
 import React from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 
-export default class Transition extends React.Component {
+export default class Transition extends React.PureComponent {
   getStyles() {
     return React.Children.map(this.props.children, child => ({
       key: this.props.name,

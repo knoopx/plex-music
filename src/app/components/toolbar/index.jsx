@@ -3,7 +3,7 @@ import { View } from 'ui'
 import { theme } from 'react-theme'
 
 @theme('toolbar')
-export default class Toolbar extends React.Component {
+export default class Toolbar extends React.PureComponent {
   render() {
     const { style, ...props } = this.props
     return (

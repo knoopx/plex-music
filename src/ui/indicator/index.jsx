@@ -4,7 +4,7 @@ import { theme } from 'react-theme'
   color: React.PropTypes.string,
   activeColor: React.PropTypes.string,
 })
-export default class Indicator extends React.Component {
+export default class Indicator extends React.PureComponent {
   static propTypes = {
     active: React.PropTypes.bool.isRequired,
     size: React.PropTypes.number.isRequired,

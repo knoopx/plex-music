@@ -23,7 +23,7 @@ function Container({ size, borderColor, ...otherProps }) {
 
 @theme('artwork')
 @observer
-export default class Artwork extends React.Component {
+export default class Artwork extends React.PureComponent {
   @observable isLoading = false
   @observable src;
 

@@ -11,7 +11,7 @@ import type { LoginParams } from 'stores/account/types'
 @inject('account')
 @autobind
 @observer
-export default class LoginView extends React.Component {
+export default class LoginView extends React.PureComponent {
   @observable loginParams: LoginParams = {
     login: '',
     password: '',

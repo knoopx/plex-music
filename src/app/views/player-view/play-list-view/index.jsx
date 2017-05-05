@@ -12,7 +12,7 @@ import PlayList from './play-list'
 @inject('playQueue')
 @autobind
 @observer
-export default class PlaylistView extends React.Component {
+export default class PlaylistView extends React.PureComponent {
   render() {
     const { playQueue } = this.props
 

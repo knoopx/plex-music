@@ -14,7 +14,7 @@ function formatDuration(input: number = 0) {
 
 @inject('playQueue')
 @observer
-export default class PlayerView extends React.Component {
+export default class PlayerView extends React.PureComponent {
   render() {
     const { playQueue } = this.props
     return (

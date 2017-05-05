@@ -17,7 +17,7 @@ import { Text, Frame, Spinner, Gutter, FauxInput } from 'ui'
 @inject('albumStore')
 @autobind
 @observer
-export default class FilterGroup extends React.Component {
+export default class FilterGroup extends React.PureComponent {
   @observable isFocused = false
 
   componentDidMount() {

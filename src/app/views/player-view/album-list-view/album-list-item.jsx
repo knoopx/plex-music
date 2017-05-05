@@ -18,7 +18,7 @@ import { ListItem, Artwork } from 'app/components'
 @inject('playQueue')
 @autobind
 @observer
-export default class AlbumListItem extends React.Component {
+export default class AlbumListItem extends React.PureComponent {
   props: {
     appState: AppState,
     playQueue: PlayQueue,

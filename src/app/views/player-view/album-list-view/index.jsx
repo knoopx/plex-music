@@ -12,7 +12,7 @@ import AlbumList from './album-list'
 @inject('appState')
 @autobind
 @observer
-export default class AlbumListView extends React.Component {
+export default class AlbumListView extends React.PureComponent {
   render() {
     const { albumStore } = this.props
     return <Transition name={albumStore.isLoading ? 'loading' : 'ready'}>{this.renderContent()}</Transition>

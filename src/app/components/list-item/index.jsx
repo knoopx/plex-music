@@ -5,7 +5,7 @@ import { ThemeProvider, theme } from 'react-theme'
 
 @theme('listItem')
 @inject('theme')
-export default class ListItem extends React.Component {
+export default class ListItem extends React.PureComponent {
   render() {
     const { active, style, activeStyle, containerStyle, activeTextMutedStyle, theme, ...props } = this.props
 
