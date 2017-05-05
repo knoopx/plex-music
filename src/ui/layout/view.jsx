@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 export default class View extends React.PureComponent {
   static propTypes = {
-    flow: React.PropTypes.oneOf(['row', 'column']).isRequired,
+    flow: PropTypes.oneOf(['row', 'column']).isRequired,
   }
 
   static defaultProps = {
@@ -10,7 +11,7 @@ export default class View extends React.PureComponent {
   }
 
   static childContextTypes = {
-    flow: React.PropTypes.oneOf(['row', 'column']).isRequired,
+    flow: PropTypes.oneOf(['row', 'column']).isRequired,
   }
 
   getChildContext() {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 import styles from './spinner.css'
@@ -7,8 +8,8 @@ import { theme } from 'react-theme'
 @theme('spinner')
 export default class Spinner extends React.PureComponent {
   static propTypes = {
-    size: React.PropTypes.number.isRequired,
-    color: React.PropTypes.string.isRequired,
+    size: PropTypes.number.isRequired,
+    color: PropTypes.string.isRequired,
   }
 
   render() {

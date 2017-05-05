@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import { theme } from 'react-theme'
 
 @theme('button')
 export default class Button extends React.PureComponent {
   static propTypes = {
-    active: React.PropTypes.bool.isRequired,
-    style: React.PropTypes.object,
-    activeStyle: React.PropTypes.object,
+    active: PropTypes.bool.isRequired,
+    style: PropTypes.object,
+    activeStyle: PropTypes.object,
   }
 
   static defaultProps = {

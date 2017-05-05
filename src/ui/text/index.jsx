@@ -1,13 +1,14 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import { theme } from 'react-theme'
 
 @theme('text')
 export default class Text extends React.PureComponent {
   static propTypes = {
-    bold: React.PropTypes.bool.isRequired,
-    muted: React.PropTypes.bool.isRequired,
-    italic: React.PropTypes.bool.isRequired,
-    size: React.PropTypes.number,
+    bold: PropTypes.bool.isRequired,
+    muted: PropTypes.bool.isRequired,
+    italic: PropTypes.bool.isRequired,
+    size: PropTypes.number,
   }
 
   static defaultProps = {

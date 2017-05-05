@@ -1,5 +1,6 @@
 // @flow
 
+import PropTypes from 'prop-types'
 import React from 'react'
 import StarIcon from 'react-icons/lib/fa/star'
 import OpenStarIcon from 'react-icons/lib/fa/star-o'
@@ -9,9 +10,9 @@ import { theme } from 'react-theme'
 @theme('rating')
 export default class Rating extends React.PureComponent {
   static propTypes = {
-    value: React.PropTypes.number.isRequired,
-    max: React.PropTypes.number.isRequired,
-    onChange: React.PropTypes.func.isRequired,
+    value: PropTypes.number.isRequired,
+    max: PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired,
   }
 
   static defaultProps = {

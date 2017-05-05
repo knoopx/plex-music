@@ -1,15 +1,15 @@
+import PropTypes from 'prop-types'
 import React from 'react'
-import { observer, PropTypes } from 'mobx-react'
-
+import { propTypes, observer } from 'mobx-react'
 
 
 @observer
 export default class List extends React.PureComponent {
   static propTypes = {
-    items: PropTypes.arrayOrObservableArray.isRequired,
-    selected: React.PropTypes.object,
-    renderItem: React.PropTypes.func.isRequired,
-    onSelect: React.PropTypes.func,
+    items: propTypes.arrayOrObservableArray.isRequired,
+    selected: PropTypes.object,
+    renderItem: PropTypes.func.isRequired,
+    onSelect: PropTypes.func,
   }
 
   static defaultProps = {

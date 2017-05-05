@@ -1,16 +1,17 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import { theme } from 'react-theme'
 @theme('indicator', {
-  color: React.PropTypes.string,
-  activeColor: React.PropTypes.string,
+  color: PropTypes.string,
+  activeColor: PropTypes.string,
 })
 export default class Indicator extends React.PureComponent {
   static propTypes = {
-    active: React.PropTypes.bool.isRequired,
-    size: React.PropTypes.number.isRequired,
-    theme: React.PropTypes.shape({
-      color: React.PropTypes.string.isRequired,
-      activeColor: React.PropTypes.string.isRequired,
+    active: PropTypes.bool.isRequired,
+    size: PropTypes.number.isRequired,
+    theme: PropTypes.shape({
+      color: PropTypes.string.isRequired,
+      activeColor: PropTypes.string.isRequired,
     }).isRequired,
   }
 

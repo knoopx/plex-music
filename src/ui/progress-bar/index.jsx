@@ -1,15 +1,16 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import { theme } from 'react-theme'
 
 @theme('progressBar', {
   height: 20,
-  color: React.PropTypes.string.isRequired,
-  borderColor: React.PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  borderColor: PropTypes.string.isRequired,
 })
 
 export default class ProgressBar extends React.PureComponent {
   static propTypes = {
-    progress: React.PropTypes.number.isRequired,
+    progress: PropTypes.number.isRequired,
   }
 
   static defaultProps = {

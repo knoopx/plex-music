@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 export default class Gutter extends React.PureComponent {
   static contextTypes = {
-    flow: React.PropTypes.string.isRequired,
+    flow: PropTypes.string.isRequired,
   }
 
   static propTypes = {
-    size: React.PropTypes.number.isRequired,
+    size: PropTypes.number.isRequired,
   }
 
   static defaultProps = {

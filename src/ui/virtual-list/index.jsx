@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import { observable, computed, action, runInAction } from 'mobx'
 import { propTypes, observer } from 'mobx-react'
@@ -6,9 +7,9 @@ import { propTypes, observer } from 'mobx-react'
 export default class VirtualList extends React.PureComponent {
   static propTypes = {
     items: propTypes.arrayOrObservableArray.isRequired,
-    itemHeight: React.PropTypes.number.isRequired,
-    renderItem: React.PropTypes.func.isRequired,
-    bufferSize: React.PropTypes.number.isRequired,
+    itemHeight: PropTypes.number.isRequired,
+    renderItem: PropTypes.func.isRequired,
+    bufferSize: PropTypes.number.isRequired,
   }
 
   static defaultProps = {

@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import { theme } from 'react-theme'
 
 @theme('divider')
 export default class Divider extends React.PureComponent {
   static contextTypes = {
-    flow: React.PropTypes.string.isRequired,
+    flow: PropTypes.string.isRequired,
   }
 
   render() {
