@@ -3,21 +3,25 @@
 import React from 'react'
 import { observable, action } from 'mobx'
 import { inject, observer } from 'mobx-react'
+import Account from 'stores/account'
 
 import { Text, View, Button, Input, Gutter } from 'ui'
 
 import type { LoginParams } from 'stores/account/types'
 
 @inject('account')
-
 @observer
 export default class LoginView extends React.PureComponent {
+  props: {
+    account: Account
+  }
+
   @observable loginParams: LoginParams = {
     login: '',
     password: '',
   }
 
-  @action setLoginParam(key: mixed, value: mixed) {
+  @action setLoginParam(key: string, value: mixed) {
     this.loginParams[key] = value
   }
 

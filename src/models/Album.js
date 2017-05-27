@@ -37,7 +37,7 @@ export default class Album extends Model {
     })
   }
 
-  @action update(props) {
+  @action update(props: {}) {
     Object.assign(this, props)
   }
 }

@@ -4,8 +4,7 @@
 
 [libs]
 ./flow
-#./node_modules/react-native-macos/Libraries/react-native/react-native-interface.js
-#./node_modules/react-native-macos/flow
+node_modules/mobx/lib/mobx.js.flow
 
 [options]
 esproposal.class_instance_fields=enable
