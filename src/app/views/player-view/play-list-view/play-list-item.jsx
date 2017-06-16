@@ -4,9 +4,10 @@ import React from 'react'
 import { inject, observer } from 'mobx-react'
 
 
+import PlayQueue from 'stores/play-queue'
 import type { PlayListItem as TPlayListItem } from 'stores/play-queue/types'
 
-import { TouchableOpacity, View, Text, Gutter } from 'ui'
+import { View, Text, Gutter } from 'ui'
 
 import { Artwork, ListItem } from 'app/components'
 
@@ -15,7 +16,8 @@ import { Artwork, ListItem } from 'app/components'
 @observer
 export default class PlayListItem extends React.PureComponent {
   props: {
-    item: TPlayListItem
+    item: TPlayListItem,
+    playQueue: PlayQueue
   }
 
   onClick(item: PlayListItem) {

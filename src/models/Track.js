@@ -13,7 +13,7 @@ export default class Track extends Model {
   path: string;
   url: string;
 
-  @action static parse(item: mixed, connection: Connection): Track {
+  @action static parse(item: any, connection: Connection): Track {
     const { uri, device } = connection
     const part = item.Media[0].Part[0]
     return new this(connection, {

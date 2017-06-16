@@ -3,27 +3,27 @@
 import _ from 'lodash'
 import mousetrap from 'mousetrap'
 
-import { observable, computed, autorunAsync, action, IObservableArray } from 'mobx'
+import { observable, computed, autorunAsync, action, IObservableArray, toJS } from 'mobx'
 import { Album } from 'models'
 import { getItem, setItem } from 'support/storage'
 
+import AppState from 'stores/app-state'
 import Connection from 'stores/connection'
 import { OrderFn, match } from './support'
 import type { FilterSet, OrderType } from './types'
 
-
 export default class AlbumStore {
-  connection: Connection;
+  appState: AppState;
   @observable isLoading: boolean = false;
   @observable isFiltering: boolean = false;
-  @observable albums: IObservableArray<Album> = [];
-  @observable matches: IObservableArray<Album> = [];
+  @observable albums: IObservableArray<Album> = observable.array();
+  @observable matches: IObservableArray<Album> = observable.array();
 
   @observable query: string = getItem('query', '');
   @observable order: OrderType = getItem('order', Object.keys(OrderFn)[0]);
 
-  constructor(connection: Connection) {
-    this.connection = connection
+  constructor(appState: AppState) {
+    this.appState = appState
 
     autorunAsync(() => {
       setItem('query', this.query)
@@ -33,7 +33,7 @@ export default class AlbumStore {
     autorunAsync(() => {
       const order = OrderFn[this.order]
       const filterSet = this.filterSet
-      const albums = this.albums.toJS()
+      const albums = toJS(this.albums)
 
       this.setIsFiltering(true)
       setImmediate(() => {
@@ -49,21 +49,34 @@ export default class AlbumStore {
     })
 
     this.deserialize()
-    this.fetch()
+  }
+
+  get connection(): Connection {
+    return this.appState.connection
+  }
+
+  get sectionAlbumsKey() {
+    if (this.appState.sectionKey) {
+      return `${this.appState.sectionKey}:albums`
+    }
   }
 
   @action deserialize() {
-    this.setAlbums(getItem(this.connection.device.clientIdentifier, []).map(a => new Album(this.connection, a)))
+    if (this.appState.sectionKey) {
+      this.setAlbums(getItem(this.sectionAlbumsKey, []).map(a => new Album(this.connection, a)))
+    }
   }
 
   serialize() {
-    setItem(this.connection.device.clientIdentifier, this.albums.map(({ connection, ...props }) => props))
+    if (this.appState.sectionKey) {
+      setItem(this.sectionAlbumsKey, this.albums.map(({ connection, ...props }) => props))
+    }
   }
 
-  @action async fetch(displaySpinner = this.albums.length === 0) {
+  @action async fetch(displaySpinner: boolean = this.albums.length === 0) {
     this.setIsLoading(displaySpinner)
     try {
-      this.setAlbums(await this.connection.albums.findAll())
+      this.setAlbums(await this.appState.connection.albums.findAll(this.appState.section))
     } finally {
       this.setIsLoading(false)
     }

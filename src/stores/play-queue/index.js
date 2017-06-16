@@ -13,7 +13,7 @@ export default class PlayQueue {
   @observable duration = 0
   @observable buffered = 0
   @observable activeIndex = -1
-  @observable playlist: IObservableArray<PlayListItem> = []
+  @observable playlist: IObservableArray<PlayListItem> = observable.array()
   @observable isFetching = false
   @observable isLoading = false
   @observable isPlaying = false
@@ -144,7 +144,7 @@ export default class PlayQueue {
     this.playlist.push(...playlist)
   }
 
-  @action setIsFetching(value) {
+  @action setIsFetching(value: boolean) {
     this.isFetching = value
   }
 }

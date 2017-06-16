@@ -17,6 +17,7 @@ import { LoginView, DeviceListView, PlayerView } from './views'
 @observer
 class App extends React.PureComponent {
   props: {
+    style: {},
     appState: AppState,
     account: Account
   }

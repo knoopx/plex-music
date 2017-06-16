@@ -65,6 +65,18 @@ export function build(accentColor, baseColor) {
         ...raisedStyle(frameBorderColor),
       },
     },
+    input: {
+      style: {
+        background: frameBackgroundGradient,
+        ...raisedStyle(frameBorderColor),
+      },
+    },
+    select: {
+      style: {
+        background: frameBackgroundGradient,
+        ...raisedStyle(frameBorderColor),
+      },
+    },
     button: {
       style: {
         background: frameBackgroundGradient,

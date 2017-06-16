@@ -49,7 +49,7 @@ export default class Account {
   }
 
   @action logOut() {
-    this.setLoginParams({})
+    this.setLoginParams({ login: '', password: '' })
     this.setDevices([])
     this.setIsLoggedIn(false)
     localStorage.removeItem('loginParams')

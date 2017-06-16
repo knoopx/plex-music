@@ -38,7 +38,7 @@ export default class AlbumListItem extends React.PureComponent {
     this.props.albumStore.setQuery(`year:${year}`)
   }
 
-  async onClick(e) {
+  async onClick(e: SyntheticMouseEvent) {
     const shouldAppend = e.shiftKey
     const { album, appState, playQueue } = this.props
 
@@ -79,23 +79,23 @@ export default class AlbumListItem extends React.PureComponent {
         <Artwork key={album.id} size={48} src={album.artwork} />
         <Gutter />
         <View flow="column" style={{ flex: 1 }}>
-          <Text bold>{album.title}</Text>
+          <Text bold style={{ cursor: 'default' }}>{album.title}</Text>
           <View flow="row">
-            <TouchableOpacity onClick={(e) => { e.stopPropagation(); this.onPressArtistName(album.artistName) }}>
+            <TouchableOpacity style={{ cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressArtistName(album.artistName) }}>
               <Text muted size={12}>{album.artistName}</Text>
             </TouchableOpacity>
           </View>
         </View>
         <Gutter />
         <View flow="column" style={{ alignItems: 'flex-end' }}>
-          <TouchableOpacity onClick={(e) => { e.stopPropagation(); this.onPressYear(album.year) }}>
+          <TouchableOpacity style={{ cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressYear(album.year) }}>
             <Text muted size={12}>{album.year}</Text>
           </TouchableOpacity>
           {album.genres.length > 0 && (
             <View flow="row">
               {_.map(album.genres, (genre, index) => (
-                <TouchableOpacity key={genre} onClick={(e) => { e.stopPropagation(); this.onPressGenre(genre) }}>
-                  <Text muted size={12}>{genre}{index !== album.genres.length - 1 && '/'}</Text>
+                <TouchableOpacity key={genre} style={{ cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressGenre(genre) }}>
+                  <Text muted size={12} >{genre}{index !== album.genres.length - 1 && '/'}</Text>
                 </TouchableOpacity>
               ))}
             </View>

@@ -29,7 +29,7 @@ export default class Rating extends React.PureComponent {
       <IconName
         key={index}
         onClick={(e) => { e.stopPropagation(); this.props.onChange((index / stars * max) + 1) }}
-        style={{ margin: 2, ...style }}
+        style={{ margin: 2, cursor: 'pointer', ...style }}
         size={size}
       />
     )

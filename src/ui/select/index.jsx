@@ -2,11 +2,11 @@ import React from 'react'
 import { theme } from 'react-theme'
 
 @theme('select')
-export default class Input extends React.PureComponent {
+export default class Select extends React.PureComponent {
   render() {
     const { style, ...props } = this.props
     return (
-      <input
+      <select
         {...props}
         style={{ ...style,
           color: 'inherit',

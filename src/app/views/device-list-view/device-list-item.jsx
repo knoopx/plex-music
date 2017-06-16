@@ -26,7 +26,7 @@ export default class DeviceListItem extends React.PureComponent {
   render() {
     const { device } = this.props
     return (
-      <ListItem key={device.clientIdentifier} onClick={this.onClick}>
+      <ListItem key={device.clientIdentifier} onClick={this.onClick} style={{ cursor: 'pointer' }}>
         <View flow="column" style={{ marginRight: 20 }}>
           <Text style={{ fontWeight: 'bold', fontSize: 18 }}>{device.name}</Text>
           <Text style={{ fontSize: 12 }}>{relativeDate(device.lastSeenAt)}</Text>

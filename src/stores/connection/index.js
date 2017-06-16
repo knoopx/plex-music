@@ -27,13 +27,13 @@ export default class Connection {
     this.sections = new SectionEndpoint(this)
   }
 
-  async getArtistSection(): Promise<Section> {
+  async getArtistSections(): Promise<Array<Section>> {
     const sections = await this.sections.findAll()
-    const artistSection = _.find(sections, { type: 'artist' })
-    if (!artistSection) {
+    const artistSections = _.filter(sections, { type: 'artist' })
+    if (artistSections.length === 0) {
       throw new Error('No artist section found')
     }
-    return artistSection
+    return artistSections
   }
 
   @action rate(id: number, rating: number) {
@@ -60,7 +60,7 @@ export default class Connection {
     throw new Error('Unable to find a suitable connection')
   }
 
-  async request(path: string, query: {} = {}): Promise<mixed> {
+  async request(path: string, query: {} = {}): Promise<any> {
     const res = await Axios.get(`${this.uri}${path}`, {
       params: query,
       headers: {

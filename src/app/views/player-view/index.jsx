@@ -8,7 +8,7 @@ import PlayerView from './player-view'
 import EjectIcon from 'react-icons/lib/fa/eject'
 
 import { inject, observer } from 'mobx-react'
-import { View, Button, Gutter, Divider } from 'ui'
+import { View, Button, Gutter, Divider, Select } from 'ui'
 import { Toolbar } from 'app/components'
 import FilterGroup from './filter-group'
 import OrderButtonGroup from './order-button-group'
@@ -16,7 +16,6 @@ import LightIcon from 'react-icons/lib/md/lightbulb-outline'
 
 @inject('appState')
 @inject('albumStore')
-
 @observer
 export default class PlayerScreen extends React.PureComponent {
   componentWillMount() {
@@ -27,7 +26,7 @@ export default class PlayerScreen extends React.PureComponent {
     mousetrap.unbind('command+r', this.refresh)
   }
 
-  refresh(e) {
+  refresh(e: SyntheticInputEvent) {
     this.props.albumStore.fetch(true)
     e.preventDefault()
   }
@@ -41,6 +40,12 @@ export default class PlayerScreen extends React.PureComponent {
           <View flow="row" style={{ flex: 1 }}>
             <Gutter size={70} />
             <FilterGroup />
+            <Gutter size={4} />
+            <Select value={appState.activeSectionIndex} onChange={appState.onChangeSection}>
+              {appState.sections.map((section, index) => (
+                <option key={section.id} value={index}>{section.name}</option>
+              ))}
+            </Select>
             <Gutter />
             <OrderButtonGroup />
           </View>
