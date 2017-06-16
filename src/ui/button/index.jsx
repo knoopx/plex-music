@@ -27,7 +27,8 @@ export default class Button extends React.PureComponent {
           fontSize: 'inherit',
           ...style,
           ...(active && activeStyle),
-        }} {...props}
+        }}
+        {...props}
       />
     )
   }

@@ -31,28 +31,30 @@ export default class LoginView extends React.PureComponent {
 
   render() {
     return (
-      <View flow="column" style={{ flex: 1, paddingTop: 37, alignItems: 'center', justifyContent: 'center' }}>
-        <View flow="column" style={{ width: 300 }} >
-          <Text bold size={24}>Login to plex.tv</Text>
-          <Gutter />
-          <Input
-            style={{ flex: 1, fontSize: 18, height: 32 }}
-            value={this.loginParams.login}
-            placeholder={'Username'}
-            onChange={(e) => { this.setLoginParam('login', e.target.value) }}
-          />
-          <Gutter size={8} />
-          <Input
-            style={{ flex: 1, fontSize: 18, height: 32 }}
-            value={this.loginParams.password}
-            type="password"
-            placeholder={'Password'}
-            onChange={(e) => { this.setLoginParam('password', e.target.value) }}
-          />
-          <Gutter />
-          <Button style={{ flex: 1, height: 40 }} onClick={this.performLogin}>Connect</Button>
+      <form >
+        <View flow="column" style={{ flex: 1, paddingTop: 37, alignItems: 'center', justifyContent: 'center' }}>
+          <View flow="column" style={{ width: 300 }} >
+            <Text bold size={24}>Login to plex.tv</Text>
+            <Gutter />
+            <Input
+              style={{ flex: 1, fontSize: 18, height: 32 }}
+              value={this.loginParams.login}
+              placeholder={'Username'}
+              onChange={(e) => { this.setLoginParam('login', e.target.value) }}
+            />
+            <Gutter size={8} />
+            <Input
+              style={{ flex: 1, fontSize: 18, height: 32 }}
+              value={this.loginParams.password}
+              type="password"
+              placeholder={'Password'}
+              onChange={(e) => { this.setLoginParam('password', e.target.value) }}
+            />
+            <Gutter />
+            <Button style={{ flex: 1, height: 40 }} onClick={this.performLogin}>Connect</Button>
+          </View>
         </View>
-      </View>
+      </form>
     )
   }
 }
