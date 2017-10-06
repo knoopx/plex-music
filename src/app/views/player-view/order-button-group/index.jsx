@@ -16,7 +16,7 @@ const iconMap = {
 
 @inject('albumStore')
 @observer
-export default class OrderButtonGroup extends React.PureComponent {
+export default class OrderButtonGroup extends React.Component {
   renderButton = (order, index) => {
     const { albumStore } = this.props
 

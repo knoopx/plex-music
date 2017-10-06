@@ -12,12 +12,17 @@ import DeviceListItem from './device-list-item'
 @inject('account')
 
 @observer
-export default class DeviceList extends React.PureComponent {
+export default class DeviceList extends React.Component {
   render() {
     const { account } = this.props
 
     return (
-      <View flow="column" style={{ flex: 1, paddingTop: 37, alignItems: 'center', justifyContent: 'center' }}>
+      <View
+        flow="column"
+        style={{
+ flex: 1, paddingTop: 37, alignItems: 'center', justifyContent: 'center',
+}}
+      >
         <View flow="column" style={{ flex: 1 }}>
           <Text bold size={24}>Choose server</Text>
           <Gutter />

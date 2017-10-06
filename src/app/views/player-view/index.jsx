@@ -17,7 +17,7 @@ import LightIcon from 'react-icons/lib/md/lightbulb-outline'
 @inject('appState')
 @inject('albumStore')
 @observer
-export default class PlayerScreen extends React.PureComponent {
+export default class PlayerScreen extends React.Component {
   componentWillMount() {
     mousetrap.bind('command+r', this.refresh)
   }

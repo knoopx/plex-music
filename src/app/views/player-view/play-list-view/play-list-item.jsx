@@ -14,7 +14,7 @@ import { Artwork, ListItem } from 'app/components'
 @inject('playQueue')
 
 @observer
-export default class PlayListItem extends React.PureComponent {
+export default class PlayListItem extends React.Component {
   props: {
     item: TPlayListItem,
     playQueue: PlayQueue

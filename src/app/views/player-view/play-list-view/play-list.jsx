@@ -11,7 +11,7 @@ import PlayListItem from './play-list-item'
 
 
 @observer
-export default class PlayList extends React.PureComponent {
+export default class PlayList extends React.Component {
   props: {
     items: Array<TPlayListItem>,
   }

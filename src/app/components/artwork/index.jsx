@@ -18,12 +18,17 @@ const queue = asyncQueue((src, done) => {
 }, 8)
 
 function Container({ size, borderColor, ...otherProps }) {
-  return <div {...otherProps} style={{ display: 'flex', overflow: 'hidden', alignItems: 'center', justifyContent: 'center', width: size, height: size, borderRadius: 4, border: `1px solid ${borderColor}` }} />
+  return (<div
+    {...otherProps}
+    style={{
+ display: 'flex', overflow: 'hidden', alignItems: 'center', justifyContent: 'center', width: size, height: size, borderRadius: 4, border: `1px solid ${borderColor}`,
+}}
+  />)
 }
 
 @theme('artwork')
 @observer
-export default class Artwork extends React.PureComponent {
+export default class Artwork extends React.Component {
   @observable isLoading = false
   @observable src;
 

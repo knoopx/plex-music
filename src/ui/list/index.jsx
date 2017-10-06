@@ -4,7 +4,7 @@ import { propTypes, observer } from 'mobx-react'
 
 
 @observer
-export default class List extends React.PureComponent {
+export default class List extends React.Component {
   static propTypes = {
     items: propTypes.arrayOrObservableArray.isRequired,
     selected: PropTypes.object,
@@ -22,7 +22,9 @@ export default class List extends React.PureComponent {
   }
 
   render() {
-    const { selected, onSelect, items, renderItem, style, ...props } = this.props
+    const {
+      selected, onSelect, items, renderItem, style, ...props
+    } = this.props
     return (
       <div style={{ ...style, WebkitAppRegion: 'no-drag' }} {...props}>
         {items.map(this.renderItem)}

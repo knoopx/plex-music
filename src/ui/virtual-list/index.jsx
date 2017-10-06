@@ -4,7 +4,7 @@ import { observable, computed, action, runInAction } from 'mobx'
 import { propTypes, observer } from 'mobx-react'
 
 @observer
-export default class VirtualList extends React.PureComponent {
+export default class VirtualList extends React.Component {
   static propTypes = {
     items: propTypes.arrayOrObservableArray.isRequired,
     itemHeight: PropTypes.number.isRequired,
@@ -94,9 +94,21 @@ export default class VirtualList extends React.PureComponent {
 
   render() {
     return (
-      <div style={{ display: 'flex', flex: 1, flexDirection: 'row', overflow: 'hidden', WebkitAppRegion: 'no-drag' }}>
-        <div ref={this.setContainer} style={{ flex: 1, flexDirection: 'column', maxWidth: '100%', overflowY: 'auto' }} onScroll={this.onScroll}>
-          <div style={{ display: 'flex', flexDirection: 'column', height: this.totalHeight - this.visibleItemsOffsetY, transform: `translateY(${this.visibleItemsOffsetY}px)`, overflow: 'hidden', contain: 'paint' }}>
+      <div style={{
+ display: 'flex', flex: 1, flexDirection: 'row', overflow: 'hidden', WebkitAppRegion: 'no-drag',
+}}
+      >
+        <div
+          ref={this.setContainer}
+          style={{
+ flex: 1, flexDirection: 'column', maxWidth: '100%', overflowY: 'auto',
+}}
+          onScroll={this.onScroll}
+        >
+          <div style={{
+ display: 'flex', flexDirection: 'column', height: this.totalHeight - this.visibleItemsOffsetY, transform: `translateY(${this.visibleItemsOffsetY}px)`, overflow: 'hidden', contain: 'paint',
+}}
+          >
             {this.visibleItems.map(this.props.renderItem)}
           </div>
         </div>

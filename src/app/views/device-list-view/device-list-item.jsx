@@ -13,7 +13,7 @@ import { ListItem } from 'app/components'
 @inject('appState')
 
 @observer
-export default class DeviceListItem extends React.PureComponent {
+export default class DeviceListItem extends React.Component {
   props: {
     device: Device,
     appState: AppState
