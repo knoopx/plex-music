@@ -12,9 +12,7 @@ export default class VirtualList extends React.Component {
     bufferSize: PropTypes.number.isRequired,
   }
 
-  static defaultProps = {
-    bufferSize: 0,
-  }
+  static defaultProps = { bufferSize: 0 }
 
   @observable scrollTop = 0
   @observable clientHeight = 0
@@ -94,21 +92,13 @@ export default class VirtualList extends React.Component {
 
   render() {
     return (
-      <div style={{
- display: 'flex', flex: 1, flexDirection: 'row', overflow: 'hidden', WebkitAppRegion: 'no-drag',
-}}
-      >
+      <div style={{ display: 'flex', flex: 1, flexDirection: 'row', overflow: 'hidden', WebkitAppRegion: 'no-drag' }}>
         <div
           ref={this.setContainer}
-          style={{
- flex: 1, flexDirection: 'column', maxWidth: '100%', overflowY: 'auto',
-}}
+          style={{ flex: 1, flexDirection: 'column', maxWidth: '100%', overflowY: 'overlay' }}
           onScroll={this.onScroll}
         >
-          <div style={{
- display: 'flex', flexDirection: 'column', height: this.totalHeight - this.visibleItemsOffsetY, transform: `translateY(${this.visibleItemsOffsetY}px)`, overflow: 'hidden', contain: 'paint',
-}}
-          >
+          <div style={{ display: 'flex', flexDirection: 'column', height: this.totalHeight - this.visibleItemsOffsetY, transform: `translateY(${this.visibleItemsOffsetY}px)`, overflow: 'hidden', contain: 'paint' }}>
             {this.visibleItems.map(this.props.renderItem)}
           </div>
         </div>

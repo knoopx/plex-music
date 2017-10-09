@@ -1,17 +1,16 @@
 import React from 'react'
 
 import { inject, observer } from 'mobx-react'
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 import { Frame } from 'ui'
 import styles from './seek-bar.css'
 
 @theme('seekBar')
-@inject('playQueue')
-
+@inject('store')
 @observer
 export default class SeekBar extends React.Component {
   onSeek(e) {
-    this.props.playQueue.seekTo(e.nativeEvent.offsetX / e.target.clientWidth * this.props.playQueue.duration)
+    this.props.store.playbackStore.seekTo(e.nativeEvent.offsetX / e.target.clientWidth * this.props.store.playbackStore.duration)
   }
 
   renderLoader() {
@@ -23,16 +22,12 @@ export default class SeekBar extends React.Component {
   }
 
   renderProgress() {
-    const {
-      playQueue, style, progressBarStyle, bufferBarStyle,
-    } = this.props
-    const { currentTime, buffered, duration } = playQueue
+    const { store, style, progressBarStyle, bufferBarStyle } = this.props
+    const { currentTime, buffered, duration } = store.playbackStore
 
     return (
       <div
-        style={{
- flex: 1, margin: 3, height: 20, position: 'relative', borderRadius: 1, overflow: 'hidden',
-}}
+        style={{ flex: 1, margin: 3, height: 20, position: 'relative', borderRadius: 1, overflow: 'hidden' }}
         onClick={this.onSeek}
       >
         <div className={styles.bar} style={{ ...bufferBarStyle, width: `${buffered / duration * 100}%` }} />
@@ -42,11 +37,9 @@ export default class SeekBar extends React.Component {
   }
 
   render() {
-    const { playQueue } = this.props
-
     return (
       <Frame style={{ flex: 1 }}>
-        {playQueue.isLoading ? this.renderLoader() : this.renderProgress()}
+        {this.props.store.playbackStore.isLoading ? this.renderLoader() : this.renderProgress()}
       </Frame>
     )
   }

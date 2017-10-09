@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 
 @theme('text')
 export default class Text extends React.PureComponent {

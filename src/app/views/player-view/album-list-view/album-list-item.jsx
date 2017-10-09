@@ -2,77 +2,42 @@
 
 import React from 'react'
 import _ from 'lodash'
-import { action } from 'mobx'
 import { inject, observer } from 'mobx-react'
 
-
-import { AppState, PlayQueue, AlbumStore } from 'stores'
-import { Album } from 'models'
 import { Text, View, TouchableOpacity, Rating, Gutter } from 'ui'
-import { theme } from 'react-theme'
 
 import { ListItem, Artwork } from 'app/components'
 
-@inject('appState')
-@inject('albumStore')
-@inject('playQueue')
-
+@inject('store')
 @observer
 export default class AlbumListItem extends React.Component {
-  props: {
-    appState: AppState,
-    playQueue: PlayQueue,
-    albumStore: AlbumStore,
-    album: Album;
+  onPressArtistName(artistName) {
+    this.props.store.albumStore.setQuery(`artist:"${artistName}"`)
   }
 
-  onPressArtistName(artistName: string) {
-    this.props.albumStore.setQuery(`artist:"${artistName}"`)
+  onPressGenre(genre) {
+    this.props.store.albumStore.setQuery(`genre:"${genre}"`)
   }
 
-  onPressGenre(genre: string) {
-    this.props.albumStore.setQuery(`genre:"${genre}"`)
+  onPressYear(year) {
+    this.props.store.albumStore.setQuery(`year:${year}`)
   }
 
-  onPressYear(year: string) {
-    this.props.albumStore.setQuery(`year:${year}`)
+  onPressStudio(studio) {
+    this.props.store.albumStore.setQuery(`studio:${studio}`)
   }
 
-  async onClick(e: SyntheticMouseEvent) {
-    const shouldAppend = e.shiftKey
-    const { album, appState, playQueue } = this.props
-
-    playQueue.unload()
-    playQueue.setIsFetching(true)
-
-    const tracks = await appState.connection.tracks.findAllByAlbumId(album.id)
-    const items = _.map(tracks, t => ({ track: t, album }))
-    if (shouldAppend) {
-      playQueue.append(items)
-    } else {
-      playQueue.replace(items)
-    }
-    playQueue.setIsFetching(false)
+  async onClick(e) {
+    this.props.album.addToPlaybackStore(e.shiftKey)
   }
 
-  onStar(userRating: number) {
-    const { album } = this.props
-
-    if (album.userRating === userRating) {
-      this.performRate(album, 0)
-    } else {
-      this.performRate(album, userRating)
-    }
-  }
-
-  @action async performRate(album: Album, userRating: number) {
-    await album.rate(userRating)
-    album.update({ userRating })
+  onStar(userRating) {
+    this.props.album.rate(userRating)
   }
 
   render() {
-    const { album, playQueue } = this.props
-    const isActive = album.id === (playQueue.activeItem && playQueue.activeItem.album.id)
+    const { album, store } = this.props
+    const isActive = album.id === (store.playbackStore.activeItem && store.playbackStore.activeItem.album.id)
 
     return (
       <ListItem active={isActive} onClick={this.onClick}>
@@ -88,9 +53,16 @@ export default class AlbumListItem extends React.Component {
         </View>
         <Gutter />
         <View flow="column" style={{ alignItems: 'flex-end' }}>
-          <TouchableOpacity style={{ cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressYear(album.year) }}>
-            <Text muted size={12}>{album.year}</Text>
-          </TouchableOpacity>
+          <View flow="row">
+            <TouchableOpacity style={{ cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressYear(album.year) }}>
+              <Text muted size={12}>{album.year}</Text>
+            </TouchableOpacity>
+            {album.studio && (
+              <TouchableOpacity style={{ marginLeft: 4, cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressStudio(album.studio) }}>
+                <Text muted size={12}>{album.studio}</Text>
+              </TouchableOpacity>
+            )}
+          </View>
           {album.genres.length > 0 && (
             <View flow="row">
               {_.map(album.genres, (genre, index) => (

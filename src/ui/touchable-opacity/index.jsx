@@ -1,13 +1,11 @@
 import React from 'react'
 import { Motion, spring } from 'react-motion'
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 import View from '../layout/view'
 
 @theme('touchableOpacity')
 export default class TouchableOpacity extends React.PureComponent {
-  state = {
-    isMouseDown: false,
-  }
+  state = { isMouseDown: false }
 
   componentWillMount() {
     this.onMouseDown = this.onMouseDown.bind(this)

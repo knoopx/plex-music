@@ -3,40 +3,31 @@
 import React from 'react'
 import { observable, action } from 'mobx'
 import { inject, observer } from 'mobx-react'
-import Account from 'stores/account'
 
 import { Text, View, Button, Input, Gutter } from 'ui'
 
-import type { LoginParams } from 'stores/account/types'
-
-@inject('account')
+@inject('store')
 @observer
 export default class LoginView extends React.Component {
-  props: {
-    account: Account
-  }
-
   @observable loginParams: LoginParams = {
     login: '',
     password: '',
   }
 
-  @action setLoginParam(key: string, value: mixed) {
+  @action setLoginParam(key, value: mixed) {
     this.loginParams[key] = value
   }
 
-  performLogin(e: SyntheticInputEvent) {
+  performLogin(e) {
     e.preventDefault()
-    this.props.account.login(this.loginParams)
+    this.props.store.account.login(this.loginParams)
   }
 
   render() {
     return (
       <form
         onSubmit={this.performLogin}
-        style={{
- display: 'flex', flex: 1, paddingTop: 37, flowDirection: 'column', alignItems: 'center', justifyContent: 'center',
-}}
+        style={{ display: 'flex', flex: 1, paddingTop: 37, flowDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
       >
         <View flow="column" style={{ width: 300 }} >
           <Text bold size={24}>Login to plex.tv</Text>

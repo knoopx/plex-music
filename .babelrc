@@ -1,7 +1,6 @@
 {
   "presets": ["react"],
   "plugins": [
-    "closure-elimination",
     "transform-export-extensions",
     "transform-decorators-legacy",
     "autobind-class-methods",
@@ -9,16 +8,14 @@
     "syntax-trailing-function-commas",
     "transform-object-rest-spread",
     "transform-es2015-classes",
+    "transform-react-inline-elements",
+    "transform-react-constant-elements",
+    "closure-elimination"
   ],
   "env": {
     "development": {
       "plugins": [
         "react-hot-loader/babel"
-      ]
-    },
-    "production": {
-      "presets": [
-        "react-optimize"
       ]
     }
   }

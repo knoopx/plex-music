@@ -12,9 +12,7 @@ export default class List extends React.Component {
     onSelect: PropTypes.func,
   }
 
-  static defaultProps = {
-    onSelect: () => {},
-  }
+  static defaultProps = { onSelect: () => {} }
 
   renderItem(item, index) {
     const isActive = this.props.items.includes(item) && this.props.selected === item
@@ -22,9 +20,7 @@ export default class List extends React.Component {
   }
 
   render() {
-    const {
-      selected, onSelect, items, renderItem, style, ...props
-    } = this.props
+    const { selected, onSelect, items, renderItem, style, ...props } = this.props
     return (
       <div style={{ ...style, WebkitAppRegion: 'no-drag' }} {...props}>
         {items.map(this.renderItem)}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { observable, extendObservable, runInAction, toJS } from 'mobx'
+import { observable, extendObservable, runInAction } from 'mobx'
 import { observer, inject, Provider } from 'mobx-react'
 import { merge } from 'lodash'
 
@@ -31,8 +31,9 @@ export function theme(key, contextTypes) {
       static displayName = `@theme(${Component.name})`
 
       render() {
-        const { theme, ...props } = this.props
-        return <Component {...merge({}, theme[key], props)} />
+        const { children, theme, ...props } = this.props
+        const mergedProps = merge({}, theme[key], props)
+        return <Component {...{ children, ...mergedProps }} />
       }
     }
   )

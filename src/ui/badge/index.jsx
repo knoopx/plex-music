@@ -1,5 +1,5 @@
 import React from 'react'
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 
 @theme('badge')
 export default class Badge extends React.PureComponent {
@@ -13,7 +13,8 @@ export default class Badge extends React.PureComponent {
           padding: '2px 8px',
           borderRadius: 999999,
           ...theme.style,
-        }} {...props}
+        }}
+        {...props}
       />
     )
   }

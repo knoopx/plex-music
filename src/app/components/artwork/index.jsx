@@ -4,7 +4,7 @@ import { Motion, spring } from 'react-motion'
 import { observable, action } from 'mobx'
 import { observer } from 'mobx-react'
 import { Spinner } from 'ui'
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 
 import MusicIcon from 'react-icons/lib/fa/music'
 
@@ -20,9 +20,7 @@ const queue = asyncQueue((src, done) => {
 function Container({ size, borderColor, ...otherProps }) {
   return (<div
     {...otherProps}
-    style={{
- display: 'flex', overflow: 'hidden', alignItems: 'center', justifyContent: 'center', width: size, height: size, borderRadius: 4, border: `1px solid ${borderColor}`,
-}}
+    style={{ display: 'flex', overflow: 'hidden', alignItems: 'center', justifyContent: 'center', width: size, height: size, borderRadius: 4, border: `1px solid ${borderColor}` }}
   />)
 }
 

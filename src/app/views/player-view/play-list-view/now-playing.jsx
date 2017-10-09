@@ -4,7 +4,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 
 import { View, Text, Gutter } from 'ui'
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 
 import { Artwork } from 'app/components'
 

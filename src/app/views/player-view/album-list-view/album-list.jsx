@@ -1,19 +1,12 @@
 // @flow
 
 import React from 'react'
-
-
-import { View, VirtualList } from 'ui'
+import { VirtualList } from 'ui'
 
 import AlbumListItem from './album-list-item'
 
-
 export default class AlbumList extends React.PureComponent {
-  props: {
-    albums: Array<Object>,
-  }
-
-  renderRow(row: Object) {
+  renderRow(row) {
     return (
       <AlbumListItem key={row.id} album={row} />
     )

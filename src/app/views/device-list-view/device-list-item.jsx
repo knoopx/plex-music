@@ -5,22 +5,15 @@ import relativeDate from 'relative-date'
 
 import { inject, observer } from 'mobx-react'
 
-import Device from 'stores/account/device'
-import { AppState } from 'stores'
 import { View, Text, Gutter } from 'ui'
 import { ListItem } from 'app/components'
 
-@inject('appState')
+@inject('store')
 
 @observer
 export default class DeviceListItem extends React.Component {
-  props: {
-    device: Device,
-    appState: AppState
-  }
-
   onClick() {
-    this.props.appState.connect(this.props.device)
+    this.props.store.setActiveDevice(this.props.device)
   }
 
   render() {

@@ -1,26 +1,37 @@
 const path = require('path')
 const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { productName, dependencies } = require('./package.json')
+const HappyPack = require('happypack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   target: 'electron-renderer',
-  devtool: 'cheap-module-source-map',
-  entry: ['./src/index.css', './src'],
-
+  devtool: 'source-map',
+  entry: [
+    'source-map-support/register',
+    './src/index.css',
+    './src',
+  ],
   plugins: [
-    new HtmlWebpackPlugin({ title: productName, template: 'src/index.ejs' }),
-    new ExtractTextPlugin('renderer.css'),
+    new HappyPack({
+      loaders: ['babel-loader'],
+      threads: 4,
+    }),
     new webpack.ExternalsPlugin('commonjs', Object.keys(dependencies)),
     new webpack.NamedModulesPlugin(),
-    new webpack.EnvironmentPlugin({ NODE_ENV: 'development' }),
-
+    new webpack.EnvironmentPlugin({ NODE_ENV: 'development', CHANNEL: 'web' }),
+    new webpack.LoaderOptionsPlugin({ minimize: process.env.NODE_ENV === 'production' }),
+    new ExtractTextPlugin('renderer.css'),
+    new HtmlWebpackPlugin({
+      title: productName,
+      filename: 'index.html',
+      template: 'src/index.ejs',
+    }),
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'renderer.js',
-    libraryTarget: 'commonjs2',
   },
   resolve: {
     modules: [path.resolve(__dirname, './src'), 'node_modules'],
@@ -36,14 +47,13 @@ module.exports = {
             'css-loader?modules&sourceMaps',
             {
               loader: 'postcss-loader',
-              options: {
-                plugins: [require('postcss-smart-import'), require('precss'), require('autoprefixer')] },
+              options: { plugins: [require('postcss-smart-import'), require('precss'), require('autoprefixer')] },
             },
           ],
         }),
       }, {
         test: /\.jsx?$/,
-        use: 'babel-loader',
+        use: 'happypack/loader',
         include: [
           path.resolve('./src'),
         ],

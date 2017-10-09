@@ -1,7 +1,7 @@
 import React from 'react'
 import { inject } from 'mobx-react'
 import { TouchableOpacity, View } from 'ui'
-import { ThemeProvider, theme } from 'react-theme'
+import { ThemeProvider, theme } from 'ui/theming'
 
 @theme('listItem')
 @inject('theme')
@@ -18,7 +18,9 @@ export default class ListItem extends React.PureComponent {
           }}
         >
           <View
-            flow="row" {...props} style={{
+            flow="row"
+            {...props}
+            style={{
               flex: 1,
               padding: '8px 16px',
               alignItems: 'center',

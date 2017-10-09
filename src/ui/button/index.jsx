@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 
 @theme('button')
 export default class Button extends React.PureComponent {
@@ -10,9 +10,7 @@ export default class Button extends React.PureComponent {
     activeStyle: PropTypes.object,
   }
 
-  static defaultProps = {
-    active: false,
-  }
+  static defaultProps = { active: false }
 
   render() {
     const { active, style, activeStyle, ...props } = this.props

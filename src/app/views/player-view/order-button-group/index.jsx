@@ -6,7 +6,9 @@ import StarIcon from 'react-icons/lib/fa/star'
 
 import { inject, observer } from 'mobx-react'
 import { ButtonGroup, Button } from 'ui'
-import { OrderFn } from 'stores/album-store/support'
+
+import { OrderFn } from 'store/album-store'
+
 
 const iconMap = {
   alphabetically: AscendingIcon,
@@ -14,11 +16,17 @@ const iconMap = {
   userRating: StarIcon,
 }
 
-@inject('albumStore')
+@inject('store')
 @observer
 export default class OrderButtonGroup extends React.Component {
-  renderButton = (order, index) => {
-    const { albumStore } = this.props
+  render() {
+    return (
+      <ButtonGroup>{Object.keys(OrderFn).map(this.renderButton)}</ButtonGroup>
+    )
+  }
+
+  renderButton(order, index) {
+    const { store } = this.props
 
     const Icon = iconMap[order]
 
@@ -26,17 +34,11 @@ export default class OrderButtonGroup extends React.Component {
       <Button
         key={index}
         style={{ width: 48, height: 34 }}
-        active={albumStore.order === order}
-        onClick={() => { albumStore.setOrder(order) }}
+        active={store.albumStore.order === order}
+        onClick={() => { store.albumStore.setOrder(order) }}
       >
         <Icon size={16} />
       </Button>
-    )
-  }
-
-  render() {
-    return (
-      <ButtonGroup>{Object.keys(OrderFn).map(this.renderButton)}</ButtonGroup>
     )
   }
 }

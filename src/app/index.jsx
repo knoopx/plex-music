@@ -1,59 +1,40 @@
 // @flow
 
 import React from 'react'
-import { inject, observer, Provider } from 'mobx-react'
-
-import { ThemeProvider, theme } from 'react-theme'
-
-import { AppState, Account } from 'stores'
+import { inject, observer } from 'mobx-react'
+import { ThemeProvider, theme } from 'ui/theming'
 import { LoadingSlate, Transition, View } from 'ui'
-
 import { LoginView, DeviceListView, PlayerView } from './views'
 
 @theme('app')
-@inject('account')
-@inject('appState')
-
+@inject('store')
 @observer
 class App extends React.Component {
-  props: {
-    style: {},
-    appState: AppState,
-    account: Account
-  }
-
   getView(route: string) {
-    const { appState } = this.props
-
     switch (route) {
       case 'loading':
         return <LoadingSlate />
       case 'player':
-        return (
-          <Provider albumStore={appState.albumStore}>
-            <PlayerView />
-          </Provider>
-        )
+        return <PlayerView />
       case 'deviceList':
         return <DeviceListView />
-
       default:
         return <LoginView />
     }
   }
 
   getCurrentRoute() {
-    const { appState, account } = this.props
+    const { store } = this.props
 
-    if (appState.isConnecting || account.isLoggingIn) {
+    if (store.isConnecting || store.account.isLoggingIn) {
       return 'loading'
     }
 
-    if (appState.isConnected) {
+    if (store.activeDevice) {
       return 'player'
     }
 
-    if (account.isLoggedIn) {
+    if (store.account.isLoggedIn) {
       return 'deviceList'
     }
 
@@ -71,11 +52,11 @@ class App extends React.Component {
   }
 }
 
-@inject('appState')
+@inject('store')
 @observer
 export default class Container extends React.Component {
   render() {
-    const { appState } = this.props
-    return <ThemeProvider theme={appState.theme} ><App /></ThemeProvider>
+    const { store } = this.props
+    return <ThemeProvider theme={store.theme} ><App /></ThemeProvider>
   }
 }

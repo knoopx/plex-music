@@ -1,10 +1,6 @@
 import Color from 'color-js'
 
-export default {
-  touchableOpacity: {
-    cursor: 'pointer',
-  },
-}
+export default { touchableOpacity: { cursor: 'pointer' } }
 
 function lighten(value, amount) {
   return Color(value).lightenByAmount(amount).toString()
@@ -24,9 +20,7 @@ function contrast(baseColor, amount) {
 }
 
 function raisedStyle(borderColor) {
-  return {
-    boxShadow: `0 1px 0 ${borderColor}, 0 -1px 0 ${borderColor}, 1px 0 0 ${borderColor}, -1px 0 0 ${borderColor}, 0 1px 1px ${borderColor}`,
-  }
+  return { boxShadow: `0 1px 0 ${borderColor}, 0 -1px 0 ${borderColor}, 1px 0 0 ${borderColor}, -1px 0 0 ${borderColor}, 0 1px 1px ${borderColor}` }
 }
 
 export function build(accentColor, baseColor) {
@@ -54,11 +48,7 @@ export function build(accentColor, baseColor) {
         backgroundColor,
       },
     },
-    text: {
-      mutedStyle: {
-        color: textMutedColor,
-      },
-    },
+    text: { mutedStyle: { color: textMutedColor } },
     frame: {
       style: {
         background: frameBackgroundGradient,
@@ -91,52 +81,24 @@ export function build(accentColor, baseColor) {
       size: 1,
       color: borderColor,
     },
-    badge: {
-      style: {
-        fontSize: 14,
-      },
-    },
-    rating: {
-      size: 16,
-    },
-    spinner: {
-      color: spinnerColor,
-    },
-    artwork: {
-      borderColor,
-    },
-    toolbar: {
-      style: {
-        background: toolbarBackgroundGradient,
-      },
-    },
+    badge: { style: { fontSize: 14 } },
+    rating: { size: 16 },
+    spinner: { color: spinnerColor },
+    artwork: { borderColor },
+    toolbar: { style: { background: toolbarBackgroundGradient } },
     listItem: {
       containerStyle: { borderBottom: `1px solid ${borderColor}` },
       activeStyle: {
         color: accentTextColor,
         background: accentBackground,
       },
-      activeTextMutedStyle: {
-        color: accentTextMutedColor,
-      },
+      activeTextMutedStyle: { color: accentTextMutedColor },
     },
-    nowPlaying: {
-      style: {
-        backgroundColor: contrast(frameBackgroundColor, 0.05),
-      },
-    },
-    filterGroup: {
-      focusStyle: {
-        ...raisedStyle(accentColor),
-      },
-    },
+    nowPlaying: { style: { backgroundColor: contrast(frameBackgroundColor, 0.05) } },
+    filterGroup: { focusStyle: { ...raisedStyle(accentColor) } },
     seekBar: {
-      progressBarStyle: {
-        background: accentBackground,
-      },
-      bufferBarStyle: {
-        background: contrast(frameBackgroundColor, 0.05),
-      },
+      progressBarStyle: { background: accentBackground },
+      bufferBarStyle: { background: contrast(frameBackgroundColor, 0.05) },
     },
   }
 }

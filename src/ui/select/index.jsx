@@ -1,5 +1,5 @@
 import React from 'react'
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 
 @theme('select')
 export default class Select extends React.PureComponent {
@@ -8,7 +8,8 @@ export default class Select extends React.PureComponent {
     return (
       <select
         {...props}
-        style={{ ...style,
+        style={{
+ ...style,
           color: 'inherit',
           WebkitAppearance: 'none',
           border: 'none',

@@ -1,7 +1,6 @@
 {
   "parser": "babel-eslint",
   "extends": [
-    "plugin:flowtype/recommended",
     "airbnb"
   ],
   "rules": {
@@ -11,13 +10,12 @@
     "no-underscore-dangle": "off",
     "react/prefer-stateless-function": "off",
     "react/sort-comp": "off",
-    "semi": ["warn", "never"]
+    "semi": ["warn", "never"],
+    "object-curly-newline": ["warn", { "multiline": true, "consistent": true }]
   },
   "plugins": [
     "import",
     "react",
-    "lodash",
-    "flowtype"
   ],
   "settings": {
     "import/resolver": {

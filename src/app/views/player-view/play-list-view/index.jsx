@@ -9,30 +9,29 @@ import { View, LoadingSlate, Transition, Divider } from 'ui'
 import NowPlaying from './now-playing'
 import PlayList from './play-list'
 
-@inject('playQueue')
-
+@inject(stores => ({ playbackStore: stores.store.playbackStore }))
 @observer
 export default class PlaylistView extends React.Component {
   render() {
-    const { playQueue } = this.props
+    const { playbackStore } = this.props
 
     return (
-      <Transition name={playQueue.isFetching ? 'loading' : 'ready'}>
+      <Transition name={playbackStore.isFetching ? 'loading' : 'ready'}>
         {this.renderContent()}
       </Transition>
     )
   }
 
   renderContent() {
-    const { playQueue } = this.props
+    const { playbackStore } = this.props
 
-    if (playQueue.isFetching) { return <LoadingSlate /> }
+    if (playbackStore.isFetching) { return <LoadingSlate /> }
 
     return (
       <View flow="column" style={{ flex: 1 }}>
-        {playQueue.activeItem && <NowPlaying activeItem={playQueue.activeItem} />}
-        {playQueue.activeItem && <Divider />}
-        <PlayList items={playQueue.playlist} />
+        {playbackStore.activeItem && <NowPlaying activeItem={playbackStore.activeItem} />}
+        {playbackStore.activeItem && <Divider />}
+        <PlayList items={playbackStore.playlist} />
       </View>
     )
   }

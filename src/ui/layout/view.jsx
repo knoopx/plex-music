@@ -2,22 +2,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 export default class View extends React.PureComponent {
-  static propTypes = {
-    flow: PropTypes.oneOf(['row', 'column']).isRequired,
-  }
+  static propTypes = { flow: PropTypes.oneOf(['row', 'column']).isRequired }
 
-  static defaultProps = {
-    flow: 'row',
-  }
+  static defaultProps = { flow: 'row' }
 
-  static childContextTypes = {
-    flow: PropTypes.oneOf(['row', 'column']).isRequired,
-  }
+  static childContextTypes = { flow: PropTypes.oneOf(['row', 'column']).isRequired }
 
   getChildContext() {
-    return {
-      flow: this.props.flow,
-    }
+    return { flow: this.props.flow }
   }
 
   render() {

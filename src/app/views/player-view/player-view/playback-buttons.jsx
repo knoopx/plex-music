@@ -11,19 +11,19 @@ import PlayIcon from 'react-icons/lib/fa/play'
 import PauseIcon from 'react-icons/lib/fa/pause'
 
 
-@inject('playQueue')
+@inject('store')
 @observer
 export default class PlaybackButtons extends React.Component {
   render() {
-    const { playQueue } = this.props
+    const { store } = this.props
 
     return (
       <ButtonGroup>
-        <Button style={{ width: 48, height: 34 }} onClick={() => playQueue.playPrev()}><FastBackwardIcon /></Button>
-        <Button style={{ width: 48, height: 34 }} onClick={() => playQueue.toggle()} >
-          {playQueue.isPlaying ? <PauseIcon /> : <PlayIcon />}
+        <Button style={{ width: 48, height: 34 }} onClick={() => store.playbackStore.playPrev()}><FastBackwardIcon /></Button>
+        <Button style={{ width: 48, height: 34 }} onClick={() => store.playbackStore.toggle()} >
+          {store.playbackStore.isPlaying ? <PauseIcon /> : <PlayIcon />}
         </Button>
-        <Button style={{ width: 48, height: 34 }} onClick={() => playQueue.playNext()} > <FastForwardIcon /> </Button>
+        <Button style={{ width: 48, height: 34 }} onClick={() => store.playbackStore.playNext()} > <FastForwardIcon /> </Button>
       </ButtonGroup>
     )
   }

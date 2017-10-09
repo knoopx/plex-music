@@ -1,14 +1,15 @@
 import React from 'react'
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 
-@theme('select')
+@theme('input')
 export default class Input extends React.PureComponent {
   render() {
     const { style, ...props } = this.props
     return (
       <input
         {...props}
-        style={{ ...style,
+        style={{
+ ...style,
           color: 'inherit',
           WebkitAppearance: 'none',
           border: 'none',
