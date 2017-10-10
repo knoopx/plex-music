@@ -31,8 +31,8 @@ export function theme(key, contextTypes) {
       static displayName = `@theme(${Component.name})`
 
       render() {
-        const { theme, ...props } = this.props
-        return <Component {...merge({}, theme[key], props)} />
+        const { theme, children, ...props } = this.props
+        return <Component {...merge({}, theme[key], props)}>{children}</Component>
       }
     }
   )
