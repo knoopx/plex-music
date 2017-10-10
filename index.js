@@ -1,5 +1,6 @@
 const path = require('path')
-const { app, BrowserWindow } = require('electron')
+const defaultMenu = require('electron-default-menu')
+const { app, shell, BrowserWindow, Menu } = require('electron')
 
 let mainWindow
 
@@ -18,6 +19,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.on('ready', () => {
+  Menu.setApplicationMenu(Menu.buildFromTemplate(defaultMenu(app, shell)))
+
   mainWindow = new BrowserWindow({ width: 1200, height: 800, minWidth: 930, minHeight: 400, titleBarStyle: 'hidden-inset' })
 
   if (process.env.NODE_ENV === 'development') {
