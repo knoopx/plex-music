@@ -1,5 +1,5 @@
 import React from 'react'
-import { observable, extendObservable, runInAction, toJS } from 'mobx'
+import { observable, extendObservable, action } from 'mobx'
 import { observer, inject, Provider } from 'mobx-react'
 import { merge } from 'lodash'
 
@@ -9,17 +9,19 @@ export class ThemeProvider extends React.Component {
 
   constructor(props, context) {
     super(props, context)
-    extendObservable(this.theme, props.theme)
+    this.mergeTheme(props.theme)
   }
 
   componentWillReceiveProps({ theme }) {
-    runInAction(() => {
-      extendObservable(this.theme, theme)
-    })
+    this.mergeTheme(theme)
   }
 
   render() {
     return <Provider theme={this.theme}>{this.props.children}</Provider>
+  }
+
+  @action mergeTheme(theme) {
+    extendObservable(this.theme, theme)
   }
 }
 

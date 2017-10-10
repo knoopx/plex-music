@@ -1,11 +1,9 @@
-// @flow
-
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 
 
 import PlayQueue from 'stores/play-queue'
-import type { PlayListItem as TPlayListItem } from 'stores/play-queue/types'
+
 
 import { View, Text, Gutter } from 'ui'
 
@@ -15,12 +13,7 @@ import { Artwork, ListItem } from 'app/components'
 
 @observer
 export default class PlayListItem extends React.Component {
-  props: {
-    item: TPlayListItem,
-    playQueue: PlayQueue
-  }
-
-  onClick(item: PlayListItem) {
+  onClick(item) {
     const { playQueue } = this.props
     playQueue.playItemAtIndex(playQueue.playlist.indexOf(item))
   }

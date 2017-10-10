@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react'
 import { observable, action } from 'mobx'
 import { inject, observer } from 'mobx-react'
@@ -7,25 +5,20 @@ import Account from 'stores/account'
 
 import { Text, View, Button, Input, Gutter } from 'ui'
 
-import type { LoginParams } from 'stores/account/types'
 
 @inject('account')
 @observer
 export default class LoginView extends React.Component {
-  props: {
-    account: Account
-  }
-
-  @observable loginParams: LoginParams = {
+  @observable loginParams = {
     login: '',
     password: '',
   }
 
-  @action setLoginParam(key: string, value: mixed) {
+  @action setLoginParam(key, value) {
     this.loginParams[key] = value
   }
 
-  performLogin(e: SyntheticInputEvent) {
+  performLogin(e) {
     e.preventDefault()
     this.props.account.login(this.loginParams)
   }

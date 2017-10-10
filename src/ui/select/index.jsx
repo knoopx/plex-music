@@ -4,11 +4,12 @@ import { theme } from 'ui/theming'
 @theme('select')
 export default class Select extends React.PureComponent {
   render() {
-    const { style, ...props } = this.props
+    const { style, ...props } = this.props // eslint-disable react/prop-types
     return (
       <select
         {...props}
-        style={{ ...style,
+        style={{
+          ...style,
           color: 'inherit',
           WebkitAppearance: 'none',
           border: 'none',

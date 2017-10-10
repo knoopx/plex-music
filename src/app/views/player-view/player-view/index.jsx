@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 
@@ -7,7 +6,7 @@ import { Text, View, Gutter } from 'ui'
 import SeekBar from './seek-bar'
 import PlaybackButtons from './playback-buttons'
 
-function formatDuration(input: number = 0) {
+function formatDuration(input = 0) {
   const z = n => ((n < 10 ? '0' : '')) + n
   return `${z(Math.floor(input / 60))}:${z(Math.floor(input % 60))}`
 }

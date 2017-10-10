@@ -1,6 +1,5 @@
-// @flow
-
 import React from 'react'
+import PropTypes from 'prop-types'
 import relativeDate from 'relative-date'
 
 import { inject, observer } from 'mobx-react'
@@ -14,9 +13,9 @@ import { ListItem } from 'app/components'
 
 @observer
 export default class DeviceListItem extends React.Component {
-  props: {
-    device: Device,
-    appState: AppState
+  static propTypes = {
+    device: PropTypes.instanceOf(Device).isRequired,
+    appState: PropTypes.instanceOf(AppState).isRequired,
   }
 
   onClick() {

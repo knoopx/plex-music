@@ -1,23 +1,31 @@
-// @flow
-
 import React from 'react'
+import PropTypes from 'prop-types'
 import mousetrap from 'mousetrap'
+import EjectIcon from 'react-icons/lib/fa/eject'
+import { inject, observer } from 'mobx-react'
+
+import LightIcon from 'react-icons/lib/md/lightbulb-outline'
+
+import { AppState, AlbumStore } from 'stores'
+import { Toolbar } from 'app/components'
+import { View, Button, Gutter, Divider, Select } from 'ui'
+
 import PlayListView from './play-list-view'
 import AlbumListView from './album-list-view'
 import PlayerView from './player-view'
-import EjectIcon from 'react-icons/lib/fa/eject'
 
-import { inject, observer } from 'mobx-react'
-import { View, Button, Gutter, Divider, Select } from 'ui'
-import { Toolbar } from 'app/components'
 import FilterGroup from './filter-group'
 import OrderButtonGroup from './order-button-group'
-import LightIcon from 'react-icons/lib/md/lightbulb-outline'
 
 @inject('appState')
 @inject('albumStore')
 @observer
 export default class PlayerScreen extends React.Component {
+  static propTypes = {
+    appState: PropTypes.instanceOf(AppState).isRequired,
+    albumStore: PropTypes.instanceOf(AlbumStore).isRequired,
+  }
+
   componentWillMount() {
     mousetrap.bind('command+r', this.refresh)
   }
@@ -26,7 +34,7 @@ export default class PlayerScreen extends React.Component {
     mousetrap.unbind('command+r', this.refresh)
   }
 
-  refresh(e: SyntheticInputEvent) {
+  refresh(e) {
     this.props.albumStore.fetch(true)
     e.preventDefault()
   }

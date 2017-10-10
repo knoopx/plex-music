@@ -1,5 +1,3 @@
-// @flow
-
 import { observable, computed, action, autorun, autorunAsync, IObservableArray } from 'mobx'
 
 import * as themes from 'app/themes'
@@ -12,16 +10,14 @@ import Device from '../account/device'
 
 export default class AppState {
   @observable themeName = getItem('theme', Object.keys(themes)[0])
-  @observable isConnected: boolean = false;
-  @observable isConnecting: boolean = false;
-  @observable connection: ?Connection;
-  @observable albumStore: ?AlbumStore;
-  @observable sections: IObservableArray<Section> = observable.array()
-  @observable activeSectionIndex: number = 0;
+  @observable isConnected = false;
+  @observable isConnecting = false;
+  @observable sections = observable.array()
+  @observable activeSectionIndex = 0;
 
   albumStore = new AlbumStore(this)
 
-  @computed get section(): ?Section {
+  @computed get section() {
     return this.sections[this.activeSectionIndex]
   }
 
@@ -37,22 +33,22 @@ export default class AppState {
     autorunAsync(this.serialize)
   }
 
-  @action setThemeName(value: string) {
+  @action setThemeName(value) {
     if (themes[this.themeName]) {
       this.themeName = value
       setItem('theme', value)
     }
   }
 
-  @computed get theme(): mixed {
+  @computed get theme() {
     return themes[this.themeName]
   }
 
-  @action onChangeSection(e: SyntheticInputEvent) {
+  @action onChangeSection(e) {
     this.activeSectionIndex = Number(e.target.value)
   }
 
-  @action async connect(device: Device): Promise<void> {
+  @action async connect(device) {
     this.setIsConnecting(true)
     try {
       this.setConnection(new Connection(device))
@@ -66,19 +62,19 @@ export default class AppState {
     }
   }
 
-  get deviceKey(): ?string {
+  get deviceKey() {
     if (this.connection && this.connection.device) {
       return ['device', this.connection.device.clientIdentifier].join(':')
     }
   }
 
-  get sectionKey(): ?string {
+  get sectionKey() {
     if (this.deviceKey && this.section) {
       return [this.deviceKey, 'section', this.section.id].join(':')
     }
   }
 
-  get activeSectionIndexKey(): ?string {
+  get activeSectionIndexKey() {
     if (this.deviceKey) {
       return `${this.deviceKey}:activeSectionIndex`
     }
@@ -94,18 +90,18 @@ export default class AppState {
     this.activeSectionIndex = getItem(this.activeSectionIndexKey, 0)
   }
 
-  @action setSections(sections: Array<Section>) {
+  @action setSections(sections) {
     this.sections = sections
   }
 
-  @action setConnection(connection: Connection) {
+  @action setConnection(connection) {
     this.connection = connection
   }
 
-  @action setIsConnecting(value: boolean): void {
+  @action setIsConnecting(value) {
     this.isConnecting = value
   }
-  @action setIsConnected(value: boolean): void {
+  @action setIsConnected(value) {
     this.isConnected = value
   }
 

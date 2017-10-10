@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react'
 import { inject, observer, Provider } from 'mobx-react'
 
@@ -16,13 +14,7 @@ import { LoginView, DeviceListView, PlayerView } from './views'
 
 @observer
 class App extends React.Component {
-  props: {
-    style: {},
-    appState: AppState,
-    account: Account
-  }
-
-  getView(route: string) {
+  getView(route) {
     const { appState } = this.props
 
     switch (route) {

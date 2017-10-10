@@ -1,16 +1,9 @@
-// @flow
-
 import { action } from 'mobx'
 import Model from './model'
 import Connection from 'stores/connection'
 
 export default class Artist extends Model {
-  id: number;
-  name: string;
-  addedAt: number;
-  artwork: string;
-
-  @action static parse(item, connection: Connection) {
+  @action static parse(item, connection) {
     const { uri, device } = connection
     const { accessToken } = device
     const thumbUrl = item.thumb && (`${uri}${item.thumb}`)

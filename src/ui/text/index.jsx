@@ -5,16 +5,19 @@ import { theme } from 'ui/theming'
 @theme('text')
 export default class Text extends React.PureComponent {
   static propTypes = {
-    bold: PropTypes.bool.isRequired,
-    muted: PropTypes.bool.isRequired,
-    italic: PropTypes.bool.isRequired,
+    bold: PropTypes.bool,
+    muted: PropTypes.bool,
+    italic: PropTypes.bool,
     size: PropTypes.number,
+    style: PropTypes.object, // eslint-disable-line react/forbid-prop-types, react/forbid-prop-types
+    mutedStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types, react/forbid-prop-types
   }
 
   static defaultProps = {
     bold: false,
     muted: false,
     italic: false,
+    size: 16,
   }
 
   render() {

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import asyncQueue from 'async/queue'
 import { Motion, spring } from 'react-motion'
 import { observable, action } from 'mobx'
@@ -18,17 +19,32 @@ const queue = asyncQueue((src, done) => {
 }, 8)
 
 function Container({ size, borderColor, ...otherProps }) {
-  return (<div
-    {...otherProps}
-    style={{
- display: 'flex', overflow: 'hidden', alignItems: 'center', justifyContent: 'center', width: size, height: size, borderRadius: 4, border: `1px solid ${borderColor}`,
-}}
-  />)
+  return (
+    <div
+      {...otherProps}
+      style={{
+        display: 'flex',
+        overflow: 'hidden',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: size,
+        height: size,
+        borderRadius: 4,
+        border: `1px solid ${borderColor}`,
+      }}
+    />
+  )
 }
 
 @theme('artwork')
 @observer
 export default class Artwork extends React.Component {
+  static propTypes = {
+    src: PropTypes.string.isRequired,
+    size: PropTypes.number.isRequired,
+    borderColor: PropTypes.string.isRequired,
+  }
+
   @observable isLoading = false
   @observable src;
 

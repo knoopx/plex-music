@@ -1,23 +1,12 @@
-// @flow
-
 import { map } from 'lodash'
 import { observable, computed, action } from 'mobx'
 import Model from './model'
 
 export default class Album extends Model {
-  id: number
-  title: string
-  artistName: string
-  year: string
-  @observable userRating: number
-  addedAt: number
-  playCount: number
-  tag: Array<string>
-  genres: Array<string>
-  artwork: ?string
-  studio: ?string
+  @observable
 
-  rate(rating: number) {
+
+  rate(rating) {
     return this.connection.rate(this.id, rating)
   }
 
@@ -49,7 +38,7 @@ export default class Album extends Model {
     })
   }
 
-  @action update(props: {}) {
+  @action update(props) {
     Object.assign(this, props)
   }
 }

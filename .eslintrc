@@ -1,7 +1,9 @@
 {
   "parser": "babel-eslint",
   "extends": [
-    "airbnb"
+    "airbnb-base",
+    "airbnb-base/rules/strict",
+    "airbnb/rules/react"
   ],
   "rules": {
     "class-methods-use-this": "off",

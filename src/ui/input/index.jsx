@@ -8,7 +8,8 @@ export default class Input extends React.PureComponent {
     return (
       <input
         {...props}
-        style={{ ...style,
+        style={{
+ ...style,
           color: 'inherit',
           WebkitAppearance: 'none',
           border: 'none',

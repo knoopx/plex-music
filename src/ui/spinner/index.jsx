@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types'
 import React from 'react'
+import PropTypes from 'prop-types'
+import { theme } from 'ui/theming'
 
 import styles from './spinner.css'
-
-import { theme } from 'ui/theming'
 
 @theme('spinner')
 export default class Spinner extends React.PureComponent {

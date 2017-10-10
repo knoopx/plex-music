@@ -7,7 +7,7 @@ export default class Gutter extends React.PureComponent {
   }
 
   static propTypes = {
-    size: PropTypes.number.isRequired,
+    size: PropTypes.number,
   }
 
   static defaultProps = {

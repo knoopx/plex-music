@@ -1,15 +1,11 @@
-// @flow
-
 import React from 'react'
 import _ from 'lodash'
 import { action } from 'mobx'
 import { inject, observer } from 'mobx-react'
 
-
 import { AppState, PlayQueue, AlbumStore } from 'stores'
 import { Album } from 'models'
 import { Text, View, TouchableOpacity, Rating, Gutter } from 'ui'
-import { theme } from 'ui/theming'
 
 import { ListItem, Artwork } from 'app/components'
 
@@ -19,22 +15,15 @@ import { ListItem, Artwork } from 'app/components'
 
 @observer
 export default class AlbumListItem extends React.Component {
-  props: {
-    appState: AppState,
-    playQueue: PlayQueue,
-    albumStore: AlbumStore,
-    album: Album;
-  }
-
-  onPressArtistName(artistName: string) {
+  onPressArtistName(artistName) {
     this.props.albumStore.setQuery(`artist:"${artistName}"`)
   }
 
-  onPressGenre(genre: string) {
+  onPressGenre(genre) {
     this.props.albumStore.setQuery(`genre:"${genre}"`)
   }
 
-  onPressYear(year: string) {
+  onPressYear(year) {
     this.props.albumStore.setQuery(`year:${year}`)
   }
 
@@ -42,7 +31,7 @@ export default class AlbumListItem extends React.Component {
     this.props.albumStore.setQuery(`studio:"${studio}"`)
   }
 
-  async onClick(e: SyntheticMouseEvent) {
+  async onClick(e) {
     const shouldAppend = e.shiftKey
     const { album, appState, playQueue } = this.props
 
@@ -59,7 +48,7 @@ export default class AlbumListItem extends React.Component {
     playQueue.setIsFetching(false)
   }
 
-  onStar(userRating: number) {
+  onStar(userRating) {
     const { album } = this.props
 
     if (album.userRating === userRating) {
@@ -69,7 +58,7 @@ export default class AlbumListItem extends React.Component {
     }
   }
 
-  @action async performRate(album: Album, userRating: number) {
+  @action async performRate(album, userRating) {
     await album.rate(userRating)
     album.update({ userRating })
   }
@@ -83,7 +72,7 @@ export default class AlbumListItem extends React.Component {
         <Artwork key={album.id} size={48} src={album.artwork} />
         <Gutter />
         <View flow="column" style={{ flex: 1 }}>
-          <Text bold style={{ cursor: 'default' }}>{album.title}</Text>
+          <Text bold size={14} style={{ marginBottom: 4 }}>{album.title}</Text>
           <View flow="row">
             <TouchableOpacity style={{ cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressArtistName(album.artistName) }}>
               <Text muted size={12}>{album.artistName}</Text>

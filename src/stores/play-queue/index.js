@@ -1,11 +1,6 @@
-// @flow
-
 import { observable, computed, action, IObservableArray } from 'mobx'
 
 import mousetrap from 'mousetrap'
-
-import { PlayListItem } from './types'
-
 
 export default class PlayQueue {
   audio = new Audio()
@@ -13,12 +8,12 @@ export default class PlayQueue {
   @observable duration = 0
   @observable buffered = 0
   @observable activeIndex = -1
-  @observable playlist: IObservableArray<PlayListItem> = observable.array()
+  @observable playlist = observable.array()
   @observable isFetching = false
   @observable isLoading = false
   @observable isPlaying = false
 
-  @computed get activeItem(): PlayListItem {
+  @computed get activeItem() {
     if (this.activeIndex >= 0 && this.activeIndex < this.playlist.length) {
       return this.playlist[this.activeIndex]
     }
@@ -70,7 +65,7 @@ export default class PlayQueue {
     this.audio.pause()
   }
 
-  @action playItemAtIndex(index: number) {
+  @action playItemAtIndex(index) {
     if (index >= 0 && index < this.playlist.length) {
       const item = this.playlist[index]
       if (item) {
@@ -101,11 +96,11 @@ export default class PlayQueue {
     return false
   }
 
-  @action seekTo(value: number) {
+  @action seekTo(value) {
     this.audio.currentTime = value
   }
 
-  @action load(src: string) {
+  @action load(src) {
     this.isLoading = true
     this.audio.addEventListener('loadeddata', this.onDataLoaded)
     this.audio.addEventListener('timeupdate', this.onTimeUpdate)
@@ -132,7 +127,7 @@ export default class PlayQueue {
     this.buffered = 0
   }
 
-  @action replace(playlist: Array<PlayListItem>, shouldPlay: boolean = true) {
+  @action replace(playlist, shouldPlay = true) {
     this.playlist.replace(playlist)
 
     if (shouldPlay) {
@@ -140,11 +135,11 @@ export default class PlayQueue {
     }
   }
 
-  @action append(playlist: Array<PlayListItem>) {
+  @action append(playlist) {
     this.playlist.push(...playlist)
   }
 
-  @action setIsFetching(value: boolean) {
+  @action setIsFetching(value) {
     this.isFetching = value
   }
 }

@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 
@@ -39,7 +37,7 @@ export default class DeviceList extends React.Component {
     )
   }
 
-  renderItem(device: Device) {
+  renderItem(device) {
     return <DeviceListItem key={device.clientIdentifier} device={device} />
   }
 

@@ -1,23 +1,8 @@
-// @flow
-
 import _ from 'lodash'
 import ConnectionParams from './connection-params'
 
 export default class Device {
-  name: string
-  product: string
-  productVersion: string
-  platform: string
-  platformVersion: string
-  clientIdentifier: string
-  clientIdentifier: string
-  connections: Array<ConnectionParams>
-  accessToken: string
-  lastSeenAt: number
-  provides: string
-  publicAddressMatches: boolean
-
-  constructor(props: {}) {
+  constructor(props) {
     Object.assign(this, props)
   }
 

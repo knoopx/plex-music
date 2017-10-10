@@ -1,15 +1,7 @@
-// @flow
-
 import _ from 'lodash'
 
 export default class ConnectionParams {
-  prococol: string;
-  address: string;
-  port: number;
-  uri: string;
-  local: boolean;
-
-  constructor(props: {}) {
+  constructor(props) {
     Object.assign(this, props)
   }
 

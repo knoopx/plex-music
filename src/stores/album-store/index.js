@@ -1,5 +1,3 @@
-// @flow
-
 import _ from 'lodash'
 import async from 'async'
 import mousetrap from 'mousetrap'
@@ -11,19 +9,17 @@ import { getItem, setItem } from 'support/storage'
 import AppState from 'stores/app-state'
 import Connection from 'stores/connection'
 import { OrderFn, match } from './support'
-import type { FilterSet, OrderType } from './types'
 
 export default class AlbumStore {
-  appState: AppState;
-  @observable isLoading: boolean = false;
-  @observable isFiltering: boolean = false;
-  @observable albums: IObservableArray<Album> = observable.array();
-  @observable matches: IObservableArray<Album> = observable.array();
+  @observable isLoading = false;
+  @observable isFiltering = false;
+  @observable albums = observable.array();
+  @observable matches = observable.array();
 
-  @observable query: string = getItem('query', '');
-  @observable order: OrderType = getItem('order', Object.keys(OrderFn)[0]);
+  @observable query = getItem('query', '');
+  @observable order = getItem('order', Object.keys(OrderFn)[0]);
 
-  constructor(appState: AppState) {
+  constructor(appState) {
     this.appState = appState
 
     autorunAsync(() => {
@@ -50,7 +46,7 @@ export default class AlbumStore {
     this.deserialize()
   }
 
-  get connection(): Connection {
+  get connection() {
     return this.appState.connection
   }
 
@@ -72,7 +68,7 @@ export default class AlbumStore {
     }
   }
 
-  @action async fetch(displaySpinner: boolean = this.albums.length === 0) {
+  @action async fetch(displaySpinner = this.albums.length === 0) {
     this.setIsLoading(displaySpinner)
     try {
       this.setAlbums(await this.appState.connection.albums.findAll(this.appState.section))
@@ -81,19 +77,19 @@ export default class AlbumStore {
     }
   }
 
-  @action setIsFiltering(value: boolean) {
+  @action setIsFiltering(value) {
     this.isFiltering = value
   }
 
-  @action setIsLoading(value: boolean) {
+  @action setIsLoading(value) {
     this.isLoading = value
   }
 
-  @action setMatches(albums: Array<Album>) {
+  @action setMatches(albums) {
     this.matches.replace(albums)
   }
 
-  @action setAlbums(albums: Array<Album>) {
+  @action setAlbums(albums) {
     this.albums.replace(albums)
   }
 
@@ -101,15 +97,15 @@ export default class AlbumStore {
     this.setQuery('')
   }
 
-  @action setQuery(text: string) {
+  @action setQuery(text) {
     this.query = text
   }
 
-  @action setOrder(value: OrderType) {
+  @action setOrder(value) {
     this.order = value
   }
 
-  @computed get filterSet(): FilterSet {
+  @computed get filterSet() {
     const predicates = {}
     const query = _.reduce([/(\w+):(\w+)/g, /(\w+):"([^"]+)"/g, /(\w+):'([^']+)'/g], (_query, regex) => (
       _query.replace(regex, (__, key, value) => {

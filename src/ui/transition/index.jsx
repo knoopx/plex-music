@@ -33,8 +33,7 @@ export default class Transition extends React.PureComponent {
           <div style={{ position: 'relative', flex: 1 }}>
             {
               interpolated.map(({ key, style, data }) =>
-                <div key={key} style={{ position: 'absolute', left: 0, top: 0, bottom: 0, right: 0, display: 'flex', ...style }}>{data}</div>,
-              )
+                <div key={key} style={{ position: 'absolute', left: 0, top: 0, bottom: 0, right: 0, display: 'flex', ...style }}>{data}</div>)
             }
           </div>
         )}

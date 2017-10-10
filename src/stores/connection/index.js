@@ -1,5 +1,3 @@
-// @flow
-
 import _ from 'lodash'
 import Axios from 'axios'
 import { action } from 'mobx'
@@ -13,13 +11,7 @@ import TrackEndpoint from './track-endpoint'
 import SectionEndpoint from './section-endpoint'
 
 export default class Connection {
-  device: Device
-  albums: AlbumEndpoint
-  artists: ArtistEndpoint
-  tracks: TrackEndpoint
-  sections: SectionEndpoint
-
-  constructor(device: Device) {
+  constructor(device) {
     this.device = device
     this.albums = new AlbumEndpoint(this)
     this.artists = new ArtistEndpoint(this)
@@ -27,7 +19,7 @@ export default class Connection {
     this.sections = new SectionEndpoint(this)
   }
 
-  async getArtistSections(): Promise<Array<Section>> {
+  async getArtistSections() {
     const sections = await this.sections.findAll()
     const artistSections = _.filter(sections, { type: 'artist' })
     if (artistSections.length === 0) {
@@ -36,7 +28,7 @@ export default class Connection {
     return artistSections
   }
 
-  @action rate(id: number, rating: number) {
+  @action rate(id, rating) {
     return this.request('/:/rate', {
       key: id,
       rating,
@@ -44,7 +36,7 @@ export default class Connection {
     })
   }
 
-  get uri(): string {
+  get uri() {
     const connection = _.find(this.device.connections, { local: this.device.publicAddressMatches })
     if (connection) {
       return connection.uri
@@ -52,7 +44,7 @@ export default class Connection {
     throw new Error('Unable to find a suitable connection')
   }
 
-  get localUri(): string {
+  get localUri() {
     const { uri } = _.find(this.device.connections, { local: true })
     if (uri) {
       return uri
@@ -60,7 +52,7 @@ export default class Connection {
     throw new Error('Unable to find a suitable connection')
   }
 
-  async request(path: string, query: {} = {}): Promise<any> {
+  async request(path, query = {}) {
     const res = await Axios.get(`${this.uri}${path}`, {
       params: query,
       headers: {

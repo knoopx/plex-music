@@ -1,11 +1,7 @@
-// @flow
-
 import Connection from 'stores/connection'
 
 export default class Model {
-  connection: Connection
-
-  constructor(connection: Object, props: {}) {
+  constructor(connection, props) {
     this.connection = connection
     Object.assign(this, props)
   }

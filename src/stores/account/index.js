@@ -1,5 +1,3 @@
-// @flow
-
 import Axios from 'axios'
 import UUID from 'uuid'
 import { flow, filter, map } from 'lodash/fp'
@@ -8,16 +6,13 @@ import { AppState } from 'stores'
 import { getItem, setItem } from 'support/storage'
 
 import Device from './device'
-import type { LoginParams } from './types'
+
 
 export default class Account {
-  appState: AppState;
-  @observable devices: Array<Device>;
-  @observable loginParams: LoginParams;
-  @observable isLoggedIn: boolean = false;
-  @observable isLoggingIn: boolean = false;
+  @observable isLoggedIn = false;
+  @observable isLoggingIn = false;
 
-  constructor(appState: AppState) {
+  constructor(appState) {
     this.appState = appState
     const loginParams = this.getLoginParams()
     if (loginParams) {
@@ -25,7 +20,7 @@ export default class Account {
     }
   }
 
-  async login(loginParams: LoginParams): Promise<void> {
+  async login(loginParams) {
     const clientIdentifier = this.getClientIdentifier()
 
     this.setIsLoggingIn(true)
@@ -55,27 +50,27 @@ export default class Account {
     localStorage.removeItem('loginParams')
   }
 
-  @action setLoginParams(loginParams: LoginParams) {
+  @action setLoginParams(loginParams) {
     this.loginParams = loginParams
   }
 
-  @action setDevices(devices: Array<Device>) {
+  @action setDevices(devices) {
     this.devices = devices
   }
 
-  @action setIsLoggingIn(value: boolean) {
+  @action setIsLoggingIn(value) {
     this.isLoggingIn = value
   }
 
-  @action setIsLoggedIn(value: boolean) {
+  @action setIsLoggedIn(value) {
     this.isLoggedIn = value
   }
 
-  @action getLoginParams(): ?LoginParams {
+  @action getLoginParams() {
     return getItem('loginParams')
   }
 
-  @action getClientIdentifier(): string {
+  @action getClientIdentifier() {
     const value = getItem('X-Plex-Client-Identifier')
     if (value) { return value }
     const newValue = UUID.v4()
@@ -83,12 +78,12 @@ export default class Account {
     return newValue
   }
 
-  async fetchDevices(authToken: string): Promise<Array<Device>> {
+  async fetchDevices(authToken) {
     const res = await Axios.get('https://plex.tv/api/resources', { params: { includeHttps: 1, includeRelay: 1, 'X-Plex-Token': authToken }, responseType: 'document' })
     return flow(map(device => Device.parse(device)), filter(d => d.presence && d.provides === 'server'))(res.data.getElementsByTagName('Device'))
   }
 
-  async performLogin(loginParams: LoginParams, clientIdentifier: string): Promise<mixed> {
+  async performLogin(loginParams, clientIdentifier) {
     return Axios.post('https://plex.tv/api/v2/users/signin', loginParams, {
       headers: {
         'X-Plex-Client-Identifier': clientIdentifier,
