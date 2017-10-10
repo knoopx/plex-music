@@ -1,6 +1,6 @@
 import React from 'react'
 import { View } from 'ui'
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 
 @theme('toolbar')
 export default class Toolbar extends React.PureComponent {

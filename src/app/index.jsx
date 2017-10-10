@@ -3,7 +3,7 @@
 import React from 'react'
 import { inject, observer, Provider } from 'mobx-react'
 
-import { ThemeProvider, theme } from 'react-theme'
+import { ThemeProvider, theme } from 'ui/theming'
 
 import { AppState, Account } from 'stores'
 import { LoadingSlate, Transition, View } from 'ui'

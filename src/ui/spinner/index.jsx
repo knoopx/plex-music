@@ -3,7 +3,7 @@ import React from 'react'
 
 import styles from './spinner.css'
 
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 
 @theme('spinner')
 export default class Spinner extends React.PureComponent {

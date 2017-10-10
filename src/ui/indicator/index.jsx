@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 @theme('indicator', {
   color: PropTypes.string,
   activeColor: PropTypes.string,

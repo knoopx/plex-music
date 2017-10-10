@@ -6,7 +6,7 @@ import MediaQuery from 'react-responsive'
 
 import { action, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 
 import SearchIcon from 'react-icons/lib/fa/search'
 import ClearIcon from 'react-icons/lib/fa/times-circle'

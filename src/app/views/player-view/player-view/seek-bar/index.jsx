@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { inject, observer } from 'mobx-react'
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 import { Frame } from 'ui'
 import styles from './seek-bar.css'
 

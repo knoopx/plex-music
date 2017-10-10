@@ -5,7 +5,7 @@ import React from 'react'
 import StarIcon from 'react-icons/lib/fa/star'
 import OpenStarIcon from 'react-icons/lib/fa/star-o'
 
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 
 @theme('rating')
 export default class Rating extends React.PureComponent {

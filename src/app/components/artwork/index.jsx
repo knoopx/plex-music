@@ -4,7 +4,7 @@ import { Motion, spring } from 'react-motion'
 import { observable, action } from 'mobx'
 import { observer } from 'mobx-react'
 import { Spinner } from 'ui'
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 
 import MusicIcon from 'react-icons/lib/fa/music'
 

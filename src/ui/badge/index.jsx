@@ -1,5 +1,5 @@
 import React from 'react'
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 
 @theme('badge')
 export default class Badge extends React.PureComponent {

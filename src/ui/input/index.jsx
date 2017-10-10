@@ -1,5 +1,5 @@
 import React from 'react'
-import { theme } from 'react-theme'
+import { theme } from 'ui/theming'
 
 @theme('select')
 export default class Input extends React.PureComponent {
