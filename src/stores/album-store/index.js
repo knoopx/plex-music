@@ -1,6 +1,7 @@
 // @flow
 
 import _ from 'lodash'
+import async from 'async'
 import mousetrap from 'mousetrap'
 
 import { observable, computed, autorunAsync, action, IObservableArray, toJS } from 'mobx'
@@ -31,16 +32,14 @@ export default class AlbumStore {
     }, 500)
 
     autorunAsync(() => {
-      const order = OrderFn[this.order]
-      const filterSet = this.filterSet
-      const albums = toJS(this.albums)
-
       this.setIsFiltering(true)
-      setImmediate(() => {
-        this.setMatches(albums.filter(row => match(row, filterSet)).sort(order))
+      async.filter(this.albums, (album, done) => {
+        done(null, match(album, this.filterSet))
+      }, (err, matches) => {
+        this.setMatches(matches.sort(OrderFn[this.order]))
         this.setIsFiltering(false)
       })
-    }, 200)
+    }, 500)
 
     autorunAsync(this.serialize)
 

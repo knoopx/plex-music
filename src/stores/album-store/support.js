@@ -1,7 +1,6 @@
 // @flow
 
 import firstBy from 'thenby' // TODO: replace with lodash/fp
-import { toJS } from 'mobx'
 import _ from 'lodash'
 
 import { Album } from 'models'
@@ -14,15 +13,8 @@ export const OrderFn : OrderFnSet = {
 }
 
 export function match(album: Album, filter: {}) {
-  const target = toJS({
-    query: [album.title, album.artistName],
-    artist: [album.artistName],
-    genre: album.genres,
-    year: [album.year],
-  })
-
   return _.every(filter, (value, key) => {
     if (_.isEmpty(value)) { return true }
-    return _.some(target[key], targetValue => (new RegExp(value, 'i').test(targetValue)))
+    return _.some(album.matchData[key], targetValue => (new RegExp(value, 'i').test(targetValue)))
   })
 }

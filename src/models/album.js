@@ -1,7 +1,7 @@
 // @flow
 
 import { map } from 'lodash'
-import { observable, action } from 'mobx'
+import { observable, computed, action } from 'mobx'
 import Model from './model'
 
 export default class Album extends Model {
@@ -19,6 +19,16 @@ export default class Album extends Model {
 
   rate(rating: number) {
     return this.connection.rate(this.id, rating)
+  }
+
+  @computed get matchData() {
+    return {
+      query: [this.title, this.artistName],
+      artist: [this.artistName],
+      genre: this.genres,
+      studio: [this.studio],
+      year: [this.year],
+    }
   }
 
   @action static parse(item, connection) {
