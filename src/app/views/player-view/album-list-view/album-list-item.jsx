@@ -38,6 +38,10 @@ export default class AlbumListItem extends React.Component {
     this.props.albumStore.setQuery(`year:${year}`)
   }
 
+  onPressStudio(studio) {
+    this.props.albumStore.setQuery(`studio:"${studio}"`)
+  }
+
   async onClick(e: SyntheticMouseEvent) {
     const shouldAppend = e.shiftKey
     const { album, appState, playQueue } = this.props
@@ -88,9 +92,16 @@ export default class AlbumListItem extends React.Component {
         </View>
         <Gutter />
         <View flow="column" style={{ alignItems: 'flex-end' }}>
-          <TouchableOpacity style={{ cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressYear(album.year) }}>
-            <Text muted size={12}>{album.year}</Text>
-          </TouchableOpacity>
+          <View flow="row">
+            <TouchableOpacity style={{ cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressYear(album.year) }}>
+              <Text muted size={12}>{album.year}</Text>
+            </TouchableOpacity>
+            {album.studio && (
+              <TouchableOpacity style={{ marginLeft: 4, cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressStudio(album.studio) }}>
+                <Text muted size={12}>{album.studio}</Text>
+              </TouchableOpacity>
+            )}
+          </View>
           {album.genres.length > 0 && (
             <View flow="row">
               {_.map(album.genres, (genre, index) => (

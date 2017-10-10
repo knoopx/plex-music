@@ -15,6 +15,7 @@ export default class Album extends Model {
   tag: Array<string>
   genres: Array<string>
   artwork: ?string
+  studio: ?string
 
   rate(rating: number) {
     return this.connection.rate(this.id, rating)
@@ -33,6 +34,7 @@ export default class Album extends Model {
       playCount: item.viewCount,
       tag: [],
       genres: map(item.Genre, e => e.tag.trim()),
+      studio: item.studio,
       artwork: thumbUrl && (`${uri}/photo/:/transcode?url=${encodeURIComponent(thumbUrl)}&width=64&height=64&X-Plex-Token=${encodeURIComponent(device.accessToken)}`),
     })
   }
