@@ -1,4 +1,5 @@
 import React from 'react'
+import { hot } from 'react-hot-loader'
 import { inject, observer, Provider } from 'mobx-react'
 
 import { ThemeProvider, theme } from 'ui/theming'
@@ -11,7 +12,6 @@ import { LoginView, DeviceListView, PlayerView } from './views'
 @theme('app')
 @inject('account')
 @inject('appState')
-
 @observer
 class App extends React.Component {
   getView(route) {
@@ -65,9 +65,15 @@ class App extends React.Component {
 
 @inject('appState')
 @observer
-export default class Container extends React.Component {
+class Container extends React.Component {
   render() {
     const { appState } = this.props
-    return <ThemeProvider theme={appState.theme} ><App /></ThemeProvider>
+    return (
+      <ThemeProvider theme={appState.theme}>
+        <App />
+      </ThemeProvider>
+    )
   }
 }
+
+export default hot(module)(Container)
