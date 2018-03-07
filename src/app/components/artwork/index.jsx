@@ -39,30 +39,38 @@ function Container({ size, borderColor, ...otherProps }) {
 @theme('artwork')
 @observer
 export default class Artwork extends React.Component {
+  static defaultProps = {
+    src: '',
+  }
+
   static propTypes = {
-    src: PropTypes.string.isRequired,
+    src: PropTypes.string,
     size: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
   }
 
   @observable isLoading = false
-  @observable src;
+  @observable src
 
   componentWillMount() {
     if (this.props.src) {
       this.setIsLoading(true)
       queue.unshift(this.props.src, (err, src) => {
-        if (!err) { this.setSrc(src) }
+        if (!err) {
+          this.setSrc(src)
+        }
         this.setIsLoading(false)
       })
     }
   }
 
-  @action setSrc(value) {
+  @action
+  setSrc(value) {
     this.src = value
   }
 
-  @action setIsLoading(value) {
+  @action
+  setIsLoading(value) {
     this.isLoading = value
   }
 
@@ -82,7 +90,12 @@ export default class Artwork extends React.Component {
       return (
         <Container size={size} borderColor={borderColor}>
           <Motion defaultStyle={{ opacity: 0 }} style={{ opacity: spring(1) }}>
-            {style => <img style={{ width: size, height: size, ...style }} src={this.src} />}
+            {style => (
+              <img
+                style={{ width: size, height: size, ...style }}
+                src={this.src}
+              />
+            )}
           </Motion>
         </Container>
       )
