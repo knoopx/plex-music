@@ -1,6 +1,12 @@
-import _ from 'lodash'
+import { observable } from 'mobx'
 
 export default class ConnectionParams {
+  @observable prococol
+  @observable address
+  @observable port
+  @observable uri
+  @observable local
+
   constructor(props) {
     Object.assign(this, props)
   }

@@ -1,9 +1,16 @@
-import { action } from 'mobx'
-import Connection from 'stores/connection'
+import { observable } from 'mobx'
 import Model from './model'
 
 export default class Track extends Model {
-  @action static parse(item, connection) {
+  @observable number
+  @observable title
+  @observable artistName
+  @observable albumId
+  @observable duration
+  @observable path
+  @observable url
+
+  static parse(item, connection) {
     const { uri, device } = connection
     const part = item.Media[0].Part[0]
     return new this(connection, {

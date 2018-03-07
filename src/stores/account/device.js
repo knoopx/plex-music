@@ -1,7 +1,20 @@
-import _ from 'lodash'
+import { observable } from 'mobx'
 import ConnectionParams from './connection-params'
 
 export default class Device {
+  @observable name
+  @observable product
+  @observable productVersion
+  @observable platform
+  @observable platformVersion
+  @observable clientIdentifier
+  @observable clientIdentifier
+  @observable connections
+  @observable accessToken
+  @observable lastSeenAt
+  @observable provides
+  @observable publicAddressMatches
+
   constructor(props) {
     Object.assign(this, props)
   }
@@ -24,7 +37,8 @@ export default class Device {
       relay: Number(item.getAttribute('relay')),
       publicAddressMatches: !!Number(item.getAttribute('publicAddressMatches')),
       presence: Number(item.getAttribute('presence')),
-      connections: _.map(Array.from(item.getElementsByTagName('Connection')), c => ConnectionParams.parse(c)),
+      connections: Array.from(item.getElementsByTagName('Connection')).map(c =>
+        ConnectionParams.parse(c)),
     })
   }
 }
