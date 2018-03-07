@@ -20,13 +20,14 @@ export class ThemeProvider extends React.Component {
     return <Provider theme={this.theme}>{this.props.children}</Provider>
   }
 
-  @action mergeTheme(theme) {
+  @action
+  mergeTheme(theme) {
     extendObservable(this.theme, theme)
   }
 }
 
 export function theme(key, contextTypes) {
-  return Component => (
+  return Component =>
     @inject('theme')
     @observer
     class extends React.Component {
@@ -34,8 +35,9 @@ export function theme(key, contextTypes) {
 
       render() {
         const { theme, children, ...props } = this.props
-        return <Component {...merge({}, theme[key], props)}>{children}</Component>
+        return (
+          <Component {...merge({}, theme[key], props)}>{children}</Component>
+        )
       }
     }
-  )
 }

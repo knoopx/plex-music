@@ -7,11 +7,15 @@ export default {
 }
 
 function lighten(value, amount) {
-  return Color(value).lightenByAmount(amount).toString()
+  return Color(value)
+    .lightenByAmount(amount)
+    .toString()
 }
 
 function darken(value, amount) {
-  return Color(value).darkenByAmount(amount).toString()
+  return Color(value)
+    .darkenByAmount(amount)
+    .toString()
 }
 
 function contrast(baseColor, amount) {
@@ -20,7 +24,7 @@ function contrast(baseColor, amount) {
   if (luminance >= 0.5) {
     return darken(baseColor, amount)
   }
-  return lighten(baseColor, (amount * (luminance + 0.3)))
+  return lighten(baseColor, amount * (luminance + 0.3))
 }
 
 function raisedStyle(borderColor) {
@@ -32,20 +36,33 @@ function raisedStyle(borderColor) {
 export function build(accentColor, baseColor) {
   const backgroundColor = baseColor
   const textColor = contrast(baseColor, 0.75)
-  const textMutedColor = Color(textColor).setAlpha(0.6).toString()
+  const textMutedColor = Color(textColor)
+    .setAlpha(0.6)
+    .toString()
   const borderColor = contrast(backgroundColor, 0.1)
-  const accentBackground = `linear-gradient(to bottom, ${lighten(accentColor, 0.1)}, ${accentColor})`
+  const accentBackground = `linear-gradient(to bottom, ${lighten(
+    accentColor,
+    0.1,
+  )}, ${accentColor})`
   const accentTextColor = contrast(accentColor, 0.75)
-  const accentTextMutedColor = Color(accentTextColor).setAlpha(0.6).toString()
+  const accentTextMutedColor = Color(accentTextColor)
+    .setAlpha(0.6)
+    .toString()
 
   const spinnerColor = contrast(baseColor, 0.5)
 
   const frameBackgroundColor = lighten(backgroundColor, 0.02)
-  const frameBackgroundGradient = `linear-gradient(${frameBackgroundColor}, ${contrast(frameBackgroundColor, -0.02)})`
+  const frameBackgroundGradient = `linear-gradient(${frameBackgroundColor}, ${contrast(
+    frameBackgroundColor,
+    -0.02,
+  )})`
   const frameBorderColor = contrast(frameBackgroundColor, 0.3)
 
   const toolbarBackgroundColor = contrast(backgroundColor, 0.2)
-  const toolbarBackgroundGradient = `linear-gradient(${lighten(toolbarBackgroundColor, 0.05)}, ${toolbarBackgroundColor})`
+  const toolbarBackgroundGradient = `linear-gradient(${lighten(
+    toolbarBackgroundColor,
+    0.05,
+  )}, ${toolbarBackgroundColor})`
 
   return {
     app: {

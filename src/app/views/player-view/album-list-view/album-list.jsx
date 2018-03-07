@@ -6,7 +6,6 @@ import { VirtualList } from 'ui'
 
 import AlbumListItem from './album-list-item'
 
-
 export default class AlbumList extends React.PureComponent {
   static propTypes = {
     albums: PropTypes.arrayOf(Album),
@@ -17,9 +16,7 @@ export default class AlbumList extends React.PureComponent {
   }
 
   renderRow(row) {
-    return (
-      <AlbumListItem key={row.id} album={row} />
-    )
+    return <AlbumListItem key={row.id} album={row} />
   }
 
   render() {

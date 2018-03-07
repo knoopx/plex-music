@@ -22,6 +22,11 @@ export default class View extends React.PureComponent {
 
   render() {
     const { flow, style, ...otherProps } = this.props
-    return <div {...otherProps} style={{ ...style, display: 'flex', flexDirection: flow }} />
+    return (
+      <div
+        {...otherProps}
+        style={{ ...style, display: 'flex', flexDirection: flow }}
+      />
+    )
   }
 }

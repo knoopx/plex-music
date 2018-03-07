@@ -25,7 +25,14 @@ export default class Indicator extends React.PureComponent {
     const { color, activeColor } = theme
 
     return (
-      <div style={{ borderRadius: 99999, width: this.props.size, height: this.props.size, backgroundColor: this.props.active ? activeColor : color }} />
+      <div
+        style={{
+          borderRadius: 99999,
+          width: this.props.size,
+          height: this.props.size,
+          backgroundColor: this.props.active ? activeColor : color,
+        }}
+      />
     )
   }
 }

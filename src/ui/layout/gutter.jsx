@@ -20,8 +20,6 @@ export default class Gutter extends React.PureComponent {
       column: { height: this.props.size },
     }
 
-    return (
-      <div style={styles[this.context.flow]} />
-    )
+    return <div style={styles[this.context.flow]} />
   }
 }

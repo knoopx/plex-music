@@ -28,7 +28,8 @@ export default class Connection {
     return artistSections
   }
 
-  @action rate(id, rating) {
+  @action
+  rate(id, rating) {
     return this.request('/:/rate', {
       key: id,
       rating,
@@ -37,7 +38,9 @@ export default class Connection {
   }
 
   get uri() {
-    const connection = _.find(this.device.connections, { local: this.device.publicAddressMatches })
+    const connection = _.find(this.device.connections, {
+      local: this.device.publicAddressMatches,
+    })
     if (connection) {
       return connection.uri
     }

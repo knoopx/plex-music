@@ -5,16 +5,17 @@ import Account from 'stores/account'
 
 import { Text, View, Button, Input, Gutter } from 'ui'
 
-
 @inject('account')
 @observer
 export default class LoginView extends React.Component {
-  @observable loginParams = {
+  @observable
+  loginParams = {
     login: '',
     password: '',
   }
 
-  @action setLoginParam(key, value) {
+  @action
+  setLoginParam(key, value) {
     this.loginParams[key] = value
   }
 
@@ -28,17 +29,26 @@ export default class LoginView extends React.Component {
       <form
         onSubmit={this.performLogin}
         style={{
- display: 'flex', flex: 1, paddingTop: 37, flowDirection: 'column', alignItems: 'center', justifyContent: 'center',
-}}
+          display: 'flex',
+          flex: 1,
+          paddingTop: 37,
+          flowDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
       >
-        <View flow="column" style={{ width: 300 }} >
-          <Text bold size={24}>Login to plex.tv</Text>
+        <View flow="column" style={{ width: 300 }}>
+          <Text bold size={24}>
+            Login to plex.tv
+          </Text>
           <Gutter />
           <Input
             style={{ flex: 1, fontSize: 18, height: 32 }}
             value={this.loginParams.login}
             placeholder="Username"
-            onChange={(e) => { this.setLoginParam('login', e.target.value) }}
+            onChange={(e) => {
+              this.setLoginParam('login', e.target.value)
+            }}
           />
           <Gutter size={8} />
           <Input
@@ -46,10 +56,14 @@ export default class LoginView extends React.Component {
             value={this.loginParams.password}
             type="password"
             placeholder="Password"
-            onChange={(e) => { this.setLoginParam('password', e.target.value) }}
+            onChange={(e) => {
+              this.setLoginParam('password', e.target.value)
+            }}
           />
           <Gutter />
-          <Button style={{ flex: 1, height: 40 }} onClick={this.performLogin}>Connect</Button>
+          <Button style={{ flex: 1, height: 40 }} onClick={this.performLogin}>
+            Connect
+          </Button>
         </View>
       </form>
     )

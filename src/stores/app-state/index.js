@@ -1,4 +1,11 @@
-import { observable, computed, action, autorun, autorunAsync, IObservableArray } from 'mobx'
+import {
+  observable,
+  computed,
+  action,
+  autorun,
+  autorunAsync,
+  IObservableArray,
+} from 'mobx'
 
 import * as themes from 'app/themes'
 import { getItem, setItem } from 'support/storage'
@@ -10,14 +17,15 @@ import Device from '../account/device'
 
 export default class AppState {
   @observable themeName = getItem('theme', Object.keys(themes)[0])
-  @observable isConnected = false;
-  @observable isConnecting = false;
+  @observable isConnected = false
+  @observable isConnecting = false
   @observable sections = observable.array()
-  @observable activeSectionIndex = 0;
+  @observable activeSectionIndex = 0
 
   albumStore = new AlbumStore(this)
 
-  @computed get section() {
+  @computed
+  get section() {
     return this.sections[this.activeSectionIndex]
   }
 
@@ -33,22 +41,26 @@ export default class AppState {
     autorunAsync(this.serialize)
   }
 
-  @action setThemeName(value) {
+  @action
+  setThemeName(value) {
     if (themes[this.themeName]) {
       this.themeName = value
       setItem('theme', value)
     }
   }
 
-  @computed get theme() {
+  @computed
+  get theme() {
     return themes[this.themeName]
   }
 
-  @action onChangeSection(e) {
+  @action
+  onChangeSection(e) {
     this.activeSectionIndex = Number(e.target.value)
   }
 
-  @action async connect(device) {
+  @action
+  async connect(device) {
     this.setIsConnecting(true)
     try {
       this.setConnection(new Connection(device))
@@ -86,26 +98,32 @@ export default class AppState {
     }
   }
 
-  @action deserialize() {
+  @action
+  deserialize() {
     this.activeSectionIndex = getItem(this.activeSectionIndexKey, 0)
   }
 
-  @action setSections(sections) {
+  @action
+  setSections(sections) {
     this.sections = sections
   }
 
-  @action setConnection(connection) {
+  @action
+  setConnection(connection) {
     this.connection = connection
   }
 
-  @action setIsConnecting(value) {
+  @action
+  setIsConnecting(value) {
     this.isConnecting = value
   }
-  @action setIsConnected(value) {
+  @action
+  setIsConnected(value) {
     this.isConnected = value
   }
 
-  @action disconnect() {
+  @action
+  disconnect() {
     this.setIsConnected(false)
   }
 }

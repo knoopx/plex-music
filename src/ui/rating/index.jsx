@@ -23,12 +23,15 @@ export default class Rating extends React.PureComponent {
 
   renderStar(index) {
     const { size, max, stars, value, style } = this.props // eslint-disable-line react/prop-types
-    const IconName = ((index / stars) * max) <= value - 1 ? StarIcon : OpenStarIcon
+    const IconName = index / stars * max <= value - 1 ? StarIcon : OpenStarIcon
 
     return (
       <IconName
         key={index}
-        onClick={(e) => { e.stopPropagation(); this.props.onChange(((index / stars) * max) + 1) }}
+        onClick={(e) => {
+          e.stopPropagation()
+          this.props.onChange(index / stars * max + 1)
+        }}
         style={{ margin: 2, cursor: 'pointer', ...style }}
         size={size}
       />
@@ -37,6 +40,10 @@ export default class Rating extends React.PureComponent {
 
   render() {
     const { stars } = this.props
-    return <div>{Array.from(Array(stars).keys()).map(index => this.renderStar(index))}</div>
+    return (
+      <div>
+        {Array.from(Array(stars).keys()).map(index => this.renderStar(index))}
+      </div>
+    )
   }
 }

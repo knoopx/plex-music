@@ -18,8 +18,26 @@ export default class ProgressBar extends React.PureComponent {
     const { progress, borderColor, height, color } = this.props
 
     return (
-      <div style={{ border: `1px solid ${borderColor}`, flex: 1, padding: 2, minWidth: 100, height, borderRadius: 3 }}>
-        <div style={{ display: 'flex', width: `${progress * 100}%`, height: '100%', backgroundColor: color, borderRadius: 2, color: 'white' }} />
+      <div
+        style={{
+          border: `1px solid ${borderColor}`,
+          flex: 1,
+          padding: 2,
+          minWidth: 100,
+          height,
+          borderRadius: 3,
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            width: `${progress * 100}%`,
+            height: '100%',
+            backgroundColor: color,
+            borderRadius: 2,
+            color: 'white',
+          }}
+        />
       </div>
     )
   }

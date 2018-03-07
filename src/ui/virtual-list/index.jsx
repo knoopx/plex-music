@@ -39,11 +39,13 @@ export default class VirtualList extends React.Component {
     this.setScrollTop(e.target.scrollTop)
   }
 
-  @action setScrollTop(value) {
+  @action
+  setScrollTop(value) {
     this.scrollTop = value
   }
 
-  @action setClientHeight(value) {
+  @action
+  setClientHeight(value) {
     this.clientHeight = value
   }
 
@@ -64,50 +66,80 @@ export default class VirtualList extends React.Component {
     }
   }
 
-  @computed get totalHeight() {
+  @computed
+  get totalHeight() {
     return this.props.itemHeight * this.props.items.length
   }
 
-  @computed get visibleItemsCount() {
+  @computed
+  get visibleItemsCount() {
     return Math.ceil(this.clientHeight / this.props.itemHeight) + 1
   }
 
-  @computed get firstItemIndex() {
+  @computed
+  get firstItemIndex() {
     return Math.floor(this.scrollTop / this.props.itemHeight)
   }
 
-  @computed get firstVisibleItemIndex() {
+  @computed
+  get firstVisibleItemIndex() {
     return Math.max(0, this.firstItemIndex - this.props.bufferSize)
   }
 
-  @computed get lastVisibleItemIndex() {
-    return Math.min(this.firstItemIndex + this.props.bufferSize + this.visibleItemsCount, this.props.items.length)
+  @computed
+  get lastVisibleItemIndex() {
+    return Math.min(
+      this.firstItemIndex + this.props.bufferSize + this.visibleItemsCount,
+      this.props.items.length,
+    )
   }
 
-  @computed get visibleItemsOffsetY() {
-    return Math.min(this.firstVisibleItemIndex * this.props.itemHeight, this.totalHeight)
+  @computed
+  get visibleItemsOffsetY() {
+    return Math.min(
+      this.firstVisibleItemIndex * this.props.itemHeight,
+      this.totalHeight,
+    )
   }
 
-  @computed get visibleItems() {
-    return this.props.items.slice(this.firstVisibleItemIndex, this.lastVisibleItemIndex)
+  @computed
+  get visibleItems() {
+    return this.props.items.slice(
+      this.firstVisibleItemIndex,
+      this.lastVisibleItemIndex,
+    )
   }
 
   render() {
     return (
-      <div style={{
- display: 'flex', flex: 1, flexDirection: 'row', overflow: 'hidden', WebkitAppRegion: 'no-drag',
-}}
+      <div
+        style={{
+          display: 'flex',
+          flex: 1,
+          flexDirection: 'row',
+          overflow: 'hidden',
+          WebkitAppRegion: 'no-drag',
+        }}
       >
         <div
           ref={this.setContainer}
           style={{
- flex: 1, flexDirection: 'column', maxWidth: '100%', overflowY: 'auto',
-}}
+            flex: 1,
+            flexDirection: 'column',
+            maxWidth: '100%',
+            overflowY: 'auto',
+          }}
           onScroll={this.onScroll}
         >
-          <div style={{
- display: 'flex', flexDirection: 'column', height: this.totalHeight - this.visibleItemsOffsetY, transform: `translateY(${this.visibleItemsOffsetY}px)`, overflow: 'hidden', contain: 'paint',
-}}
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              height: this.totalHeight - this.visibleItemsOffsetY,
+              transform: `translateY(${this.visibleItemsOffsetY}px)`,
+              overflow: 'hidden',
+              contain: 'paint',
+            }}
           >
             {this.visibleItems.map(this.props.renderItem)}
           </div>

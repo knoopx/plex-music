@@ -2,7 +2,14 @@ import _ from 'lodash'
 import async from 'async'
 import mousetrap from 'mousetrap'
 
-import { observable, computed, autorunAsync, action, IObservableArray, toJS } from 'mobx'
+import {
+  observable,
+  computed,
+  autorunAsync,
+  action,
+  IObservableArray,
+  toJS,
+} from 'mobx'
 import { Album } from 'models'
 import { getItem, setItem } from 'support/storage'
 
@@ -11,13 +18,13 @@ import Connection from 'stores/connection'
 import { OrderFn, match } from './support'
 
 export default class AlbumStore {
-  @observable isLoading = false;
-  @observable isFiltering = false;
-  @observable albums = observable.array();
-  @observable matches = observable.array();
+  @observable isLoading = false
+  @observable isFiltering = false
+  @observable albums = observable.array()
+  @observable matches = observable.array()
 
-  @observable query = getItem('query', '');
-  @observable order = getItem('order', Object.keys(OrderFn)[0]);
+  @observable query = getItem('query', '')
+  @observable order = getItem('order', Object.keys(OrderFn)[0])
 
   constructor(appState) {
     this.appState = appState
@@ -29,12 +36,16 @@ export default class AlbumStore {
 
     autorunAsync(() => {
       this.setIsFiltering(true)
-      async.filter(this.albums, (album, done) => {
-        done(null, match(album, this.filterSet))
-      }, (err, matches) => {
-        this.setMatches(matches.sort(OrderFn[this.order]))
-        this.setIsFiltering(false)
-      })
+      async.filter(
+        this.albums,
+        (album, done) => {
+          done(null, match(album, this.filterSet))
+        },
+        (err, matches) => {
+          this.setMatches(matches.sort(OrderFn[this.order]))
+          this.setIsFiltering(false)
+        },
+      )
     }, 500)
 
     autorunAsync(this.serialize)
@@ -56,7 +67,8 @@ export default class AlbumStore {
     }
   }
 
-  @action deserialize() {
+  @action
+  deserialize() {
     if (this.appState.sectionKey) {
       this.setAlbums(getItem(this.sectionAlbumsKey, []).map(a => new Album(this.connection, a)))
     }
@@ -64,11 +76,15 @@ export default class AlbumStore {
 
   serialize() {
     if (this.appState.sectionKey) {
-      setItem(this.sectionAlbumsKey, this.albums.map(({ connection, ...props }) => props))
+      setItem(
+        this.sectionAlbumsKey,
+        this.albums.map(({ connection, ...props }) => props),
+      )
     }
   }
 
-  @action async fetch(displaySpinner = this.albums.length === 0) {
+  @action
+  async fetch(displaySpinner = this.albums.length === 0) {
     this.setIsLoading(displaySpinner)
     try {
       this.setAlbums(await this.appState.connection.albums.findAll(this.appState.section))
@@ -77,42 +93,53 @@ export default class AlbumStore {
     }
   }
 
-  @action setIsFiltering(value) {
+  @action
+  setIsFiltering(value) {
     this.isFiltering = value
   }
 
-  @action setIsLoading(value) {
+  @action
+  setIsLoading(value) {
     this.isLoading = value
   }
 
-  @action setMatches(albums) {
+  @action
+  setMatches(albums) {
     this.matches.replace(albums)
   }
 
-  @action setAlbums(albums) {
+  @action
+  setAlbums(albums) {
     this.albums.replace(albums)
   }
 
-  @action clearFilter() {
+  @action
+  clearFilter() {
     this.setQuery('')
   }
 
-  @action setQuery(text) {
+  @action
+  setQuery(text) {
     this.query = text
   }
 
-  @action setOrder(value) {
+  @action
+  setOrder(value) {
     this.order = value
   }
 
-  @computed get filterSet() {
+  @computed
+  get filterSet() {
     const predicates = {}
-    const query = _.reduce([/(\w+):(\w+)/g, /(\w+):"([^"]+)"/g, /(\w+):'([^']+)'/g], (_query, regex) => (
-      _query.replace(regex, (__, key, value) => {
-        predicates[key] = value
-        return ''
-      })
-    ), this.query)
+    const query = _.reduce(
+      [/(\w+):(\w+)/g, /(\w+):"([^"]+)"/g, /(\w+):'([^']+)'/g],
+      (_query, regex) =>
+        _query.replace(regex, (__, key, value) => {
+          predicates[key] = value
+          return ''
+        }),
+      this.query,
+    )
 
     return { query: query.trim(), ...predicates }
   }

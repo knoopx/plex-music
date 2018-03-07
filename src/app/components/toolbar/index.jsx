@@ -9,7 +9,12 @@ export default class Toolbar extends React.PureComponent {
     return (
       <View
         flow="row"
-        style={{ padding: 8, alignItems: 'center', justifyContent: 'space-between', ...style }}
+        style={{
+          padding: 8,
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          ...style,
+        }}
         {...props}
       />
     )

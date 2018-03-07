@@ -5,7 +5,15 @@ export default class LoadingSlate extends React.PureComponent {
   render() {
     const { style } = this.props
     return (
-      <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', ...style }}>
+      <div
+        style={{
+          display: 'flex',
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          ...style,
+        }}
+      >
         <Spinner size={64} />
       </div>
     )

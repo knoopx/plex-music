@@ -49,9 +49,14 @@ export default class PlayerScreen extends React.Component {
             <Gutter size={70} />
             <FilterGroup />
             <Gutter size={4} />
-            <Select value={appState.activeSectionIndex} onChange={appState.onChangeSection}>
+            <Select
+              value={appState.activeSectionIndex}
+              onChange={appState.onChangeSection}
+            >
               {appState.sections.map((section, index) => (
-                <option key={section.id} value={index}>{section.name}</option>
+                <option key={section.id} value={index}>
+                  {section.name}
+                </option>
               ))}
             </Select>
             <Gutter />
@@ -61,9 +66,22 @@ export default class PlayerScreen extends React.Component {
           <View flow="row" style={{ flex: 1 }}>
             <PlayerView />
             <Gutter size={16} />
-            <Button active={appState.themeName === 'dark'} style={{ width: 48, height: 34 }} onClick={() => appState.setThemeName(appState.themeName === 'dark' ? 'light' : 'dark')}><LightIcon size={18} /></Button>
+            <Button
+              active={appState.themeName === 'dark'}
+              style={{ width: 48, height: 34 }}
+              onClick={() =>
+                appState.setThemeName(appState.themeName === 'dark' ? 'light' : 'dark')
+              }
+            >
+              <LightIcon size={18} />
+            </Button>
             <Gutter size={4} />
-            <Button style={{ width: 48, height: 34 }} onClick={() => appState.disconnect()}><EjectIcon size={18} /></Button>
+            <Button
+              style={{ width: 48, height: 34 }}
+              onClick={() => appState.disconnect()}
+            >
+              <EjectIcon size={18} />
+            </Button>
           </View>
         </Toolbar>
         <Divider />

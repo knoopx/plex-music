@@ -8,11 +8,17 @@ import { ThemeProvider, theme } from 'ui/theming'
 export default class ListItem extends React.PureComponent {
   render() {
     const {
-      active, style, activeStyle, containerStyle, activeTextMutedStyle, theme, ...props
+      active,
+      style,
+      activeStyle,
+      containerStyle,
+      activeTextMutedStyle,
+      theme,
+      ...props
     } = this.props
 
     return (
-      <TouchableOpacity style={containerStyle} >
+      <TouchableOpacity style={containerStyle}>
         <ThemeProvider
           theme={{
             ...theme,

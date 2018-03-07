@@ -7,10 +7,9 @@ import { getItem, setItem } from 'support/storage'
 
 import Device from './device'
 
-
 export default class Account {
-  @observable isLoggedIn = false;
-  @observable isLoggingIn = false;
+  @observable isLoggedIn = false
+  @observable isLoggingIn = false
 
   constructor(appState) {
     this.appState = appState
@@ -43,44 +42,59 @@ export default class Account {
     }
   }
 
-  @action logOut() {
+  @action
+  logOut() {
     this.setLoginParams({ login: '', password: '' })
     this.setDevices([])
     this.setIsLoggedIn(false)
     localStorage.removeItem('loginParams')
   }
 
-  @action setLoginParams(loginParams) {
+  @action
+  setLoginParams(loginParams) {
     this.loginParams = loginParams
   }
 
-  @action setDevices(devices) {
+  @action
+  setDevices(devices) {
     this.devices = devices
   }
 
-  @action setIsLoggingIn(value) {
+  @action
+  setIsLoggingIn(value) {
     this.isLoggingIn = value
   }
 
-  @action setIsLoggedIn(value) {
+  @action
+  setIsLoggedIn(value) {
     this.isLoggedIn = value
   }
 
-  @action getLoginParams() {
+  @action
+  getLoginParams() {
     return getItem('loginParams')
   }
 
-  @action getClientIdentifier() {
+  @action
+  getClientIdentifier() {
     const value = getItem('X-Plex-Client-Identifier')
-    if (value) { return value }
+    if (value) {
+      return value
+    }
     const newValue = UUID.v4()
     setItem('X-Plex-Client-Identifier', newValue)
     return newValue
   }
 
   async fetchDevices(authToken) {
-    const res = await Axios.get('https://plex.tv/api/resources', { params: { includeHttps: 1, includeRelay: 1, 'X-Plex-Token': authToken }, responseType: 'document' })
-    return flow(map(device => Device.parse(device)), filter(d => d.presence && d.provides === 'server'))(res.data.getElementsByTagName('Device'))
+    const res = await Axios.get('https://plex.tv/api/resources', {
+      params: { includeHttps: 1, includeRelay: 1, 'X-Plex-Token': authToken },
+      responseType: 'document',
+    })
+    return flow(
+      map(device => Device.parse(device)),
+      filter(d => d.presence && d.provides === 'server'),
+    )(res.data.getElementsByTagName('Device'))
   }
 
   async performLogin(loginParams, clientIdentifier) {

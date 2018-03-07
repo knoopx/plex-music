@@ -12,7 +12,6 @@ import { ListItem, Artwork } from 'app/components'
 @inject('appState')
 @inject('albumStore')
 @inject('playQueue')
-
 @observer
 export default class AlbumListItem extends React.Component {
   onPressArtistName(artistName) {
@@ -58,44 +57,82 @@ export default class AlbumListItem extends React.Component {
     }
   }
 
-  @action async performRate(album, userRating) {
+  @action
+  async performRate(album, userRating) {
     await album.rate(userRating)
     album.update({ userRating })
   }
 
   render() {
     const { album, playQueue } = this.props
-    const isActive = album.id === (playQueue.activeItem && playQueue.activeItem.album.id)
+    const isActive =
+      album.id === (playQueue.activeItem && playQueue.activeItem.album.id)
 
     return (
       <ListItem active={isActive} onClick={this.onClick}>
         <Artwork key={album.id} size={48} src={album.artwork} />
         <Gutter />
         <View flow="column" style={{ flex: 1 }}>
-          <Text bold size={14} style={{ marginBottom: 4 }}>{album.title}</Text>
+          <Text bold size={14} style={{ marginBottom: 4 }}>
+            {album.title}
+          </Text>
           <View flow="row">
-            <TouchableOpacity style={{ cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressArtistName(album.artistName) }}>
-              <Text muted size={12}>{album.artistName}</Text>
+            <TouchableOpacity
+              style={{ cursor: 'pointer' }}
+              onClick={(e) => {
+                e.stopPropagation()
+                this.onPressArtistName(album.artistName)
+              }}
+            >
+              <Text muted size={12}>
+                {album.artistName}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
         <Gutter />
         <View flow="column" style={{ alignItems: 'flex-end' }}>
           <View flow="row">
-            <TouchableOpacity style={{ cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressYear(album.year) }}>
-              <Text muted size={12}>{album.year}</Text>
+            <TouchableOpacity
+              style={{ cursor: 'pointer' }}
+              onClick={(e) => {
+                e.stopPropagation()
+                this.onPressYear(album.year)
+              }}
+            >
+              <Text muted size={12}>
+                {album.year}
+              </Text>
             </TouchableOpacity>
             {album.studio && (
-              <TouchableOpacity style={{ marginLeft: 4, cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressStudio(album.studio) }}>
-                <Text muted size={12}>{album.studio}</Text>
+              <TouchableOpacity
+                style={{ marginLeft: 4, cursor: 'pointer' }}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  this.onPressStudio(album.studio)
+                }}
+              >
+                <Text muted size={12}>
+                  {album.studio}
+                </Text>
               </TouchableOpacity>
             )}
           </View>
           {album.genres.length > 0 && (
             <View flow="row">
               {_.map(album.genres, (genre, index) => (
-                <TouchableOpacity key={genre} style={{ cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressGenre(genre) }}>
-                  <Text muted size={12} >{genre}{index !== album.genres.length - 1 && '/'}</Text>
+                <TouchableOpacity
+                  key={genre}
+                  style={{ cursor: 'pointer' }}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    this.onPressGenre(genre)
+                  }}
+                >
+                  <Text muted size={12}>
+                    {genre}
+                    {index !== album.genres.length - 1 && '/'}
+                  </Text>
                 </TouchableOpacity>
               ))}
             </View>

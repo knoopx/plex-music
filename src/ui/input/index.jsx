@@ -9,7 +9,7 @@ export default class Input extends React.PureComponent {
       <input
         {...props}
         style={{
- ...style,
+          ...style,
           color: 'inherit',
           WebkitAppearance: 'none',
           border: 'none',

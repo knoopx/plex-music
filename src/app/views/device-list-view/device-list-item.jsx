@@ -10,7 +10,6 @@ import { View, Text, Gutter } from 'ui'
 import { ListItem } from 'app/components'
 
 @inject('appState')
-
 @observer
 export default class DeviceListItem extends React.Component {
   static propTypes = {
@@ -25,15 +24,30 @@ export default class DeviceListItem extends React.Component {
   render() {
     const { device } = this.props
     return (
-      <ListItem key={device.clientIdentifier} onClick={this.onClick} style={{ cursor: 'pointer' }}>
+      <ListItem
+        key={device.clientIdentifier}
+        onClick={this.onClick}
+        style={{ cursor: 'pointer' }}
+      >
         <View flow="column" style={{ marginRight: 20 }}>
-          <Text style={{ fontWeight: 'bold', fontSize: 18 }}>{device.name}</Text>
-          <Text style={{ fontSize: 12 }}>{relativeDate(device.lastSeenAt)}</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
+            {device.name}
+          </Text>
+          <Text style={{ fontSize: 12 }}>
+            {relativeDate(device.lastSeenAt)}
+          </Text>
         </View>
-        <View flow="column" style={{ flex: 1, justifyContent: 'space-between' }}>
-          <Text style={{ fontSize: 14 }}>{device.product} ({device.productVersion})</Text>
+        <View
+          flow="column"
+          style={{ flex: 1, justifyContent: 'space-between' }}
+        >
+          <Text style={{ fontSize: 14 }}>
+            {device.product} ({device.productVersion})
+          </Text>
           <Gutter size={4} />
-          <Text style={{ fontSize: 12 }}>{device.platform} ({device.platformVersion})</Text>
+          <Text style={{ fontSize: 12 }}>
+            {device.platform} ({device.platformVersion})
+          </Text>
         </View>
       </ListItem>
     )

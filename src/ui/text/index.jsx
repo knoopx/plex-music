@@ -21,7 +21,15 @@ export default class Text extends React.PureComponent {
   }
 
   render() {
-    const { muted, bold, italic, size, style, mutedStyle, ...props } = this.props
+    const {
+      muted,
+      bold,
+      italic,
+      size,
+      style,
+      mutedStyle,
+      ...props
+    } = this.props
 
     return (
       <span

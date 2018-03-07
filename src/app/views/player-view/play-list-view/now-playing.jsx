@@ -14,7 +14,11 @@ export default class NowPlaying extends React.Component {
 
     return (
       <View flow="row" style={{ padding: 10, ...style }}>
-        <Artwork key={activeItem.album.id} size={48} src={activeItem.album.artwork} />
+        <Artwork
+          key={activeItem.album.id}
+          size={48}
+          src={activeItem.album.artwork}
+        />
         <Gutter />
         <View flow="column">
           <Text bold>{activeItem.track.title}</Text>

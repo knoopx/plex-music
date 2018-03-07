@@ -8,7 +8,6 @@ import FastBackwardIcon from 'react-icons/lib/fa/fast-backward'
 import PlayIcon from 'react-icons/lib/fa/play'
 import PauseIcon from 'react-icons/lib/fa/pause'
 
-
 @inject('playQueue')
 @observer
 export default class PlaybackButtons extends React.Component {
@@ -17,11 +16,25 @@ export default class PlaybackButtons extends React.Component {
 
     return (
       <ButtonGroup>
-        <Button style={{ width: 48, height: 34 }} onClick={() => playQueue.playPrev()}><FastBackwardIcon /></Button>
-        <Button style={{ width: 48, height: 34 }} onClick={() => playQueue.toggle()} >
+        <Button
+          style={{ width: 48, height: 34 }}
+          onClick={() => playQueue.playPrev()}
+        >
+          <FastBackwardIcon />
+        </Button>
+        <Button
+          style={{ width: 48, height: 34 }}
+          onClick={() => playQueue.toggle()}
+        >
           {playQueue.isPlaying ? <PauseIcon /> : <PlayIcon />}
         </Button>
-        <Button style={{ width: 48, height: 34 }} onClick={() => playQueue.playNext()} > <FastForwardIcon /> </Button>
+        <Button
+          style={{ width: 48, height: 34 }}
+          onClick={() => playQueue.playNext()}
+        >
+          {' '}
+          <FastForwardIcon />{' '}
+        </Button>
       </ButtonGroup>
     )
   }

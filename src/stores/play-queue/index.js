@@ -13,7 +13,8 @@ export default class PlayQueue {
   @observable isLoading = false
   @observable isPlaying = false
 
-  @computed get activeItem() {
+  @computed
+  get activeItem() {
     if (this.activeIndex >= 0 && this.activeIndex < this.playlist.length) {
       return this.playlist[this.activeIndex]
     }
@@ -26,46 +27,55 @@ export default class PlayQueue {
     mousetrap.bind('shift+right', this.playNext)
   }
 
-  @action onDataLoaded() {
+  @action
+  onDataLoaded() {
     this.isLoading = false
     this.duration = this.audio.duration
     this.buffered = this.audio.buffered.end(this.audio.buffered.length - 1)
   }
 
-  @action onTimeUpdate() {
+  @action
+  onTimeUpdate() {
     this.currentTime = this.audio.currentTime
   }
 
-  @action onProgress() {
+  @action
+  onProgress() {
     if (this.audio.buffered.length > 0) {
       this.buffered = this.audio.buffered.end(this.audio.buffered.length - 1)
     }
   }
 
-  @action onEnded() {
+  @action
+  onEnded() {
     this.playNext()
   }
 
-  @action onError() {
-  }
+  @action
+  onError() {}
 
-  @action onPlay() {
+  @action
+  onPlay() {
     this.isPlaying = true
   }
 
-  @action onPause() {
+  @action
+  onPause() {
     this.isPlaying = false
   }
 
-  @action play() {
+  @action
+  play() {
     this.audio.play()
   }
 
-  @action pause() {
+  @action
+  pause() {
     this.audio.pause()
   }
 
-  @action playItemAtIndex(index) {
+  @action
+  playItemAtIndex(index) {
     if (index >= 0 && index < this.playlist.length) {
       const item = this.playlist[index]
       if (item) {
@@ -79,15 +89,18 @@ export default class PlayQueue {
     }
   }
 
-  @action playPrev() {
+  @action
+  playPrev() {
     this.playItemAtIndex(this.activeIndex - 1)
   }
 
-  @action playNext() {
+  @action
+  playNext() {
     this.playItemAtIndex(this.activeIndex + 1)
   }
 
-  @action toggle() {
+  @action
+  toggle() {
     if (this.isPlaying) {
       this.pause()
     } else {
@@ -96,11 +109,13 @@ export default class PlayQueue {
     return false
   }
 
-  @action seekTo(value) {
+  @action
+  seekTo(value) {
     this.audio.currentTime = value
   }
 
-  @action load(src) {
+  @action
+  load(src) {
     this.isLoading = true
     this.audio.addEventListener('loadeddata', this.onDataLoaded)
     this.audio.addEventListener('timeupdate', this.onTimeUpdate)
@@ -112,7 +127,8 @@ export default class PlayQueue {
     this.audio.src = src
   }
 
-  @action unload() {
+  @action
+  unload() {
     this.audio.pause()
     this.audio.removeEventListener('loadeddata', this.onDataLoaded)
     this.audio.removeEventListener('timeupdate', this.onTimeUpdate)
@@ -127,7 +143,8 @@ export default class PlayQueue {
     this.buffered = 0
   }
 
-  @action replace(playlist, shouldPlay = true) {
+  @action
+  replace(playlist, shouldPlay = true) {
     this.playlist.replace(playlist)
 
     if (shouldPlay) {
@@ -135,11 +152,13 @@ export default class PlayQueue {
     }
   }
 
-  @action append(playlist) {
+  @action
+  append(playlist) {
     this.playlist.push(...playlist)
   }
 
-  @action setIsFetching(value) {
+  @action
+  setIsFetching(value) {
     this.isFetching = value
   }
 }

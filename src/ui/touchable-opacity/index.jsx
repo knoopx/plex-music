@@ -35,8 +35,13 @@ export default class TouchableOpacity extends React.PureComponent {
 
     return (
       <View style={{ ...style }} onMouseDown={this.onMouseDown}>
-        <Motion defaultStyle={{ opacity: 1 }} style={{ opacity: spring(this.state.isMouseDown ? 0.25 : 1) }}>
-          {animatedStyle => <View {...props} style={{ flex: 1, ...animatedStyle }} />}
+        <Motion
+          defaultStyle={{ opacity: 1 }}
+          style={{ opacity: spring(this.state.isMouseDown ? 0.25 : 1) }}
+        >
+          {animatedStyle => (
+            <View {...props} style={{ flex: 1, ...animatedStyle }} />
+          )}
         </Motion>
       </View>
     )

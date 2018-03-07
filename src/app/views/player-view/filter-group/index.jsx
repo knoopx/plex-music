@@ -15,7 +15,6 @@ import { Text, Frame, Spinner, Gutter, FauxInput } from 'ui'
 
 @theme('filterGroup')
 @inject('albumStore')
-
 @observer
 export default class FilterGroup extends React.Component {
   @observable isFocused = false
@@ -39,7 +38,8 @@ export default class FilterGroup extends React.Component {
     }
   }
 
-  @action setIsFocused(value) {
+  @action
+  setIsFocused(value) {
     this.isFocused = value
   }
 
@@ -62,10 +62,13 @@ export default class FilterGroup extends React.Component {
           ...style,
           ...(this.isFocused && focusStyle),
         }}
-
         onClick={this.focusInput}
       >
-        {albumStore.isFiltering ? <Spinner size={14} /> : <SearchIcon size={14} />}
+        {albumStore.isFiltering ? (
+          <Spinner size={14} />
+        ) : (
+          <SearchIcon size={14} />
+        )}
         <Gutter size={8} />
         <FauxInput
           ref={this.setInput}
@@ -73,18 +76,28 @@ export default class FilterGroup extends React.Component {
           style={{ flex: 1 }}
           value={albumStore.query}
           onKeyDown={this.onKeyDown}
-          onChange={(e) => { albumStore.setQuery(e.target.value) }}
-          onFocus={() => { this.setIsFocused(true) }}
-          onBlur={() => { this.setIsFocused(false) }}
+          onChange={(e) => {
+            albumStore.setQuery(e.target.value)
+          }}
+          onFocus={() => {
+            this.setIsFocused(true)
+          }}
+          onBlur={() => {
+            this.setIsFocused(false)
+          }}
         />
         <MediaQuery minWidth={1200}>
           <div>
             <Gutter />
-            <Text muted italic size={12} style={{ whiteSpace: 'nowrap' }}>{albumStore.matches.length} albums(s)</Text>
+            <Text muted italic size={12} style={{ whiteSpace: 'nowrap' }}>
+              {albumStore.matches.length} albums(s)
+            </Text>
           </div>
         </MediaQuery>
         {shouldDisplayClearIcon && <Gutter />}
-        {shouldDisplayClearIcon && <ClearIcon size={16} color="#888" onClick={albumStore.clearFilter} />}
+        {shouldDisplayClearIcon && (
+          <ClearIcon size={16} color="#888" onClick={albumStore.clearFilter} />
+        )}
       </Frame>
     )
   }

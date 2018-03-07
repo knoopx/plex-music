@@ -8,6 +8,10 @@ export default class ButtonGroup extends React.PureComponent {
   }
 
   render() {
-    return <div className={styles.default} {...this.props}>{React.Children.map(this.props.children, this.renderButton)}</div>
+    return (
+      <div className={styles.default} {...this.props}>
+        {React.Children.map(this.props.children, this.renderButton)}
+      </div>
+    )
   }
 }

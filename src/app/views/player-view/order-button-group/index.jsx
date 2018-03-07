@@ -27,7 +27,9 @@ export default class OrderButtonGroup extends React.Component {
         key={index}
         style={{ width: 48, height: 34 }}
         active={albumStore.order === order}
-        onClick={() => { albumStore.setOrder(order) }}
+        onClick={() => {
+          albumStore.setOrder(order)
+        }}
       >
         <Icon size={16} />
       </Button>
