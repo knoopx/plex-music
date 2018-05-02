@@ -1,10 +1,11 @@
 import React from 'react'
-import { inject } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import { TouchableOpacity, View } from 'ui'
 import { ThemeProvider, theme } from 'ui/theming'
 
 @theme('listItem')
 @inject('theme')
+@observer
 export default class ListItem extends React.PureComponent {
   render() {
     const {
