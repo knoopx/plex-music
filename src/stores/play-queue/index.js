@@ -1,4 +1,4 @@
-import { observable, computed, action, IObservableArray } from 'mobx'
+import { observable, computed, action } from 'mobx'
 
 import mousetrap from 'mousetrap'
 

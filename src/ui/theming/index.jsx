@@ -1,6 +1,6 @@
 import React from 'react'
 import { observable, set, action } from 'mobx'
-import { observer, inject, Provider } from 'mobx-react'
+import { observer, Provider } from 'mobx-react'
 import { merge } from 'lodash'
 
 @observer

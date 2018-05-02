@@ -2,11 +2,8 @@ import { observable, computed, action, autorun } from 'mobx'
 
 import * as themes from 'app/themes'
 import { getItem, setItem } from 'support/storage'
-import { Section } from 'models'
 import Connection from 'stores/connection'
 import AlbumStore from 'stores/album-store'
-
-import Device from '../account/device'
 
 export default class AppState {
   @observable themeName = getItem('theme', Object.keys(themes)[0])

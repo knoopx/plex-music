@@ -1,7 +1,6 @@
 import React from 'react'
 import { observable, action } from 'mobx'
 import { inject, observer } from 'mobx-react'
-import Account from 'stores/account'
 
 import { Text, View, Button, Input, Gutter } from 'ui'
 

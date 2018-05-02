@@ -1,8 +1,6 @@
 import firstBy from 'thenby' // TODO: replace with lodash/fp
 import _ from 'lodash'
 
-import { Album } from 'models'
-
 export const OrderFn = {
   alphabetically: firstBy('artistName', { ignoreCase: true })
     .thenBy('year', { direction: -1 })

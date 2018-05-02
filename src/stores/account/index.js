@@ -2,7 +2,6 @@ import Axios from 'axios'
 import UUID from 'uuid'
 import { flow, filter, map } from 'lodash/fp'
 import { observable, action } from 'mobx'
-import { AppState } from 'stores'
 import { getItem, setItem } from 'support/storage'
 
 import Device from './device'

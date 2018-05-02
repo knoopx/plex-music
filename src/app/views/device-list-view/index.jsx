@@ -3,7 +3,6 @@ import { inject, observer } from 'mobx-react'
 
 import { Text, View, Gutter, List, Button, Frame } from 'ui'
 
-import Device from 'stores/account/device'
 import DeviceListItem from './device-list-item'
 
 @inject('account')
