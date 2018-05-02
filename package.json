@@ -7,12 +7,26 @@
     "build": "yarn build:icon && yarn build:webpack",
     "build:webpack": "cross-env NODE_ENV=production webpack",
     "build:icon": "mkdir -p Icon.iconset && sips -z 16 16 Icon.png --out Icon.iconset/icon_16x16.png && sips -z 32 32 Icon.png --out Icon.iconset/icon_16x16@2x.png && sips -z 32 32 Icon.png --out Icon.iconset/icon_32x32.png && sips -z 64 64 Icon.png --out Icon.iconset/icon_32x32@2x.png && sips -z 128 128 Icon.png --out Icon.iconset/icon_128x128.png && sips -z 256 256 Icon.png --out Icon.iconset/icon_128x128@2x.png && sips -z 256 256 Icon.png --out Icon.iconset/icon_256x256.png && sips -z 512 512 Icon.png --out Icon.iconset/icon_256x256@2x.png && sips -z 512 512 Icon.png --out Icon.iconset/icon_512x512.png && iconutil -c icns Icon.iconset && rm -rf Icon.iconset",
-    "package": "electron-packager . --asar --overwrite --out=release --package-manager yarn --icon=Icon.icns",
-    "package:all": "electron-packager . --platform win32 --platform darwin --asar --overwrite --out=release --package-manager yarn --icon=Icon.icns",
+    "package": "electron-builder",
     "release": "cross-env NODE_ENV=production yarn run build && yarn run package",
-    "release:all": "cross-env NODE_ENV=production yarn run build && yarn run package:all",
     "production": "cross-env NODE_ENV=production yarn run build && yarn run start",
     "development": "cross-env NODE_ENV=development yarn run start"
+  },
+  "build": {
+    "appId": "net.knoopx.PlexMusic",
+    "files": [
+      "index.js",
+      "IconTemplate*",
+      "dist/**/*"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "mac": {
+      "icon": "Icon.icns",
+      "target": "dir",
+      "category": "public.app-category.music"
+    }
   },
   "dependencies": {
     "electron-default-menu": "^1.0.1"
@@ -41,7 +55,7 @@
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
     "electron": "^2.0.0",
-    "electron-packager": "^12.0.1",
+    "electron-builder": "^20.11.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-import-resolver-webpack": "^0.9.0",
