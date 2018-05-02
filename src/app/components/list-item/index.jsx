@@ -6,7 +6,7 @@ import { ThemeProvider, theme } from 'ui/theming'
 @theme('listItem')
 @inject('theme')
 @observer
-export default class ListItem extends React.PureComponent {
+export default class ListItem extends React.Component {
   render() {
     const {
       active,
