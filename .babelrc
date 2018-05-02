@@ -14,9 +14,8 @@
   ],
   "env": {
     "development": {
-      "plugins": [
-        "react-hot-loader/babel"
-      ]
+      "sourceMaps": "inline",
+      "plugins": ["react-hot-loader/babel"]
     }
   }
 }
