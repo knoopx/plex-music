@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { theme } from 'ui/theming'
 
 export default class ProgressBar extends React.PureComponent {
   static propTypes = {

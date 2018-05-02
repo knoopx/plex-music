@@ -3,6 +3,8 @@ import _ from 'lodash'
 import { action } from 'mobx'
 import { inject, observer } from 'mobx-react'
 
+import { AppState, PlayQueue, AlbumStore } from 'stores'
+import { Album } from 'models'
 import { Text, View, TouchableOpacity, Rating, Gutter } from 'ui'
 
 import { ListItem, Artwork } from 'app/components'

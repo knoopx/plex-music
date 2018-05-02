@@ -1,7 +1,7 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 
-import { LoadingSlate, Transition } from 'ui'
+import { Input, LoadingSlate, Transition } from 'ui'
 
 import AlbumList from './album-list'
 

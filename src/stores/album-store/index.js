@@ -2,10 +2,19 @@ import _ from 'lodash'
 import async from 'async'
 import mousetrap from 'mousetrap'
 
-import { observable, computed, autorun, action } from 'mobx'
+import {
+  observable,
+  computed,
+  autorun,
+  action,
+  IObservableArray,
+  toJS,
+} from 'mobx'
 import { Album } from 'models'
 import { getItem, setItem } from 'support/storage'
 
+import AppState from 'stores/app-state'
+import Connection from 'stores/connection'
 import { OrderFn, match } from './support'
 
 export default class AlbumStore {

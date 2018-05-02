@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { Artist } from 'models'
+import { Section, Artist } from 'models'
 import Endpoint from './endpoint'
 
 export default class Artists extends Endpoint {

@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { runInAction } from 'mobx'
-import { Album } from 'models'
+import { Album, Section } from 'models'
 import Endpoint from './endpoint'
 
 export default class Albums extends Endpoint {

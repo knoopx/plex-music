@@ -1,6 +1,8 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 
+import PlayQueue from 'stores/play-queue'
+
 import { View, Text, Gutter } from 'ui'
 
 import { Artwork, ListItem } from 'app/components'

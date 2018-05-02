@@ -1,5 +1,6 @@
 import { observable } from 'mobx'
 import Model from './model'
+import Connection from 'stores/connection'
 
 export default class Artist extends Model {
   @observable name
