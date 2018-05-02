@@ -5,7 +5,7 @@ import mousetrap from 'mousetrap'
 import {
   observable,
   computed,
-  autorunAsync,
+  autorun,
   action,
   IObservableArray,
   toJS,
@@ -29,12 +29,12 @@ export default class AlbumStore {
   constructor(appState) {
     this.appState = appState
 
-    autorunAsync(() => {
+    autorun(() => {
       setItem('query', this.query)
       setItem('order', this.order)
     }, 500)
 
-    autorunAsync(() => {
+    autorun(() => {
       this.setIsFiltering(true)
       async.filter(
         this.albums,
@@ -48,7 +48,7 @@ export default class AlbumStore {
       )
     }, 500)
 
-    autorunAsync(this.serialize)
+    autorun(this.serialize)
 
     Object.keys(OrderFn).forEach((order, i) => {
       mousetrap.bind(`command+${i + 1}`, () => this.setOrder(order))

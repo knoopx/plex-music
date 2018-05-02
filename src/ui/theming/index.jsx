@@ -1,5 +1,5 @@
 import React from 'react'
-import { observable, extendObservable, action } from 'mobx'
+import { observable, set, action } from 'mobx'
 import { observer, inject, Provider } from 'mobx-react'
 import { merge } from 'lodash'
 
@@ -22,7 +22,7 @@ export class ThemeProvider extends React.Component {
 
   @action
   mergeTheme(theme) {
-    extendObservable(this.theme, theme)
+    set(this.theme, theme)
   }
 }
 

@@ -1,11 +1,4 @@
-import {
-  observable,
-  computed,
-  action,
-  autorun,
-  autorunAsync,
-  IObservableArray,
-} from 'mobx'
+import { observable, computed, action, autorun } from 'mobx'
 
 import * as themes from 'app/themes'
 import { getItem, setItem } from 'support/storage'
@@ -38,7 +31,7 @@ export default class AppState {
       }
     })
 
-    autorunAsync(this.serialize)
+    autorun(this.serialize)
   }
 
   @action
