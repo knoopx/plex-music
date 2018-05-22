@@ -32,7 +32,7 @@
     "electron-default-menu": "^1.0.1"
   },
   "devDependencies": {
-    "async": "^2.6.0",
+    "async": "^2.6.1",
     "autoprefixer": "^8.5.0",
     "axios": "^0.18.0",
     "babel-core": "^6.26.3",
