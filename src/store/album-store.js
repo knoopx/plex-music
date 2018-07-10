@@ -86,17 +86,11 @@ export default types
               ) {
                 console.time('filter')
                 self.setIsFiltering(true)
-                async.filter(
-                  activeDevice.activeSection.albums,
-                  (album, done) => {
-                    done(null, match(album, self.filterSet))
-                  },
-                  (err, results) => {
-                    self.setMatches(results.map(x => x.id))
-                    self.setIsFiltering(false)
-                    console.timeEnd('filter')
-                  },
+                self.setMatches(
+                  activeDevice.activeSection.albums.filter(album => match(album, self.filterSet)),
                 )
+                self.setIsFiltering(false)
+                console.timeEnd('filter')
               }
             },
             { delay: 500 },
