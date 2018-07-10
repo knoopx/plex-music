@@ -10,7 +10,10 @@ if (process.env.NODE_ENV === 'development') {
   const config = require(path.resolve('./webpack.config.js'))
 
   config.output.publicPath = 'http://localhost:8080/'
-  config.entry.unshift('react-hot-loader/patch', 'webpack-dev-server/client?http://localhost:8080/', 'webpack/hot/dev-server')
+  config.entry.unshift(
+    'webpack-dev-server/client?http://localhost:8080/',
+    'webpack/hot/dev-server',
+  )
   config.plugins.unshift(new webpack.HotModuleReplacementPlugin())
 
   const compiler = webpack(config)
@@ -21,7 +24,13 @@ if (process.env.NODE_ENV === 'development') {
 app.on('ready', () => {
   Menu.setApplicationMenu(Menu.buildFromTemplate(defaultMenu(app, shell)))
 
-  mainWindow = new BrowserWindow({ width: 1200, height: 800, minWidth: 930, minHeight: 400, titleBarStyle: 'hidden-inset' })
+  mainWindow = new BrowserWindow({
+    width: 1200,
+    height: 800,
+    minWidth: 930,
+    minHeight: 400,
+    titleBarStyle: 'hidden-inset',
+  })
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.loadURL('http://localhost:8080/?react_perf')

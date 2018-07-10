@@ -5,23 +5,34 @@ import async from 'async'
 import firstBy from 'thenby' // TODO: replace with lodash/fp
 import { types, getParent } from 'mobx-state-tree'
 
-import { autorunAsync } from 'mobx'
+import { autorun } from 'mobx'
 
 import Album from 'store/album'
 
-export const OrderType = types.enumeration(['alphabetically', 'userRating', 'recentlyAdded'])
+export const OrderType = types.enumeration([
+  'alphabetically',
+  'userRating',
+  'recentlyAdded',
+])
 export const Predicate = types.enumeration(['artist', 'year', 'genre'])
 
 export const OrderFn = {
-  alphabetically: firstBy('artistName', { ignoreCase: true }).thenBy('year', { direction: -1 }).thenBy('title', { ignoreCase: true }),
-  userRating: firstBy('userRating', { direction: -1 }).thenBy('artistName', { ignoreCase: true }).thenBy('year', { direction: -1 }).thenBy('title', { ignoreCase: true }),
+  alphabetically: firstBy('artistName', { ignoreCase: true })
+    .thenBy('year', { direction: -1 })
+    .thenBy('title', { ignoreCase: true }),
+  userRating: firstBy('userRating', { direction: -1 })
+    .thenBy('artistName', { ignoreCase: true })
+    .thenBy('year', { direction: -1 })
+    .thenBy('title', { ignoreCase: true }),
   recentlyAdded: firstBy('addedAt', { direction: -1 }),
 }
 
 export function match(album, filter) {
   return _.every(filter, (value, key) => {
-    if (_.isEmpty(value)) { return true }
-    return _.some(album.matchData[key], targetValue => (new RegExp(value, 'i').test(targetValue)))
+    if (_.isEmpty(value)) {
+      return true
+    }
+    return _.some(album.matchData[key], targetValue => new RegExp(value, 'i').test(targetValue))
   })
 }
 
@@ -48,37 +59,54 @@ export default types
   .views(self => ({
     get filterSet() {
       const predicates = {}
-      const query = _.reduce([/(\w+):(\w+)/g, /(\w+):"([^"]+)"/g, /(\w+):'([^']+)'/g], (_query, regex) => (
-        _query.replace(regex, (__, key, value) => {
+      const query = _.reduce(
+        [/(\w+):(\w+)/g, /(\w+):"([^"]+)"/g, /(\w+):'([^']+)'/g],
+        (_query, regex) => _query.replace(regex, (__, key, value) => {
           predicates[key] = value
           return ''
-        })
-      ), self.query)
+        }),
+        self.query,
+      )
 
       return { query: query.trim(), ...predicates }
     },
   }))
   .actions((self) => {
     const disposables = []
-    return ({
+    return {
       afterCreate() {
-        disposables.push(autorunAsync(() => {
-          const { activeDevice } = getParent(self)
-          if (activeDevice && activeDevice.activeSection && activeDevice.activeSection.albums.length > 0) {
-            console.time('filter')
-            self.setIsFiltering(true)
-            async.filter(activeDevice.activeSection.albums, (album, done) => {
-              done(null, match(album, self.filterSet))
-            }, (err, results) => {
-              self.setMatches(results.map(x => x.id))
-              self.setIsFiltering(false)
-              console.timeEnd('filter')
-            })
-          }
-        }, 500))
+        disposables.push(
+          autorun(
+            () => {
+              const { activeDevice } = getParent(self)
+              if (
+                activeDevice
+                && activeDevice.activeSection
+                && activeDevice.activeSection.albums.length > 0
+              ) {
+                console.time('filter')
+                self.setIsFiltering(true)
+                async.filter(
+                  activeDevice.activeSection.albums,
+                  (album, done) => {
+                    done(null, match(album, self.filterSet))
+                  },
+                  (err, results) => {
+                    self.setMatches(results.map(x => x.id))
+                    self.setIsFiltering(false)
+                    console.timeEnd('filter')
+                  },
+                )
+              }
+            },
+            { delay: 500 },
+          ),
+        )
       },
       beforeDestroy() {
-        disposables.forEach((dispose) => { dispose() })
+        disposables.forEach((dispose) => {
+          dispose()
+        })
       },
       setMatches(matches) {
         console.time('setMatches')
@@ -101,5 +129,5 @@ export default types
       setOrder(value) {
         self.order = value
       },
-    })
+    }
   })

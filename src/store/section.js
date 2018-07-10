@@ -2,6 +2,7 @@
 
 import _ from 'lodash'
 
+import { values } from 'mobx'
 import { types, getParent, flow } from 'mobx-state-tree'
 import { parse as parseAlbum } from 'store/album'
 import { parse as parseArtist } from 'store/artist'
@@ -28,7 +29,7 @@ export default types
       return getParent(self, 2)
     },
     get albums() {
-      return self.albumMap.values()
+      return values(self.albumMap)
     },
   }))
   .actions(self => ({
@@ -37,13 +38,22 @@ export default types
       albums.forEach(album => self.albumMap.put(album))
       console.timeEnd('setAlbums')
     },
-    fetchAlbums: flow(function* (query = {
-      excludeFields: ['summary', 'parentThumb', 'originallyAvailableAt'],
-    }) {
+    fetchAlbums: flow(function* (
+      query = {
+        excludeFields: ['summary', 'parentThumb', 'originallyAvailableAt'],
+      },
+    ) {
       console.time('fetchAlbums')
-      const doc = yield self.device.request(`/library/sections/${self.id}/all`, { type: 9, ...query })
-      if (!doc.MediaContainer || !_.isArray(doc.MediaContainer.Metadata)) { throw new Error('Unexpected response') }
-      self.setAlbums(_.map(doc.MediaContainer.Metadata, item => parseAlbum(item)))
+      const doc = yield self.device.request(
+        `/library/sections/${self.id}/all`,
+        { type: 9, ...query },
+      )
+      if (!doc.MediaContainer || !_.isArray(doc.MediaContainer.Metadata)) {
+        throw new Error('Unexpected response')
+      }
+      self.setAlbums(
+        _.map(doc.MediaContainer.Metadata, item => parseAlbum(item)),
+      )
       console.timeEnd('fetchAlbums')
     }),
     findAllArtists: flow(function* (query = {}) {
