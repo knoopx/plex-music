@@ -45,7 +45,7 @@ class App extends React.Component {
   render() {
     const route = this.getCurrentRoute()
     return (
-      <div className="flex flex-row h-screen">
+      <div className="flex flex-row h-screen bg-white">
         <Transition name={route}>
           {this.getView(route)}
         </Transition>

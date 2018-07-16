@@ -20,7 +20,7 @@ function Container({ size, borderColor, ...otherProps }) {
   return (
     <div
       {...otherProps}
-      className="flex flex-none items-center justify-center overflow-hidden border text-grey-light"
+      className="flex flex-none items-center justify-center overflow-hidden border text-grey-light rounded"
       style={{ width: size, height: size }}
     />
   )

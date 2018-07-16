@@ -15,7 +15,7 @@ export default class NowPlaying extends React.Component {
     return (
       <div className="flex flex-none p-4 bg-grey-lighter" {...props}>
         <Artwork key={activeItem.album.id} size={48} src={activeItem.album.artwork} />
-        <div className="flex flex-col">
+        <div className="ml-4 flex flex-col">
           <Text bold>
             {activeItem.track.title}
           </Text>
