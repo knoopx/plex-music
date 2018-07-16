@@ -1,10 +1,10 @@
-// @flow
+//
 
 import React from 'react'
 import _ from 'lodash'
 import { inject, observer } from 'mobx-react'
 
-import { Text, View, TouchableOpacity, Rating, Gutter } from 'ui'
+import { Text, TouchableOpacity, Rating } from 'ui'
 
 import { ListItem, Artwork } from 'app/components'
 
@@ -42,39 +42,47 @@ export default class AlbumListItem extends React.Component {
     return (
       <ListItem active={isActive} onClick={this.onClick}>
         <Artwork key={album.id} size={48} src={album.artwork} />
-        <Gutter />
-        <View flow="column" style={{ flex: 1 }}>
-          <Text bold style={{ cursor: 'default' }}>{album.title}</Text>
-          <View flow="row">
-            <TouchableOpacity style={{ cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressArtistName(album.artistName) }}>
-              <Text muted size={12}>{album.artistName}</Text>
+        <div className="ml-4 flex flex-col flex-auto">
+          <Text bold>
+            {album.title}
+          </Text>
+          <div className="flex flex-row">
+            <TouchableOpacity className="cursor-pointer" onClick={(e) => { e.stopPropagation(); this.onPressArtistName(album.artistName) }}>
+              <Text muted className="text-sm">
+                {album.artistName}
+              </Text>
             </TouchableOpacity>
-          </View>
-        </View>
-        <Gutter />
-        <View flow="column" style={{ alignItems: 'flex-end' }}>
-          <View flow="row">
-            <TouchableOpacity style={{ cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressYear(album.year) }}>
-              <Text muted size={12}>{album.year}</Text>
+          </div>
+        </div>
+        <div className="flex flex-col flex-auto items-end">
+          <div className="flex flex-auto">
+            <TouchableOpacity className="cursor-pointer" onClick={(e) => { e.stopPropagation(); this.onPressYear(album.year) }}>
+              <Text muted className="text-sm">
+                {album.year}
+              </Text>
             </TouchableOpacity>
             {album.studio && (
-              <TouchableOpacity style={{ marginLeft: 4, cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressStudio(album.studio) }}>
-                <Text muted size={12}>{album.studio}</Text>
+              <TouchableOpacity className="cursor-pointer ml-2" onClick={(e) => { e.stopPropagation(); this.onPressStudio(album.studio) }}>
+                <Text muted className="text-sm">
+                  {album.studio}
+                </Text>
               </TouchableOpacity>
             )}
-          </View>
+          </div>
           {album.genres.length > 0 && (
-            <View flow="row">
+            <div className="flex flex-auto">
               {_.map(album.genres, (genre, index) => (
-                <TouchableOpacity key={genre} style={{ cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); this.onPressGenre(genre) }}>
-                  <Text muted size={12} >{genre}{index !== album.genres.length - 1 && '/'}</Text>
+                <TouchableOpacity key={genre} className="cursor-pointer" onClick={(e) => { e.stopPropagation(); this.onPressGenre(genre) }}>
+                  <Text muted className="text-sm">
+                    {genre}
+                    {index !== album.genres.length - 1 && '/'}
+                  </Text>
                 </TouchableOpacity>
               ))}
-            </View>
+            </div>
           )}
-        </View>
-        <Gutter />
-        <Rating value={album.userRating} onChange={this.onStar} />
+        </div>
+        <Rating className="ml-4" value={album.userRating} onChange={this.onStar} />
       </ListItem>
     )
   }

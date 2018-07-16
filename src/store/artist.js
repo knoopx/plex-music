@@ -1,10 +1,8 @@
-// @flow
-
 import { types } from 'mobx-state-tree'
 
 export default types
   .model('Artist', {
-    id: types.identifier(types.string),
+    id: types.identifier,
     name: types.string,
     addedAt: types.number,
     thumb: types.string,

@@ -6,14 +6,12 @@ import MediaQuery from 'react-responsive'
 
 import { action, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
-import { theme } from 'ui/theming'
 
 import SearchIcon from 'react-icons/lib/fa/search'
 import ClearIcon from 'react-icons/lib/fa/times-circle'
 
-import { Text, Frame, Spinner, Gutter, FauxInput } from 'ui'
+import { Text, Frame, Spinner, FauxInput } from 'ui'
 
-@theme('filterGroup')
 @inject('store')
 @observer
 export default class FilterGroup extends React.Component {
@@ -47,42 +45,34 @@ export default class FilterGroup extends React.Component {
   }
 
   render() {
-    const { style, focusStyle, store } = this.props
+    const { className, store } = this.props
     const shouldDisplayClearIcon = !_.isEmpty(store.albumStore.query)
 
     return (
       <Frame
+        className={['bg-white flex items-center px-4', className]}
         style={{
-          flex: 3,
-          outline: 'none',
-          borderRadius: '2px',
-          alignItems: 'center',
-          padding: '0 8px',
-          ...style,
           ...(this.isFocused && focusStyle),
         }}
 
         onClick={this.focusInput}
       >
         {store.albumStore.isFiltering ? <Spinner size={14} /> : <SearchIcon size={14} />}
-        <Gutter size={8} />
         <FauxInput
           ref={this.setInput}
+          className="ml-2"
           placeholder="Search..."
-          style={{ flex: 1 }}
           value={store.albumStore.query}
           onKeyDown={this.onKeyDown}
           onChange={(e) => { store.albumStore.setQuery(e.target.value) }}
           onFocus={() => { this.setIsFocused(true) }}
           onBlur={() => { this.setIsFocused(false) }}
         />
-        <MediaQuery minWidth={1200}>
-          <div>
-            <Gutter />
-            <Text muted italic size={12} style={{ whiteSpace: 'nowrap' }}>{store.albumStore.matches.length} albums(s)</Text>
-          </div>
-        </MediaQuery>
-        {shouldDisplayClearIcon && <Gutter />}
+        <Text muted italic size={12} style={{ whiteSpace: 'nowrap' }}>
+          {store.albumStore.matches.length}
+          {' '}
+          albums(s)
+        </Text>
         {shouldDisplayClearIcon && <ClearIcon size={16} color="#888" onClick={store.albumStore.clearFilter} />}
       </Frame>
     )

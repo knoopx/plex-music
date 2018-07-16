@@ -1,55 +1,77 @@
 const path = require('path')
+
 const webpack = require('webpack')
-const { productName, dependencies } = require('./package.json')
+const glob = require('glob')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
+
+const { name } = require('./package.json')
+
+const isDevelopment = process.env.NODE_ENV === 'development'
+
+const plugins = [
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify(isDevelopment ? 'development' : 'production'),
+  }),
+  new HtmlWebpackPlugin({
+    title: name,
+    filename: 'index.html',
+    template: 'src/index.ejs',
+    hash: true,
+  }),
+  new ExtractCssChunks({
+    filename: '[name].[hash].css',
+    chunkFilename: '[name].[id].[hash].css',
+    hot: isDevelopment,
+  }),
+]
 
 module.exports = {
-  target: 'electron-renderer',
-  mode: process.env.NODE_ENV,
-  entry: ['source-map-support/register', './src/index.css', './src'],
-  plugins: [
-    new webpack.ExternalsPlugin('commonjs', Object.keys(dependencies)),
-    new ExtractTextPlugin('renderer.css'),
-    new HtmlWebpackPlugin({
-      title: productName,
-      filename: 'index.html',
-      template: 'src/index.ejs',
-    }),
-  ],
+  mode: isDevelopment ? 'development' : 'production',
+  devtool: isDevelopment ? 'eval-source-map' : false,
+  entry: ['@babel/polyfill', './src/index.css', './src/index.jsx'],
+  plugins,
   output: {
+    publicPath: '/',
+    filename: isDevelopment ? '[name].js' : '[name].[chunkhash].js',
     path: path.resolve(__dirname, 'dist'),
-    filename: 'renderer.js',
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true,
+        },
+      },
+    },
   },
   resolve: {
-    modules: [path.resolve(__dirname, './src'), 'node_modules'],
+    modules: [path.resolve(__dirname, 'src'), path.resolve(__dirname, 'node_modules')],
     extensions: ['.js', '.jsx', '.json', '.css'],
   },
   module: {
     rules: [
       {
+        include: [path.resolve(__dirname, 'src'), path.resolve(__dirname, 'node_modules')],
+        sideEffects: false,
+      },
+      {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            'css-loader?modules&sourceMaps',
-            {
-              loader: 'postcss-loader',
-              options: {
-                plugins: [
-                  require('postcss-smart-import'),
-                  require('precss'),
-                  require('autoprefixer'),
-                ],
-              },
-            },
-          ],
-        }),
+        use: [
+          ExtractCssChunks.loader,
+          { loader: 'css-loader', options: { importLoaders: 1 } },
+          'postcss-loader',
+        ],
+        include: [path.resolve(__dirname, 'src')],
       },
       {
         test: /\.jsx?$/,
-        use: 'babel-loader',
-        include: [path.resolve('./src')],
+        use: 'babel-loader?cacheDirectory=true',
+        include: [path.resolve(__dirname, 'src')],
       },
     ],
   },

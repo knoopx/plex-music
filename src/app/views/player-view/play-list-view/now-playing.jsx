@@ -1,29 +1,32 @@
-// @flow
+//
 
 import React from 'react'
 import { observer } from 'mobx-react'
 
-import { View, Text, Gutter } from 'ui'
-import { theme } from 'ui/theming'
+import { Text } from 'ui'
 
 import { Artwork } from 'app/components'
 
-@theme('nowPlaying')
 @observer
 export default class NowPlaying extends React.Component {
   render() {
-    const { style, activeItem } = this.props
+    const { activeItem, ...props } = this.props
 
     return (
-      <View flow="row" style={{ padding: 10, ...style }}>
+      <div className="flex flex-none p-4 bg-grey-lighter" {...props}>
         <Artwork key={activeItem.album.id} size={48} src={activeItem.album.artwork} />
-        <Gutter />
-        <View flow="column">
-          <Text bold>{activeItem.track.title}</Text>
-          <Text>{activeItem.album.title}</Text>
-          <Text muted>{activeItem.track.artistName}</Text>
-        </View>
-      </View>
+        <div className="flex flex-col">
+          <Text bold>
+            {activeItem.track.title}
+          </Text>
+          <Text>
+            {activeItem.album.title}
+          </Text>
+          <Text muted>
+            {activeItem.track.artistName}
+          </Text>
+        </div>
+      </div>
     )
   }
 }

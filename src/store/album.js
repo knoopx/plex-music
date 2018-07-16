@@ -1,22 +1,20 @@
-// @flow
-
 import _ from 'lodash'
 import { types, getParent } from 'mobx-state-tree'
 
 import Track, { parse as parseTrack } from 'store/track'
 
 export default types.model('Album', {
-  id: types.identifier(types.string),
+  id: types.identifier,
   title: types.string,
   artistName: types.string,
-  year: types.maybe(types.number),
+  year: types.maybeNull(types.number),
   userRating: types.optional(types.number, 0),
   addedAt: types.number,
   playCount: types.optional(types.number, 0),
-  thumb: types.maybe(types.string),
+  thumb: types.maybeNull(types.string),
   tag: types.array(types.string),
   genres: types.array(types.string),
-  studio: types.maybe(types.string),
+  studio: types.maybeNull(types.string),
 
   tracks: types.optional(types.array(Track), []),
 })

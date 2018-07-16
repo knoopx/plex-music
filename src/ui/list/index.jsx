@@ -16,7 +16,11 @@ export default class List extends React.Component {
 
   renderItem(item, index) {
     const isActive = this.props.items.includes(item) && this.props.selected === item
-    return <div key={index} onClick={() => this.props.onSelect(item)}>{this.props.renderItem(item, index, isActive)}</div>
+    return (
+      <div key={index} onClick={() => this.props.onSelect(item)}>
+        {this.props.renderItem(item, index, isActive)}
+      </div>
+    )
   }
 
   render() {

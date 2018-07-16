@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { theme } from 'ui/theming'
 
-@theme('text')
 export default class Text extends React.PureComponent {
   static propTypes = {
     bold: PropTypes.bool.isRequired,
@@ -18,18 +16,16 @@ export default class Text extends React.PureComponent {
   }
 
   render() {
-    const { muted, bold, italic, size, style, mutedStyle, ...props } = this.props
+    const { muted, bold, italic, size, className, ...props } = this.props
 
     return (
       <span
+        className={[{
+          italic,
+          'font-bold': bold,
+          'text-grey-dark': muted,
+        }, className]}
         {...props}
-        style={{
-          fontSize: size,
-          fontStyle: italic && 'italic',
-          fontWeight: bold && 'bold',
-          ...style,
-          ...(muted && mutedStyle),
-        }}
       />
     )
   }

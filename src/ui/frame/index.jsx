@@ -1,12 +1,10 @@
 import React from 'react'
-import { theme } from 'ui/theming'
-import View from '../layout/view'
 
-@theme('frame')
 export default class Frame extends React.PureComponent {
   render() {
+    const { className, ...props } = this.props
     return (
-      <View {...this.props} />
+      <div className={['flex-auto frame', className]} {...props} />
     )
   }
 }

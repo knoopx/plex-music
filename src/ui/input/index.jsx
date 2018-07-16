@@ -1,7 +1,5 @@
 import React from 'react'
-import { theme } from 'ui/theming'
 
-@theme('input')
 export default class Input extends React.PureComponent {
   render() {
     const { style, ...props } = this.props
@@ -9,7 +7,7 @@ export default class Input extends React.PureComponent {
       <input
         {...props}
         style={{
- ...style,
+          ...style,
           color: 'inherit',
           WebkitAppearance: 'none',
           border: 'none',

@@ -1,5 +1,3 @@
-// @flow
-
 import _ from 'lodash'
 
 import { values } from 'mobx'
@@ -19,7 +17,7 @@ export function parse(item) {
 
 export default types
   .model('Section', {
-    id: types.identifier(types.string),
+    id: types.identifier,
     type: types.string,
     name: types.string,
     albumMap: types.optional(types.map(Album), {}),

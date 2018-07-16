@@ -29,7 +29,7 @@ app.on('ready', () => {
     height: 800,
     minWidth: 930,
     minHeight: 400,
-    titleBarStyle: 'hidden-inset',
+    titleBarStyle: 'hiddenInset',
   })
 
   if (process.env.NODE_ENV === 'development') {

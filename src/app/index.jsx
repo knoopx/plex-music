@@ -1,18 +1,17 @@
-// @flow
+//
 
-import React from 'react'
 import { hot } from 'react-hot-loader'
+import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { ThemeProvider, theme } from 'ui/theming'
-import { LoadingSlate, Transition, View } from 'ui'
+import { LoadingSlate, Transition } from 'ui'
 import { LoginView, DeviceListView, PlayerView } from './views'
+import Spinner from '../ui/spinner'
 
 @hot(module)
-@theme('app')
 @inject('store')
 @observer
 class App extends React.Component {
-  getView(route: string) {
+  getView(route) {
     switch (route) {
       case 'loading':
         return <LoadingSlate />
@@ -45,13 +44,12 @@ class App extends React.Component {
 
   render() {
     const route = this.getCurrentRoute()
-    const { style } = this.props
     return (
-      <View flow="row" style={{ flex: 1, ...style }}>
+      <div className="flex flex-row h-screen">
         <Transition name={route}>
           {this.getView(route)}
         </Transition>
-      </View>
+      </div>
     )
   }
 }
@@ -62,9 +60,7 @@ export default class Container extends React.Component {
   render() {
     const { store } = this.props
     return (
-      <ThemeProvider theme={store.theme}>
-        <App />
-      </ThemeProvider>
+      <App />
     )
   }
 }

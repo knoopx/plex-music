@@ -1,11 +1,9 @@
 import React from 'react'
 
 import { inject, observer } from 'mobx-react'
-import { theme } from 'ui/theming'
 import { Frame } from 'ui'
 import styles from './seek-bar.css'
 
-@theme('seekBar')
 @inject('store')
 @observer
 export default class SeekBar extends React.Component {
@@ -37,8 +35,9 @@ export default class SeekBar extends React.Component {
   }
 
   render() {
+    const { ...props } = this.props
     return (
-      <Frame style={{ flex: 1 }}>
+      <Frame {...props}>
         {this.props.store.playbackStore.isLoading ? this.renderLoader() : this.renderProgress()}
       </Frame>
     )

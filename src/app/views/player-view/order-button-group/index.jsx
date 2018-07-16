@@ -21,7 +21,9 @@ const iconMap = {
 export default class OrderButtonGroup extends React.Component {
   render() {
     return (
-      <ButtonGroup>{Object.keys(OrderFn).map(this.renderButton)}</ButtonGroup>
+      <ButtonGroup>
+        {Object.keys(OrderFn).map(this.renderButton)}
+      </ButtonGroup>
     )
   }
 

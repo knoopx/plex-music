@@ -1,34 +1,53 @@
-@import "normalize.css";
-
 :global {
-  *,
-  :before,
-  :after {
-    user-select: none;
-    box-sizing: border-box;
-  }
+  @tailwind preflight;
+  @tailwind utilities;
+  @tailwind screens;
+}
 
-  html, body {
-    height: 100vh;
-  }
+.bg-gradient {
+  background: linear-gradient(to bottom, #e8e6e8 0, #d1cfd1 100%);
+}
 
-  body, #root {
-    display: flex;
+.bg-active {
+  color: white;
+  .text-grey-dark {
+    color: rgba(255,255,255,0.6);
   }
+}
 
-  body {
-    font-family: "Helvetica Neue", sans-serif;
-    font-size: 14px;
-    overflow: hidden;
-    -webkit-app-region: drag;
+.frame {
+  box-shadow: rgb(179, 179, 179) 0px 1px 0px, rgb(179, 179, 179) 0px -1px 0px, rgb(179, 179, 179) 1px 0px 0px, rgb(179, 179, 179) -1px 0px 0px, rgb(179, 179, 179) 0px 1px 1px;
+}
+
+@keyframes spinner-wave {
+  0%, 40%, 100% {
+    transform: scaleY(0.4);
   }
-
-  button, input, textarea {
-    -webkit-app-region: no-drag;
+  20% {
+    transform: scaleY(1);
   }
+}
 
-  #root {
+.spinner {
+  display: flex;
+  flex-direction: row;
+
+  &-bar {
     flex: 1;
-    flex-direction: column;
-    height: 100vh;
-  }}
+    margin: 5%;
+    animation: spinner-wave 1.2s infinite ease-in-out;
+    background-color: config("colors.grey");
+
+    &:nth-child(1) {
+      animation-delay: -1.2s;
+    }
+
+    &:nth-child(2) {
+      animation-delay: -1.1s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: -1s;
+    }
+  }
+}

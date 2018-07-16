@@ -1,9 +1,5 @@
-// @flow
-
 import { autorun, when } from 'mobx'
 import { types } from 'mobx-state-tree'
-
-import * as themes from 'app/themes'
 
 import Account from './account'
 import AlbumStore from './album-store'
@@ -12,16 +8,12 @@ import PlaybackStore from './playback-store'
 
 export default types
   .model('RootStore', {
-    themeName: types.optional(types.string, Object.keys(themes)[0]),
     account: types.optional(Account, {}),
-    activeDevice: types.maybe(types.reference(Device)),
+    activeDevice: types.maybeNull(types.reference(Device)),
     albumStore: types.optional(AlbumStore, {}),
     playbackStore: types.optional(PlaybackStore, {}),
   })
   .views(self => ({
-    get theme() {
-      return themes[self.themeName]
-    },
   }))
   .actions((self) => {
     const disposables = []
@@ -63,11 +55,6 @@ export default types
           await section.fetchAlbums()
         } finally {
           self.albumStore.setIsLoading(false)
-        }
-      },
-      setThemeName(value) {
-        if (themes[self.themeName]) {
-          self.themeName = value
         }
       },
       setActiveDevice(device) {

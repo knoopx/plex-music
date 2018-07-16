@@ -1,5 +1,3 @@
-// @flow
-
 import { types } from 'mobx-state-tree'
 
 import Axios from 'axios'

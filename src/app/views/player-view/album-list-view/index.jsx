@@ -1,4 +1,4 @@
-// @flow
+//      
 
 import React from 'react'
 import { inject, observer } from 'mobx-react'
@@ -12,7 +12,11 @@ import AlbumList from './album-list'
 export default class AlbumListView extends React.Component {
   render() {
     const { store } = this.props
-    return <Transition name={store.albumStore.isLoading ? 'loading' : 'ready'}>{this.renderContent()}</Transition>
+    return (
+      <Transition name={store.albumStore.isLoading ? 'loading' : 'ready'}>
+        {this.renderContent()}
+      </Transition>
+    )
   }
 
   renderContent() {

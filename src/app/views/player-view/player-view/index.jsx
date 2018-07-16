@@ -1,8 +1,8 @@
-// @flow
+//
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 
-import { Text, View, Gutter } from 'ui'
+import { Text } from 'ui'
 
 import SeekBar from './seek-bar'
 import PlaybackButtons from './playback-buttons'
@@ -18,17 +18,18 @@ export default class PlayerView extends React.Component {
   render() {
     const { store } = this.props
     return (
-      <View flow="row" style={{ flex: 1, alignItems: 'center' }}>
-        <View flow="row" style={{ flex: 1, alignItems: 'center' }}>
-          <Text>{formatDuration(store.playbackStore.currentTime)}</Text>
-          <Gutter />
+      <div className="flex flex-auto items-center">
+        <div className="flex flex-auto items-center">
+          <Text className="mx-4">
+            {formatDuration(store.playbackStore.currentTime)}
+          </Text>
           <SeekBar key={store.playbackStore.activeItem && store.playbackStore.activeItem.id} />
-          <Gutter />
-          <Text>{formatDuration(store.playbackStore.duration)}</Text>
-        </View>
-        <Gutter />
+          <Text className="mx-4">
+            {formatDuration(store.playbackStore.duration)}
+          </Text>
+        </div>
         <PlaybackButtons />
-      </View>
+      </div>
     )
   }
 }

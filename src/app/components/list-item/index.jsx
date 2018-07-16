@@ -1,34 +1,16 @@
 import React from 'react'
-import { inject } from 'mobx-react'
-import { TouchableOpacity, View } from 'ui'
-import { ThemeProvider, theme } from 'ui/theming'
+import { TouchableOpacity } from 'ui'
 
-@theme('listItem')
-@inject('theme')
 export default class ListItem extends React.PureComponent {
   render() {
-    const { active, style, activeStyle, containerStyle, activeTextMutedStyle, theme, ...props } = this.props
+    const { active, className, ...props } = this.props
 
     return (
-      <TouchableOpacity style={containerStyle} >
-        <ThemeProvider
-          theme={{
-            ...theme,
-            ...(active && { text: { mutedStyle: activeTextMutedStyle } }),
-          }}
-        >
-          <View
-            flow="row"
-            {...props}
-            style={{
-              flex: 1,
-              padding: '8px 16px',
-              alignItems: 'center',
-              ...style,
-              ...(active && activeStyle),
-            }}
-          />
-        </ThemeProvider>
+      <TouchableOpacity className={className}>
+        <div
+          className={['flex items-center px-4 py-2 border-b', { 'bg-active': active }, className]}
+          {...props}
+        />
       </TouchableOpacity>
     )
   }

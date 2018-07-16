@@ -1,9 +1,9 @@
-// @flow
+//
 
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 
-import { View, Text, Gutter } from 'ui'
+import { Text } from 'ui'
 
 import { Artwork, ListItem } from 'app/components'
 
@@ -24,11 +24,14 @@ export default class PlayListItem extends React.Component {
     return (
       <ListItem active={isActive} onClick={() => { this.onClick(item) }}>
         <Artwork key={album.id} size={32} src={album.artwork} />
-        <Gutter />
-        <View flow="column">
-          <Text bold>{track.title}</Text>
-          <Text muted size={12}>{track.artistName}</Text>
-        </View>
+        <div className="ml-2 flex flex-col">
+          <Text bold>
+            {track.title}
+          </Text>
+          <Text muted size={12}>
+            {track.artistName}
+          </Text>
+        </div>
       </ListItem>
     )
   }

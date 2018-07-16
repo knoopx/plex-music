@@ -1,9 +1,7 @@
-// @flow
-
 import { types, getParent } from 'mobx-state-tree'
 
 const Part = types.model('Part', {
-  id: types.identifier(types.number),
+  id: types.identifierNumber,
   key: types.string,
   duration: types.number,
   file: types.string,
@@ -12,7 +10,7 @@ const Part = types.model('Part', {
 })
 
 const Media = types.model('Media', {
-  id: types.identifier(types.number),
+  id: types.identifierNumber,
   part: Part,
   audioChannels: types.number,
   audioCodec: types.string,
@@ -23,7 +21,7 @@ const Media = types.model('Media', {
 
 export default types
   .model('Track', {
-    id: types.identifier(types.string),
+    id: types.identifier,
     number: types.number,
     title: types.string,
     artistName: types.string,

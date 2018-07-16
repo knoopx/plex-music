@@ -1,5 +1,3 @@
-// @flow
-
 import _ from 'lodash'
 import Axios from 'axios'
 import { types } from 'mobx-state-tree'
@@ -13,7 +11,7 @@ export default types
     productVersion: types.string,
     platform: types.string,
     platformVersion: types.string,
-    clientIdentifier: types.identifier(types.string),
+    clientIdentifier: types.identifier,
     connections: types.array(Connection),
     accessToken: types.string,
     lastSeenAt: types.number,
@@ -22,7 +20,7 @@ export default types
 
     isConnecting: types.optional(types.boolean, false),
     sections: types.optional(types.array(Section), []),
-    activeSection: types.maybe(types.reference(Section)),
+    activeSection: types.maybeNull(types.reference(Section)),
   })
   .views(self => ({
     get uri() {

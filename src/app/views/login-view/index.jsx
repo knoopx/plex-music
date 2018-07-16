@@ -1,20 +1,20 @@
-// @flow
+//
 
 import React from 'react'
 import { observable, action } from 'mobx'
 import { inject, observer } from 'mobx-react'
 
-import { Text, View, Button, Input, Gutter } from 'ui'
+import { Text, Button, Input } from 'ui'
 
 @inject('store')
 @observer
 export default class LoginView extends React.Component {
-  @observable loginParams: LoginParams = {
+  @observable loginParams = {
     login: '',
     password: '',
   }
 
-  @action setLoginParam(key, value: mixed) {
+  @action setLoginParam(key, value) {
     this.loginParams[key] = value
   }
 
@@ -27,28 +27,30 @@ export default class LoginView extends React.Component {
     return (
       <form
         onSubmit={this.performLogin}
-        style={{ display: 'flex', flex: 1, paddingTop: 37, flowDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+        className="flex flex-auto flex-col, items-center justify-center"
+        style={{ paddingTop: 37 }}
       >
-        <View flow="column" style={{ width: 300 }} >
-          <Text bold size={24}>Login to plex.tv</Text>
-          <Gutter />
+        <div className="flex flex-col" style={{ width: 300 }}>
+          <Text bold size={24}>
+Login to plex.tv
+          </Text>
           <Input
-            style={{ flex: 1, fontSize: 18, height: 32 }}
+            className="flex-auto"
             value={this.loginParams.login}
             placeholder="Username"
             onChange={(e) => { this.setLoginParam('login', e.target.value) }}
           />
-          <Gutter size={8} />
           <Input
-            style={{ flex: 1, fontSize: 18, height: 32 }}
+            className="flex-auto"
             value={this.loginParams.password}
             type="password"
             placeholder="Password"
             onChange={(e) => { this.setLoginParam('password', e.target.value) }}
           />
-          <Gutter />
-          <Button style={{ flex: 1, height: 40 }} onClick={this.performLogin}>Connect</Button>
-        </View>
+          <Button className="flex-auto" onClick={this.performLogin}>
+Connect
+          </Button>
+        </div>
       </form>
     )
   }

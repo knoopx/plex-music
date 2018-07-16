@@ -14,11 +14,9 @@ configure({
   enforceActions: true,
 })
 
-console.time('store')
 const store = Store.create(
   localStorage.store ? JSON.parse(localStorage.store) : {},
 )
-console.timeEnd('store')
 
 function render() {
   ReactDOM.render(

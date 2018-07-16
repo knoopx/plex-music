@@ -15,6 +15,7 @@ export default class VirtualList extends React.Component {
   static defaultProps = { bufferSize: 0 }
 
   @observable scrollTop = 0
+
   @observable clientHeight = 0
 
   componentDidMount() {

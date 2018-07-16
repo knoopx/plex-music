@@ -1,4 +1,4 @@
-// @flow
+//      
 
 import React from 'react'
 import { inject, observer } from 'mobx-react'
@@ -19,11 +19,17 @@ export default class PlaybackButtons extends React.Component {
 
     return (
       <ButtonGroup>
-        <Button style={{ width: 48, height: 34 }} onClick={() => store.playbackStore.playPrev()}><FastBackwardIcon /></Button>
-        <Button style={{ width: 48, height: 34 }} onClick={() => store.playbackStore.toggle()} >
+        <Button style={{ width: 48, height: 34 }} onClick={() => store.playbackStore.playPrev()}>
+          <FastBackwardIcon />
+        </Button>
+        <Button style={{ width: 48, height: 34 }} onClick={() => store.playbackStore.toggle()}>
           {store.playbackStore.isPlaying ? <PauseIcon /> : <PlayIcon />}
         </Button>
-        <Button style={{ width: 48, height: 34 }} onClick={() => store.playbackStore.playNext()} > <FastForwardIcon /> </Button>
+        <Button style={{ width: 48, height: 34 }} onClick={() => store.playbackStore.playNext()}>
+          {' '}
+          <FastForwardIcon />
+          {' '}
+        </Button>
       </ButtonGroup>
     )
   }

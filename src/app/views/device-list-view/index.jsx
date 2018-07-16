@@ -1,10 +1,10 @@
-// @flow
+//
 
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 
 
-import { Text, View, Gutter, List, Button, Frame } from 'ui'
+import { Text, List, Button, Frame } from 'ui'
 
 import DeviceListItem from './device-list-item'
 
@@ -15,27 +15,32 @@ export default class DeviceList extends React.Component {
     const { store } = this.props
 
     return (
-      <View
-        flow="column"
-        style={{ flex: 1, paddingTop: 37, alignItems: 'center', justifyContent: 'center' }}
+      <div
+        className="flex flex-col flex-auto items-center justify-center"
+        style={{ paddingTop: 37 }}
       >
-        <View flow="column" style={{ flex: 1 }}>
-          <Text bold size={24}>Choose server</Text>
-          <Gutter />
+        <div className="flex flex-auto flex-col">
+          <Text bold size={24}>
+Choose server
+          </Text>
           <Frame>
-            <List style={{ flex: 1, overflowY: 'auto' }} items={store.devices} renderItem={this.renderItem} />
+            <List className="flex flex-col overflow-y-auto" items={store.devices} renderItem={this.renderItem} />
           </Frame>
-        </View>
-        <View flow="row" style={{ padding: 32, alignItems: 'center' }}>
-          <Text>Logged in as {store.loginParams.login}</Text>
-          <Gutter />
-          <Button onClick={this.logOut}>Log Out</Button>
-        </View>
-      </View>
+        </div>
+        <div className="flex flex-row p-8 items-center">
+          <Text>
+Logged in as
+            {store.loginParams.login}
+          </Text>
+          <Button onClick={this.logOut}>
+Log Out
+          </Button>
+        </div>
+      </div>
     )
   }
 
-  renderItem(device: Device) {
+  renderItem(device) {
     return <DeviceListItem key={device.clientIdentifier} device={device} />
   }
 

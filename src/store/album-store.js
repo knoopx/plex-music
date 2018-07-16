@@ -1,7 +1,4 @@
-// @flow
-
 import _ from 'lodash'
-import async from 'async'
 import firstBy from 'thenby' // TODO: replace with lodash/fp
 import { types, getParent } from 'mobx-state-tree'
 
@@ -9,11 +6,12 @@ import { autorun } from 'mobx'
 
 import Album from 'store/album'
 
-export const OrderType = types.enumeration([
-  'alphabetically',
-  'userRating',
-  'recentlyAdded',
-])
+// export const OrderType = types.enumeration('OrderType', [
+//   'alphabetically',
+//   'userRating',
+//   'recentlyAdded',
+// ])
+
 export const Predicate = types.enumeration(['artist', 'year', 'genre'])
 
 export const OrderFn = {
@@ -37,10 +35,10 @@ export function match(album, filter) {
 }
 
 export const PredicateSet = types.model('PredicateSet', {
-  artist: types.maybe(types.string),
-  year: types.maybe(types.string),
-  genre: types.maybe(types.string),
-  studio: types.maybe(types.string),
+  artist: types.maybeNull(types.string),
+  year: types.maybeNull(types.string),
+  genre: types.maybeNull(types.string),
+  studio: types.maybeNull(types.string),
 })
 
 export const FilterSet = types.model('FilterSet', {
@@ -54,7 +52,7 @@ export default types
     isFiltering: types.optional(types.boolean, false),
     matches: types.optional(types.array(types.reference(Album)), []),
     query: types.optional(types.string, ''),
-    order: types.optional(OrderType, Object.keys(OrderFn)[0]),
+    order: types.optional(types.string, Object.keys(OrderFn)[0]),
   })
   .views(self => ({
     get filterSet() {

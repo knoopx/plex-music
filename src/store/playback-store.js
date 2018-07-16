@@ -1,8 +1,4 @@
-// @flow
-
 import { types } from 'mobx-state-tree'
-
-
 import PlayListItem from './playlist-item'
 
 export default types

@@ -1,9 +1,6 @@
 import React from 'react'
 import { Motion, spring } from 'react-motion'
-import { theme } from 'ui/theming'
-import View from '../layout/view'
 
-@theme('touchableOpacity')
 export default class TouchableOpacity extends React.PureComponent {
   state = { isMouseDown: false }
 
@@ -32,11 +29,11 @@ export default class TouchableOpacity extends React.PureComponent {
     const { style, ...props } = this.props
 
     return (
-      <View style={{ ...style }} onMouseDown={this.onMouseDown}>
+      <div style={{ ...style }} onMouseDown={this.onMouseDown}>
         <Motion defaultStyle={{ opacity: 1 }} style={{ opacity: spring(this.state.isMouseDown ? 0.25 : 1) }}>
-          {animatedStyle => <View {...props} style={{ flex: 1, ...animatedStyle }} />}
+          {animatedStyle => <div {...props} style={{ ...animatedStyle }} />}
         </Motion>
-      </View>
+      </div>
     )
   }
 }

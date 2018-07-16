@@ -1,4 +1,4 @@
-// @flow
+//
 
 import React from 'react'
 import { observer } from 'mobx-react'
@@ -15,7 +15,8 @@ export default class PlayList extends React.Component {
   render() {
     return (
       <List
-        style={{ flex: 1, overflow: 'overlay' }}
+        className="flex-auto"
+        style={{ overflow: 'overlay' }}
         items={this.props.items}
         renderItem={this.renderRow}
       />

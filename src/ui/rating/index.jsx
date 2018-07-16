@@ -1,13 +1,8 @@
-// @flow
-
 import PropTypes from 'prop-types'
 import React from 'react'
 import StarIcon from 'react-icons/lib/fa/star'
 import OpenStarIcon from 'react-icons/lib/fa/star-o'
 
-import { theme } from 'ui/theming'
-
-@theme('rating')
 export default class Rating extends React.PureComponent {
   static propTypes = {
     value: PropTypes.number.isRequired,
@@ -21,7 +16,7 @@ export default class Rating extends React.PureComponent {
     stars: 5,
   }
 
-  renderStar(index: number) {
+  renderStar(index) {
     const { size, max, stars, value, style } = this.props
     const IconName = (index / stars * max) <= value - 1 ? StarIcon : OpenStarIcon
 
@@ -29,14 +24,18 @@ export default class Rating extends React.PureComponent {
       <IconName
         key={index}
         onClick={(e) => { e.stopPropagation(); this.props.onChange((index / stars * max) + 1) }}
-        style={{ margin: 2, cursor: 'pointer', ...style }}
+        className="mr-1 cursor-pointer"
         size={size}
       />
     )
   }
 
   render() {
-    const { stars } = this.props
-    return <div>{Array.from(Array(stars).keys()).map(index => this.renderStar(index))}</div>
+    const { stars, className } = this.props
+    return (
+      <div className={[className]}>
+        {Array.from(Array(stars).keys()).map(index => this.renderStar(index))}
+      </div>
+    )
   }
 }

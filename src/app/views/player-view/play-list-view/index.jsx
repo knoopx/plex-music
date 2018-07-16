@@ -1,10 +1,10 @@
-// @flow
+//
 
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 
 
-import { View, LoadingSlate, Transition, Divider } from 'ui'
+import { LoadingSlate, Transition } from 'ui'
 
 import NowPlaying from './now-playing'
 import PlayList from './play-list'
@@ -28,11 +28,10 @@ export default class PlaylistView extends React.Component {
     if (playbackStore.isFetching) { return <LoadingSlate /> }
 
     return (
-      <View flow="column" style={{ flex: 1 }}>
+      <div className="flex flex-auto flex-col">
         {playbackStore.activeItem && <NowPlaying activeItem={playbackStore.activeItem} />}
-        {playbackStore.activeItem && <Divider />}
         <PlayList items={playbackStore.playlist} />
-      </View>
+      </div>
     )
   }
 }
