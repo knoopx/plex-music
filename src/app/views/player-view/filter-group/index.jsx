@@ -7,8 +7,7 @@ import MediaQuery from 'react-responsive'
 import { action, observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 
-import SearchIcon from 'react-icons/lib/fa/search'
-import ClearIcon from 'react-icons/lib/fa/times-circle'
+import { FaSearch, FaTimesCircle } from 'react-icons/fa'
 
 import { Text, Frame, Spinner, FauxInput } from 'ui'
 
@@ -36,7 +35,8 @@ export default class FilterGroup extends React.Component {
     }
   }
 
-  @action setIsFocused(value) {
+  @action
+  setIsFocused(value) {
     this.isFocused = value
   }
 
@@ -54,26 +54,39 @@ export default class FilterGroup extends React.Component {
         style={{
           ...(this.isFocused && focusStyle),
         }}
-
         onClick={this.focusInput}
       >
-        {store.albumStore.isFiltering ? <Spinner size={14} /> : <SearchIcon size={14} />}
+        {store.albumStore.isFiltering ? (
+          <Spinner size={14} />
+        ) : (
+          <FaSearch size={14} />
+        )}
         <FauxInput
           ref={this.setInput}
           className="ml-2"
           placeholder="Search..."
           value={store.albumStore.query}
           onKeyDown={this.onKeyDown}
-          onChange={(e) => { store.albumStore.setQuery(e.target.value) }}
-          onFocus={() => { this.setIsFocused(true) }}
-          onBlur={() => { this.setIsFocused(false) }}
+          onChange={e => {
+            store.albumStore.setQuery(e.target.value)
+          }}
+          onFocus={() => {
+            this.setIsFocused(true)
+          }}
+          onBlur={() => {
+            this.setIsFocused(false)
+          }}
         />
         <Text muted italic size={12} style={{ whiteSpace: 'nowrap' }}>
-          {store.albumStore.matches.length}
-          {' '}
-          albums(s)
+          {store.albumStore.matches.length} albums(s)
         </Text>
-        {shouldDisplayClearIcon && <ClearIcon size={16} color="#888" onClick={store.albumStore.clearFilter} />}
+        {shouldDisplayClearIcon && (
+          <FaTimesCircle
+            size={16}
+            color="#888"
+            onClick={store.albumStore.clearFilter}
+          />
+        )}
       </Frame>
     )
   }

@@ -1,9 +1,8 @@
 import React from 'react'
 import mousetrap from 'mousetrap'
 
-import LightIcon from 'react-icons/lib/md/lightbulb-outline'
-import EjectIcon from 'react-icons/lib/fa/eject'
-
+import { MdLightbulbOutline } from 'react-icons/md'
+import { FaEject } from 'react-icons/fa'
 
 import { inject, observer } from 'mobx-react'
 
@@ -50,12 +49,18 @@ export default class PlayerScreen extends React.Component {
 
     return (
       <div className="flex flex-auto flex-col">
-        <Toolbar
-          style={{ paddingLeft: 80 }}
-        >
+        <Toolbar style={{ paddingLeft: 80 }}>
           <div className="flex w-1/2">
             <FilterGroup className="mr-4" />
-            <Select className="mr-4" value={store.activeDevice.activeSectionIndex} onChange={e => store.activeDevice.setActiveSection(store.activeDevice.artistSections[e.target.value])}>
+            <Select
+              className="mr-4"
+              value={store.activeDevice.activeSectionIndex}
+              onChange={e =>
+                store.activeDevice.setActiveSection(
+                  store.activeDevice.artistSections[e.target.value],
+                )
+              }
+            >
               {store.activeDevice.artistSections.map((section, index) => (
                 <option key={section.id} value={index}>
                   {section.name}
@@ -66,8 +71,12 @@ export default class PlayerScreen extends React.Component {
           </div>
           <div className="flex w-1/2">
             <PlayerView />
-            <Button className="ml-4" style={{ width: 48, height: 34 }} onClick={() => store.setActiveDevice(null)}>
-              <EjectIcon size={18} />
+            <Button
+              className="ml-4"
+              style={{ width: 48, height: 34 }}
+              onClick={() => store.setActiveDevice(null)}
+            >
+              <FaEject size={18} />
             </Button>
           </div>
         </Toolbar>

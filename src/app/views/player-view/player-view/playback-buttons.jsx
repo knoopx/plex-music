@@ -1,15 +1,11 @@
-//      
+//
 
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 
 import { Button, ButtonGroup } from 'ui'
 
-import FastForwardIcon from 'react-icons/lib/fa/fast-forward'
-import FastBackwardIcon from 'react-icons/lib/fa/fast-backward'
-import PlayIcon from 'react-icons/lib/fa/play'
-import PauseIcon from 'react-icons/lib/fa/pause'
-
+import { FaFastForward, FaFastBackward, FaPlay, FaPause } from 'react-icons/fa'
 
 @inject('store')
 @observer
@@ -19,16 +15,24 @@ export default class PlaybackButtons extends React.Component {
 
     return (
       <ButtonGroup>
-        <Button style={{ width: 48, height: 34 }} onClick={() => store.playbackStore.playPrev()}>
-          <FastBackwardIcon />
+        <Button
+          style={{ width: 48, height: 34 }}
+          onClick={() => store.playbackStore.playPrev()}
+        >
+          <FaFastBackward />
         </Button>
-        <Button style={{ width: 48, height: 34 }} onClick={() => store.playbackStore.toggle()}>
-          {store.playbackStore.isPlaying ? <PauseIcon /> : <PlayIcon />}
+        <Button
+          style={{ width: 48, height: 34 }}
+          onClick={() => store.playbackStore.toggle()}
+        >
+          {store.playbackStore.isPlaying ? <FaPause /> : <FaPlay />}
         </Button>
-        <Button style={{ width: 48, height: 34 }} onClick={() => store.playbackStore.playNext()}>
+        <Button
+          style={{ width: 48, height: 34 }}
+          onClick={() => store.playbackStore.playNext()}
+        >
           {' '}
-          <FastForwardIcon />
-          {' '}
+          <FaFastForward />{' '}
         </Button>
       </ButtonGroup>
     )

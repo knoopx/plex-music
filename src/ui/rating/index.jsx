@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import StarIcon from 'react-icons/lib/fa/star'
-import OpenStarIcon from 'react-icons/lib/fa/star-o'
+import { FaStar, FaStarO } from 'react-icons/fa'
 
 export default class Rating extends React.PureComponent {
   static propTypes = {
@@ -18,12 +17,15 @@ export default class Rating extends React.PureComponent {
 
   renderStar(index) {
     const { size, max, stars, value, style } = this.props
-    const IconName = (index / stars * max) <= value - 1 ? StarIcon : OpenStarIcon
+    const IconName = (index / stars) * max <= value - 1 ? FaStar : FaStarO
 
     return (
       <IconName
         key={index}
-        onClick={(e) => { e.stopPropagation(); this.props.onChange((index / stars * max) + 1) }}
+        onClick={(e) => {
+          e.stopPropagation()
+          this.props.onChange((index / stars) * max + 1)
+        }}
         className="mr-1 cursor-pointer"
         size={size}
       />

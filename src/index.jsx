@@ -11,7 +11,7 @@ import Store from './store'
 import App from './app'
 
 configure({
-  enforceActions: true,
+  enforceActions: "always",
 })
 
 const store = Store.create(
