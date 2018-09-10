@@ -1,8 +1,12 @@
 import React from 'react'
 
-import { FaStar, FaClockO, FaSortAlphaAsc } from 'react-icons/fa'
+// import { FaStar, FaClockO, FaSortAlphaAsc } from 'react-icons/fa'
 
-console.log({ FaStar, FaClockO, FaSortAlphaAsc })
+import FaStar from '@fortawesome/fontawesome-free/svgs/solid/star.svg'
+import FaClockO from '@fortawesome/fontawesome-free/svgs/regular/clock.svg'
+import FaSortAlphaAsc from '@fortawesome/fontawesome-free/svgs/solid/sort-alpha-down.svg'
+
+// console.log({ FaStar, FaClockO, FaSortAlphaAsc })
 
 import { inject, observer } from 'mobx-react'
 import { ButtonGroup, Button } from 'ui'
@@ -38,7 +42,7 @@ export default class OrderButtonGroup extends React.Component {
           store.albumStore.setOrder(order)
         }}
       >
-        <Icon size={16} />
+        <Icon height={16} style={{ verticalAlign: 'center' }} />
       </Button>
     )
   }

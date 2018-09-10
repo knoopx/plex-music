@@ -11,7 +11,9 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 
 const plugins = [
   new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify(isDevelopment ? 'development' : 'production'),
+    'process.env.NODE_ENV': JSON.stringify(
+      isDevelopment ? 'development' : 'production',
+    ),
   }),
   new HtmlWebpackPlugin({
     title: name,
@@ -50,13 +52,19 @@ module.exports = {
     },
   },
   resolve: {
-    modules: [path.resolve(__dirname, 'src'), path.resolve(__dirname, 'node_modules')],
+    modules: [
+      path.resolve(__dirname, 'src'),
+      path.resolve(__dirname, 'node_modules'),
+    ],
     extensions: ['.js', '.jsx', '.json', '.css'],
   },
   module: {
     rules: [
       {
-        include: [path.resolve(__dirname, 'src'), path.resolve(__dirname, 'node_modules')],
+        include: [
+          path.resolve(__dirname, 'src'),
+          path.resolve(__dirname, 'node_modules'),
+        ],
         sideEffects: false,
       },
       {
@@ -72,6 +80,10 @@ module.exports = {
         test: /\.jsx?$/,
         use: 'babel-loader?cacheDirectory=true',
         include: [path.resolve(__dirname, 'src')],
+      },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
       },
     ],
   },

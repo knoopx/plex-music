@@ -14,7 +14,8 @@ import { Text, Frame, Spinner, FauxInput } from 'ui'
 @inject('store')
 @observer
 export default class FilterGroup extends React.Component {
-  @observable isFocused = false
+  @observable
+  isFocused = false
 
   componentDidMount() {
     mousetrap.bind('command+f', this.focusInput)
@@ -51,9 +52,6 @@ export default class FilterGroup extends React.Component {
     return (
       <Frame
         className={['bg-white flex items-center px-4', className]}
-        style={{
-          ...(this.isFocused && focusStyle),
-        }}
         onClick={this.focusInput}
       >
         {store.albumStore.isFiltering ? (

@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { FaStar, FaStarO } from 'react-icons/fa'
 
+// import FaStar from '@fortawesome/fontawesome-free/svgs/regular/star.svg'
+
 export default class Rating extends React.PureComponent {
   static propTypes = {
     value: PropTypes.number.isRequired,

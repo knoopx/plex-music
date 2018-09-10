@@ -40,7 +40,9 @@ export default class PlayerScreen extends React.Component {
   }
 
   refresh(e) {
-    this.props.store.fetchAlbums(this.props.store.activeDevice.activeSection)
+    if (this.props.store.activeDevice) {
+      this.props.store.fetchAlbums(this.props.store.activeDevice.activeSection)
+    }
     e.preventDefault()
   }
 
