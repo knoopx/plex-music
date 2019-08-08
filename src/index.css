@@ -1,5 +1,5 @@
 :global {
-  @tailwind preflight;
+  @tailwind base;
   @tailwind utilities;
   @tailwind screens;
 }
