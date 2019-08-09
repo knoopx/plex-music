@@ -8,7 +8,7 @@ const ListItem = ({ active, className, ...props }) => {
       <div
         className={[
           "flex items-center px-4 py-2 border-b",
-          { "bg-blue-700 text-white": active },
+          { "bg-active text-white": active },
           className,
         ]}
         {...props}

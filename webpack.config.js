@@ -23,7 +23,7 @@ const plugins = [
 module.exports = {
   mode: isDevelopment ? "development" : "production",
   devtool: isDevelopment ? "eval-source-map" : false,
-  entry: ["@babel/polyfill", "./src/index.css", "./src/index.jsx"],
+  entry: ["./src/index.css", "./src/index.jsx"],
   plugins,
   output: {
     publicPath: "/",
@@ -44,21 +44,13 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: [
-          ExtractCssChunks.loader,
-          { loader: "css-loader" },
-          "postcss-loader",
-        ],
+        use: [ExtractCssChunks.loader, "css-loader", "postcss-loader"],
         include: [path.resolve(__dirname, "src")],
       },
       {
         test: /\.jsx?$/,
         use: "babel-loader?cacheDirectory=true",
         include: [path.resolve(__dirname, "src")],
-      },
-      {
-        test: /\.svg$/,
-        use: ["@svgr/webpack"],
       },
     ],
   },

@@ -6,7 +6,7 @@ const Button = ({ active, className, ...props }) => {
     <a
       className={[
         "cursor-pointer outline-none inline-flex items-center justify-center bg-white frame",
-        { "bg-blue-700": active },
+        { "bg-active": active },
         className,
       ]}
       {...props}

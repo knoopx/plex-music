@@ -11,6 +11,7 @@ html {
 }
 
 .bg-active {
+  background: linear-gradient(rgb(39, 133, 240), rgb(15, 108, 213));
   color: white;
   .text-grey-dark {
     color: rgba(255,255,255,0.6);
@@ -38,7 +39,7 @@ html {
     flex: 1;
     margin: 5%;
     animation: spinner-wave 1.2s infinite ease-in-out;
-    background-color: config("colors.grey");
+    background-color: #666;
 
     &:nth-child(1) {
       animation-delay: -1.2s;
@@ -69,14 +70,14 @@ html {
   transition: width 500ms ease;
   pointer-events: none;
   height: 100%;
-  background-color: config("colors.active");
+  background: linear-gradient(rgb(39, 133, 240), rgb(15, 108, 213));;
 
   &-loader {
     border-radius: 2px;
     height: 100%;
     position: relative;
     overflow: hidden;
-    background-color: config("colors.grey");
+    background: linear-gradient(rgb(39, 133, 240), rgb(15, 108, 213));;
 
     &:after {
       content: "";

@@ -15,7 +15,14 @@ const VirtualList = ({ items, itemHeight, children, bufferSize }) => {
       setScrollTop(container.current.scrollTop)
       setClientHeight(container.current.clientHeight)
     }
-  }, [container.current])
+  }, [container])
+
+  useEffect(() => {
+    if (container.current) {
+      setScrollTop(container.current.scrollTop)
+      setClientHeight(container.current.clientHeight)
+    }
+  }, [])
 
   const totalHeight = itemHeight * items.length
 

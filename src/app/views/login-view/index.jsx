@@ -1,5 +1,4 @@
 import React from "react"
-import { observable, action } from "mobx"
 import { inject, observer, useLocalStore } from "mobx-react"
 
 import { Text, Button, Input } from "ui"
