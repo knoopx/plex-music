@@ -4,13 +4,13 @@ import { VirtualList } from "ui"
 
 import AlbumListItem from "./album-list-item"
 
-const AlbumList = (props) => {
-  const renderRow = (row) => {
-    return <AlbumListItem key={row.id} album={row} />
-  }
-
+const AlbumList = ({ albums }) => {
   return (
-    <VirtualList itemHeight={64} items={props.albums} renderItem={renderRow} />
+    <VirtualList itemHeight={64} items={albums}>
+      {(row) => {
+        return <AlbumListItem key={row.id} album={row} />
+      }}
+    </VirtualList>
   )
 }
 

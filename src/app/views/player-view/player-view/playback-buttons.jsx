@@ -1,32 +1,38 @@
 import React from "react"
 import { inject, observer } from "mobx-react"
-import { FaFastForward, FaFastBackward, FaPlay, FaPause } from "react-icons/fa"
+import {
+  MdFastForward,
+  MdFastRewind,
+  MdPlayArrow,
+  MdPause,
+} from "react-icons/md"
 
 import { Button, ButtonGroup } from "ui"
 
-const PlaybackButtons = (props) => {
-  const { store } = props
-
+const PlaybackButtons = ({ store }) => {
   return (
     <ButtonGroup>
       <Button
         style={{ width: 48, height: 34 }}
         onClick={() => store.playbackStore.playPrev()}
       >
-        <FaFastBackward />
+        <MdFastRewind size={18} />
       </Button>
       <Button
         style={{ width: 48, height: 34 }}
         onClick={() => store.playbackStore.toggle()}
       >
-        {store.playbackStore.isPlaying ? <FaPause /> : <FaPlay />}
+        {store.playbackStore.isPlaying ? (
+          <MdPause size={18} />
+        ) : (
+          <MdPlayArrow size={18} />
+        )}
       </Button>
       <Button
         style={{ width: 48, height: 34 }}
         onClick={() => store.playbackStore.playNext()}
       >
-        {" "}
-        <FaFastForward />{" "}
+        <MdFastForward size={18} />
       </Button>
     </ButtonGroup>
   )

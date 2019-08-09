@@ -1,10 +1,11 @@
-import React from "react"
+import React, { forwardRef } from "react"
 
-const FauxInput = ({ className, style, ...props }) => {
+const FauxInput = ({ className, ...props }, ref) => {
   return (
     <input
+      ref={ref}
       className={[
-        "bg-transparent flex-auto input-reset outline-none",
+        "outline-none flex-auto bg-transparent input-reset",
         className,
       ]}
       {...props}
@@ -12,4 +13,4 @@ const FauxInput = ({ className, style, ...props }) => {
   )
 }
 
-export default FauxInput
+export default forwardRef(FauxInput)

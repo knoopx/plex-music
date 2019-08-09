@@ -1,5 +1,3 @@
-//
-
 import React from "react"
 import relativeDate from "relative-date"
 import { inject, observer } from "mobx-react"

@@ -2,6 +2,10 @@
 @tailwind utilities;
 @tailwind screens;
 
+html {
+  font-size: 13px;
+}
+
 .bg-gradient {
   background: linear-gradient(to bottom, #e8e6e8 0, #d1cfd1 100%);
 }

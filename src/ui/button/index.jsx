@@ -1,17 +1,17 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-const Button = ({ active = false, className, ...props }) => {
+const Button = ({ active, className, ...props }) => {
   return (
-    <button
-      className={["bg-grey-lighter frame outline-none", className]}
+    <a
+      className={[
+        "cursor-pointer outline-none inline-flex items-center justify-center bg-white frame",
+        { "bg-blue-700": active },
+        className,
+      ]}
       {...props}
     />
   )
-}
-
-Button.propTypes = {
-  active: PropTypes.bool.isRequired,
 }
 
 export default Button

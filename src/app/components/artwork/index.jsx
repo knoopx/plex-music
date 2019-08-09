@@ -1,16 +1,14 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import asyncQueue from "async/queue"
 import { Motion, spring } from "react-motion"
-import { observable, action } from "mobx"
-import { observer } from "mobx-react"
-import { FaMusic } from "react-icons/fa"
+import { MdMusicNote } from "react-icons/md"
 
 import { Spinner } from "ui"
 
 const queue = asyncQueue((src, done) => {
   if (src) {
     const img = new Image()
-    img.onload = () => done(null, src)
+    img.onload = () => done(null)
     img.onerror = (err) => done(err)
     img.src = src
   }
@@ -20,38 +18,29 @@ function Container({ size, borderColor, ...otherProps }) {
   return (
     <div
       {...otherProps}
-      className="border flex flex-none items-center justify-center overflow-hidden rounded text-grey-light"
+      className="flex flex-none overflow-hidden items-center justify-center border rounded text-grey-light"
       style={{ width: size, height: size }}
     />
   )
 }
 
 const Artwork = (props) => {
+  const { src, size, borderColor } = props
+  const [isLoading, setIsLoading] = useState(false)
+
+  const innerSize = size * 0.5
+
   useEffect(() => {
-    if (props.src) {
+    if (src) {
       setIsLoading(true)
-      queue.unshift(props.src, (err, src) => {
+      queue.unshift(src, (err) => {
         if (!err) {
-          setSrc(src)
+          setIsLoading(false)
         }
         setIsLoading(false)
       })
     }
   }, [])
-
-  const src = observable()
-  const isLoading = observable(false)
-
-  const setSrc = (value) => {
-    src = value
-  }
-
-  const setIsLoading = (value) => {
-    isLoading = value
-  }
-
-  const { size, borderColor } = props
-  const innerSize = size * 0.5
 
   if (isLoading) {
     return (
@@ -75,9 +64,9 @@ const Artwork = (props) => {
 
   return (
     <Container size={size} borderColor={borderColor}>
-      <FaMusic size={innerSize} color={borderColor} />
+      <MdMusicNote size={innerSize} color={borderColor} />
     </Container>
   )
 }
 
-export default observer(Artwork)
+export default Artwork

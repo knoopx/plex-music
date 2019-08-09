@@ -13,7 +13,7 @@ const List = ({
   return (
     <div style={{ ...style, WebkitAppRegion: "no-drag" }} {...props}>
       {items.map((item, index) => {
-        const isActive = props.items.includes(item) && props.selected === item
+        const isActive = items.includes(item) && selected === item
         return (
           <div key={index} onClick={() => onSelect(item)}>
             {renderItem(item, index, isActive)}

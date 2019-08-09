@@ -25,9 +25,9 @@ const Text = ({
 }
 
 Text.propTypes = {
-  bold: PropTypes.bool.isRequired,
-  muted: PropTypes.bool.isRequired,
-  italic: PropTypes.bool.isRequired,
+  bold: PropTypes.bool,
+  muted: PropTypes.bool,
+  italic: PropTypes.bool,
   size: PropTypes.number,
 }
 

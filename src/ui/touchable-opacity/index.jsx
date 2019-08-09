@@ -1,17 +1,17 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { Motion, spring } from "react-motion"
 
 const TouchableOpacity = ({ style, ...props }) => {
   let timeout
-  const state = { isMouseDown: false }
+  const [isMouseDown, setIsMouseDown] = useState(false)
 
   const onMouseDown = () => {
-    setState({ isMouseDown: true })
+    setIsMouseDown(true)
   }
 
   const onMouseUp = () => {
     timeout = setTimeout(() => {
-      setState({ isMouseDown: false })
+      setIsMouseDown(false)
     }, 200)
   }
 
@@ -27,7 +27,7 @@ const TouchableOpacity = ({ style, ...props }) => {
     <div style={{ ...style }} onMouseDown={onMouseDown}>
       <Motion
         defaultStyle={{ opacity: 1 }}
-        style={{ opacity: spring(state.isMouseDown ? 0.25 : 1) }}
+        style={{ opacity: spring(isMouseDown ? 0.25 : 1) }}
       >
         {(animatedStyle) => <div {...props} style={{ ...animatedStyle }} />}
       </Motion>

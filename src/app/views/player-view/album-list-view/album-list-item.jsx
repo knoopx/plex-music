@@ -49,9 +49,7 @@ const AlbumListItem = (props) => {
               onPressArtistName(album.artistName)
             }}
           >
-            <Text muted className="text-sm">
-              {album.artistName}
-            </Text>
+            <span className="text-gray-500 text-sm">{album.artistName}</span>
           </TouchableOpacity>
         </div>
       </div>
@@ -64,9 +62,7 @@ const AlbumListItem = (props) => {
               onPressYear(album.year)
             }}
           >
-            <Text muted className="text-sm">
-              {album.year}
-            </Text>
+            <span className="text-gray-500 text-sm">{album.year}</span>
           </TouchableOpacity>
           {album.studio && (
             <TouchableOpacity
@@ -76,9 +72,7 @@ const AlbumListItem = (props) => {
                 onPressStudio(album.studio)
               }}
             >
-              <Text muted className="text-sm">
-                {album.studio}
-              </Text>
+              <span className="text-gray-500 text-sm">{album.studio}</span>
             </TouchableOpacity>
           )}
         </div>
@@ -93,10 +87,10 @@ const AlbumListItem = (props) => {
                   onPressGenre(genre)
                 }}
               >
-                <Text muted className="text-sm">
+                <span className="text-gray-500 text-sm">
                   {genre}
                   {index !== album.genres.length - 1 && "/"}
-                </Text>
+                </span>
               </TouchableOpacity>
             ))}
           </div>

@@ -1,20 +1,13 @@
 import PropTypes from "prop-types"
 import React from "react"
-import { FaStar, FaStarO } from "react-icons/fa"
+import { MdStar, MdStarBorder } from "react-icons/md"
 
-const Rating = ({
-  size,
-  value = 0,
-  max = 10,
-  stars = 5,
-  className,
-  style,
-  onChange,
-}) => {
+const Rating = ({ size, value, max, stars, className, style, onChange }) => {
   return (
-    <div className={[className]}>
+    <div className={["flex", className]}>
       {Array.from(Array(stars).keys()).map((index) => {
-        const IconName = (index / stars) * max <= value - 1 ? FaStar : FaStarO
+        const IconName =
+          (index / stars) * max <= value - 1 ? MdStar : MdStarBorder
 
         return (
           <IconName
@@ -32,9 +25,18 @@ const Rating = ({
   )
 }
 
+Rating.defaultProps = {
+  value: 0,
+  max: 10,
+  stars: 5,
+  size: 18,
+}
+
 Rating.propTypes = {
-  value: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
+  value: PropTypes.number,
+  max: PropTypes.number,
+  stars: PropTypes.number,
+  size: PropTypes.number,
   onChange: PropTypes.func.isRequired,
 }
 

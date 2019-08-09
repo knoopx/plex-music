@@ -1,22 +1,21 @@
 import React from "react"
 import { observable, action } from "mobx"
-import { inject, observer } from "mobx-react"
+import { inject, observer, useLocalStore } from "mobx-react"
 
 import { Text, Button, Input } from "ui"
 
-const LoginView = (props) => {
-  const loginParams = observable({
+const LoginView = ({ store }) => {
+  const state = useLocalStore(() => ({
     login: "",
     password: "",
-  })
-
-  const setLoginParam = (key, value) => {
-    loginParams[key] = value
-  }
+    setLoginParam(key, value) {
+      state[key] = value
+    },
+  }))
 
   const performLogin = (e) => {
     e.preventDefault()
-    props.store.account.login(loginParams)
+    store.account.login(state)
   }
 
   return (
@@ -31,19 +30,19 @@ const LoginView = (props) => {
         </Text>
         <Input
           className="flex-auto"
-          value={loginParams.login}
+          value={state.login}
           placeholder="Username"
           onChange={(e) => {
-            setLoginParam("login", e.target.value)
+            state.setLoginParam("login", e.target.value)
           }}
         />
         <Input
           className="flex-auto"
-          value={loginParams.password}
+          value={state.password}
           type="password"
           placeholder="Password"
           onChange={(e) => {
-            setLoginParam("password", e.target.value)
+            state.setLoginParam("password", e.target.value)
           }}
         />
         <Button className="flex-auto" onClick={performLogin}>

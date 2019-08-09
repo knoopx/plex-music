@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.10.1",
+    "@hot-loader/react-dom": "^16.8.6",
     "electron-default-menu": "^1.0.1",
     "tailwind": "^4.0.0",
     "tailwindcss": "^1.1.0"

@@ -1,18 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { configure } from 'mobx'
+import React from "react"
+import ReactDOM from "react-dom"
+import { configure } from "mobx"
+import { Provider } from "mobx-react"
+import { onSnapshot } from "mobx-state-tree"
+import { debounce } from "lodash"
 
-import { Provider } from 'mobx-react'
-import { AppContainer } from 'react-hot-loader'
-import { onSnapshot, getSnapshot, applySnapshot } from 'mobx-state-tree'
-import { debounce } from 'lodash'
-
-import Store from './store'
-import App from './app'
-
-configure({
-  enforceActions: "always",
-})
+import Store from "./store"
+import App from "./app"
 
 const store = Store.create(
   localStorage.store ? JSON.parse(localStorage.store) : {},
@@ -23,7 +17,7 @@ function render() {
     <Provider store={store}>
       <App />
     </Provider>,
-    document.querySelector('#root'),
+    document.querySelector("#root"),
   )
 }
 

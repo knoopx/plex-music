@@ -1,7 +1,6 @@
 import React, { useEffect } from "react"
 import mousetrap from "mousetrap"
-import { MdLightbulbOutline } from "react-icons/md"
-import { FaEject } from "react-icons/fa"
+import { MdEject } from "react-icons/md"
 import { inject, observer } from "mobx-react"
 
 import { OrderFn } from "store/album-store"
@@ -63,7 +62,7 @@ const PlayerScreen = (props) => {
             style={{ width: 48, height: 34 }}
             onClick={() => store.setActiveDevice(null)}
           >
-            <FaEject size={18} />
+            <MdEject size={18} />
           </Button>
         </div>
       </Toolbar>

@@ -1,5 +1,4 @@
 const path = require("path")
-
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const ExtractCssChunks = require("extract-css-chunks-webpack-plugin")
 
@@ -36,6 +35,9 @@ module.exports = {
       path.resolve(__dirname, "src"),
       path.resolve(__dirname, "node_modules"),
     ],
+    alias: {
+      "react-dom": "@hot-loader/react-dom",
+    },
     extensions: [".js", ".jsx", ".json", ".css"],
   },
   module: {
