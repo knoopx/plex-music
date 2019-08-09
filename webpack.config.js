@@ -38,19 +38,6 @@ module.exports = {
     filename: isDevelopment ? '[name].js' : '[name].[chunkhash].js',
     path: path.resolve(__dirname, 'dist'),
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      cacheGroups: {
-        styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all',
-          enforce: true,
-        },
-      },
-    },
-  },
   resolve: {
     modules: [
       path.resolve(__dirname, 'src'),
@@ -61,17 +48,10 @@ module.exports = {
   module: {
     rules: [
       {
-        include: [
-          path.resolve(__dirname, 'src'),
-          path.resolve(__dirname, 'node_modules'),
-        ],
-        sideEffects: false,
-      },
-      {
         test: /\.css$/,
         use: [
           ExtractCssChunks.loader,
-          { loader: 'css-loader', options: { importLoaders: 1 } },
+          { loader: 'css-loader' },
           'postcss-loader',
         ],
         include: [path.resolve(__dirname, 'src')],

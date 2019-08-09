@@ -1,5 +1,3 @@
-//
-
 import React from 'react'
 import { observable, action } from 'mobx'
 import { inject, observer } from 'mobx-react'
@@ -32,7 +30,7 @@ export default class LoginView extends React.Component {
       >
         <div className="flex flex-col" style={{ width: 300 }}>
           <Text bold size={24}>
-Login to plex.tv
+            Login to plex.tv
           </Text>
           <Input
             className="flex-auto"
@@ -48,7 +46,7 @@ Login to plex.tv
             onChange={(e) => { this.setLoginParam('password', e.target.value) }}
           />
           <Button className="flex-auto" onClick={this.performLogin}>
-Connect
+            Connect
           </Button>
         </div>
       </form>

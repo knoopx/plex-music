@@ -1,8 +1,6 @@
-:global {
-  @tailwind base;
-  @tailwind utilities;
-  @tailwind screens;
-}
+@tailwind base;
+@tailwind utilities;
+@tailwind screens;
 
 .bg-gradient {
   background: linear-gradient(to bottom, #e8e6e8 0, #d1cfd1 100%);
