@@ -1,66 +1,54 @@
 //
 
-import { hot } from 'react-hot-loader'
-import React from 'react'
-import { inject, observer } from 'mobx-react'
-import { LoadingSlate, Transition } from 'ui'
-import { LoginView, DeviceListView, PlayerView } from './views'
-import Spinner from '../ui/spinner'
+import { hot } from "react-hot-loader"
+import React from "react"
+import { inject, observer } from "mobx-react"
 
-@hot(module)
-@inject('store')
-@observer
-class App extends React.Component {
-  getView(route) {
+import { LoadingSlate, Transition } from "ui"
+
+import Spinner from "../ui/spinner"
+
+import { LoginView, DeviceListView, PlayerView } from "./views"
+
+const App = (props) => {
+  const { store } = props
+
+  const getCurrentRoute = () => {
+    if (store.isConnecting || store.account.isLoggingIn) {
+      return "loading"
+    }
+
+    if (store.activeDevice) {
+      return "player"
+    }
+
+    if (store.account.isLoggedIn) {
+      return "deviceList"
+    }
+
+    return "login"
+  }
+
+  const route = getCurrentRoute()
+
+  const getView = () => {
     switch (route) {
-      case 'loading':
+      case "loading":
         return <LoadingSlate />
-      case 'player':
+      case "player":
         return <PlayerView />
-      case 'deviceList':
+      case "deviceList":
         return <DeviceListView />
       default:
         return <LoginView />
     }
   }
 
-  getCurrentRoute() {
-    const { store } = this.props
-
-    if (store.isConnecting || store.account.isLoggingIn) {
-      return 'loading'
-    }
-
-    if (store.activeDevice) {
-      return 'player'
-    }
-
-    if (store.account.isLoggedIn) {
-      return 'deviceList'
-    }
-
-    return 'login'
-  }
-
-  render() {
-    const route = this.getCurrentRoute()
-    return (
-      <div className="flex flex-row h-screen bg-white">
-        <Transition name={route}>
-          {this.getView(route)}
-        </Transition>
-      </div>
-    )
-  }
+  return (
+    <div className="bg-white flex flex-row h-screen">
+      <Transition name={route}>{getView(route)}</Transition>
+    </div>
+  )
 }
 
-@inject('store')
-@observer
-export default class Container extends React.Component {
-  render() {
-    const { store } = this.props
-    return (
-      <App />
-    )
-  }
-}
+export default hot(module)(inject("store")(observer(App)))

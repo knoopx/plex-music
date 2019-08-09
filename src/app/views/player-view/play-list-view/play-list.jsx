@@ -1,25 +1,23 @@
-//
+import React from "react"
+import { observer } from "mobx-react"
 
-import React from 'react'
-import { observer } from 'mobx-react'
+import { List } from "ui"
 
-import { List } from 'ui'
-import PlayListItem from './play-list-item'
+import PlayListItem from "./play-list-item"
 
-@observer
-export default class PlayList extends React.Component {
-  renderRow(row) {
+const PlayList = (props) => {
+  const renderRow = (row) => {
     return <PlayListItem key={row.id} item={row} />
   }
 
-  render() {
-    return (
-      <List
-        className="flex-auto"
-        style={{ overflow: 'overlay' }}
-        items={this.props.items}
-        renderItem={this.renderRow}
-      />
-    )
-  }
+  return (
+    <List
+      className="flex-auto"
+      style={{ overflow: "overlay" }}
+      items={props.items}
+      renderItem={renderRow}
+    />
+  )
 }
+
+export default observer(PlayList)

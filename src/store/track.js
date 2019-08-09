@@ -1,6 +1,6 @@
-import { types, getParent } from 'mobx-state-tree'
+import { types, getParent } from "mobx-state-tree"
 
-const Part = types.model('Part', {
+const Part = types.model("Part", {
   id: types.identifierNumber,
   key: types.string,
   duration: types.number,
@@ -9,7 +9,7 @@ const Part = types.model('Part', {
   container: types.string,
 })
 
-const Media = types.model('Media', {
+const Media = types.model("Media", {
   id: types.identifierNumber,
   part: Part,
   audioChannels: types.number,
@@ -20,7 +20,7 @@ const Media = types.model('Media', {
 })
 
 export default types
-  .model('Track', {
+  .model("Track", {
     id: types.identifier,
     number: types.number,
     title: types.string,
@@ -29,12 +29,14 @@ export default types
     duration: types.number,
     media: Media,
   })
-  .views(self => ({
+  .views((self) => ({
     get album() {
       return getParent(self, 2)
     },
     get url() {
-      return `${self.album.device.uri}${self.media.part.key}?X-Plex-Token=${encodeURIComponent(self.album.device.accessToken)}`
+      return `${self.album.device.uri}${
+        self.media.part.key
+      }?X-Plex-Token=${encodeURIComponent(self.album.device.accessToken)}`
     },
     get path() {
       return self.part.file

@@ -1,23 +1,17 @@
-import PropTypes from 'prop-types'
-import React from 'react'
+import React from "react"
+import PropTypes from "prop-types"
 
-export default class Button extends React.PureComponent {
-  static propTypes = {
-    active: PropTypes.bool.isRequired,
-    style: PropTypes.object,
-    activeStyle: PropTypes.object,
-  }
-
-  static defaultProps = { active: false }
-
-  render() {
-    const { active, className, ...props } = this.props
-
-    return (
-      <button
-        className={['bg-grey-lighter frame outline-none', className]}
-        {...props}
-      />
-    )
-  }
+const Button = ({ active = false, className, ...props }) => {
+  return (
+    <button
+      className={["bg-grey-lighter frame outline-none", className]}
+      {...props}
+    />
+  )
 }
+
+Button.propTypes = {
+  active: PropTypes.bool.isRequired,
+}
+
+export default Button

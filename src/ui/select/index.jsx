@@ -1,13 +1,12 @@
-import React from 'react'
+import React from "react"
 
-export default class Select extends React.PureComponent {
-  render() {
-    const { className, ...props } = this.props
-    return (
-      <select
-        className={['frame appearance-none rounded-none', className]}
-        {...props}
-      />
-    )
-  }
+const Select = ({ className, ...props }) => {
+  return (
+    <select
+      className={["appearance-none frame rounded-none", className]}
+      {...props}
+    />
+  )
 }
+
+export default Select

@@ -1,8 +1,9 @@
-import { types } from 'mobx-state-tree'
-import PlayListItem from './playlist-item'
+import { types } from "mobx-state-tree"
+
+import PlayListItem from "./playlist-item"
 
 export default types
-  .model('PlaybackStore', {
+  .model("PlaybackStore", {
     currentTime: types.optional(types.number, 0),
     duration: types.optional(types.number, 0),
     buffered: types.optional(types.number, 0),
@@ -12,7 +13,7 @@ export default types
     isLoading: types.optional(types.boolean, false),
     isPlaying: types.optional(types.boolean, false),
   })
-  .views(self => ({
+  .views((self) => ({
     get activeItem() {
       return self.playlist[self.activeIndex]
     },
@@ -37,8 +38,7 @@ export default types
       onEnded() {
         self.playNext()
       },
-      onError() {
-      },
+      onError() {},
       onPlay() {
         self.isPlaying = true
       },
@@ -83,24 +83,24 @@ export default types
       },
       load(src) {
         self.isLoading = true
-        audio.addEventListener('loadeddata', self.onDataLoaded)
-        audio.addEventListener('timeupdate', self.onTimeUpdate)
-        audio.addEventListener('progress', self.onProgress)
-        audio.addEventListener('play', self.onPlay)
-        audio.addEventListener('pause', self.onPause)
-        audio.addEventListener('ended', self.onEnded)
-        audio.addEventListener('error', self.onError)
+        audio.addEventListener("loadeddata", self.onDataLoaded)
+        audio.addEventListener("timeupdate", self.onTimeUpdate)
+        audio.addEventListener("progress", self.onProgress)
+        audio.addEventListener("play", self.onPlay)
+        audio.addEventListener("pause", self.onPause)
+        audio.addEventListener("ended", self.onEnded)
+        audio.addEventListener("error", self.onError)
         audio.src = src
       },
       unload() {
         audio.pause()
-        audio.removeEventListener('loadeddata', self.onDataLoaded)
-        audio.removeEventListener('timeupdate', self.onTimeUpdate)
-        audio.removeEventListener('progress', self.onProgress)
-        audio.removeEventListener('play', self.onPlay)
-        audio.removeEventListener('pause', self.onPause)
-        audio.removeEventListener('ended', self.onEnded)
-        audio.removeEventListener('error', self.onError)
+        audio.removeEventListener("loadeddata", self.onDataLoaded)
+        audio.removeEventListener("timeupdate", self.onTimeUpdate)
+        audio.removeEventListener("progress", self.onProgress)
+        audio.removeEventListener("play", self.onPlay)
+        audio.removeEventListener("pause", self.onPause)
+        audio.removeEventListener("ended", self.onEnded)
+        audio.removeEventListener("error", self.onError)
         self.activeIndex = -1
         self.currentTime = 0
         self.duration = 0

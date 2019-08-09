@@ -1,17 +1,20 @@
-import React from 'react'
-import { TouchableOpacity } from 'ui'
+import React from "react"
 
-export default class ListItem extends React.PureComponent {
-  render() {
-    const { active, className, ...props } = this.props
+import { TouchableOpacity } from "ui"
 
-    return (
-      <TouchableOpacity className={className}>
-        <div
-          className={['flex items-center px-4 py-2 border-b', { 'bg-active': active }, className]}
-          {...props}
-        />
-      </TouchableOpacity>
-    )
-  }
+const ListItem = ({ active, className, ...props }) => {
+  return (
+    <TouchableOpacity className={className}>
+      <div
+        className={[
+          "border-b flex items-center px-4 py-2",
+          { "bg-active": active },
+          className,
+        ]}
+        {...props}
+      />
+    </TouchableOpacity>
+  )
 }
+
+export default ListItem

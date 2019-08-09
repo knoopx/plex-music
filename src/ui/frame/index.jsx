@@ -1,10 +1,7 @@
-import React from 'react'
+import React from "react"
 
-export default class Frame extends React.PureComponent {
-  render() {
-    const { className, ...props } = this.props
-    return (
-      <div className={['flex-auto frame', className]} {...props} />
-    )
-  }
+const Frame = ({ className, ...props }) => {
+  return <div className={["flex-auto frame", className]} {...props} />
 }
+
+export default Frame

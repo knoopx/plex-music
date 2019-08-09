@@ -1,24 +1,25 @@
-import _ from 'lodash'
-import { types, getParent } from 'mobx-state-tree'
+import _ from "lodash"
+import { types, getParent } from "mobx-state-tree"
 
-import Track, { parse as parseTrack } from 'store/track'
+import Track, { parse as parseTrack } from "store/track"
 
-export default types.model('Album', {
-  id: types.identifier,
-  title: types.string,
-  artistName: types.string,
-  year: types.maybeNull(types.number),
-  userRating: types.optional(types.number, 0),
-  addedAt: types.number,
-  playCount: types.optional(types.number, 0),
-  thumb: types.maybeNull(types.string),
-  tag: types.array(types.string),
-  genres: types.array(types.string),
-  studio: types.maybeNull(types.string),
+export default types
+  .model("Album", {
+    id: types.identifier,
+    title: types.string,
+    artistName: types.string,
+    year: types.maybeNull(types.number),
+    userRating: types.optional(types.number, 0),
+    addedAt: types.number,
+    playCount: types.optional(types.number, 0),
+    thumb: types.maybeNull(types.string),
+    tag: types.array(types.string),
+    genres: types.array(types.string),
+    studio: types.maybeNull(types.string),
 
-  tracks: types.optional(types.array(Track), []),
-})
-  .views(self => ({
+    tracks: types.optional(types.array(Track), []),
+  })
+  .views((self) => ({
     get section() {
       return getParent(self, 2)
     },
@@ -35,7 +36,14 @@ export default types.model('Album', {
       return self.thumb && `${self.device.localUri}${self.thumb}`
     },
     get artwork() {
-      return self.thumbUrl && (`${self.device.uri}/photo/:/transcode?url=${encodeURIComponent(self.thumbUrl)}&width=64&height=64&X-Plex-Token=${encodeURIComponent(self.device.accessToken)}`)
+      return (
+        self.thumbUrl &&
+        `${self.device.uri}/photo/:/transcode?url=${encodeURIComponent(
+          self.thumbUrl,
+        )}&width=64&height=64&X-Plex-Token=${encodeURIComponent(
+          self.device.accessToken,
+        )}`
+      )
     },
     get matchData() {
       return {
@@ -47,7 +55,7 @@ export default types.model('Album', {
       }
     },
   }))
-  .actions(self => ({
+  .actions((self) => ({
     setTracks(tracks) {
       self.tracks = tracks
     },
@@ -63,7 +71,7 @@ export default types.model('Album', {
       self.store.playbackStore.setIsFetching(true)
 
       await self.fetchTracks()
-      const items = _.map(self.tracks, t => ({ track: t, album: self }))
+      const items = _.map(self.tracks, (t) => ({ track: t, album: self }))
       if (shouldAppend) {
         self.store.playbackStore.append(items)
       } else {
@@ -75,9 +83,19 @@ export default types.model('Album', {
       Object.assign(self, props)
     },
     async fetchTracks() {
-      const doc = await self.device.request(`/library/metadata/${self.id}/children`, { includeRelated: 0 })
-      if (!doc.MediaContainer || !_.isArray(doc.MediaContainer.Metadata)) { throw new Error('Unexpected response') }
-      return self.setTracks(_.orderBy(_.map(doc.MediaContainer.Metadata, item => parseTrack(item)), ['number', 'path']))
+      const doc = await self.device.request(
+        `/library/metadata/${self.id}/children`,
+        { includeRelated: 0 },
+      )
+      if (!doc.MediaContainer || !_.isArray(doc.MediaContainer.Metadata)) {
+        throw new Error("Unexpected response")
+      }
+      return self.setTracks(
+        _.orderBy(
+          _.map(doc.MediaContainer.Metadata, (item) => parseTrack(item)),
+          ["number", "path"],
+        ),
+      )
     },
   }))
 
@@ -93,6 +111,6 @@ export function parse(item) {
     tag: [],
     thumb: item.thumb,
     studio: item.studio,
-    genres: _.map(item.Genre, e => e.tag.trim()),
+    genres: _.map(item.Genre, (e) => e.tag.trim()),
   }
 }

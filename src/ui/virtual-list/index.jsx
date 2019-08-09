@@ -1,109 +1,122 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import { observable, computed, action, runInAction } from 'mobx'
-import { observer } from 'mobx-react'
+import PropTypes from "prop-types"
+import React, { useEffect } from "react"
+import { observable, computed, action, runInAction } from "mobx"
+import { observer } from "mobx-react"
 
-@observer
-export default class VirtualList extends React.Component {
-  static propTypes = {
-    items: PropTypes.array.isRequired,
-    itemHeight: PropTypes.number.isRequired,
-    renderItem: PropTypes.func.isRequired,
-    bufferSize: PropTypes.number.isRequired,
-  }
+const VirtualList = (props = { bufferSize: 0 }) => {
+  useEffect(() => {
+    setScrollTop(container.scrollTop)
+    setClientHeight(container.clientHeight)
+    window.addEventListener("resize", onResize)
 
-  static defaultProps = { bufferSize: 0 }
+    return () => {
+      window.removeEventListener("resize", onResize)
+    }
+  }, [])
 
-  @observable scrollTop = 0
+  const clientHeight = observable(0)
+  const scrollTop = observable(0)
 
-  @observable clientHeight = 0
-
-  componentDidMount() {
-    this.setScrollTop(this.container.scrollTop)
-    this.setClientHeight(this.container.clientHeight)
-    window.addEventListener('resize', this.onResize)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.onResize)
-  }
-
-  onResize = () => {
-    if (this.container) {
-      this.setClientHeight(this.container.clientHeight)
+  const onResize = () => {
+    if (container) {
+      setClientHeight(container.clientHeight)
     }
   }
 
-  onScroll = (e) => {
-    this.setScrollTop(e.target.scrollTop)
+  const onScroll = (e) => {
+    setScrollTop(e.target.scrollTop)
   }
 
-  @action setScrollTop(value) {
-    this.scrollTop = value
+  const setScrollTop = (value) => {
+    scrollTop = value
   }
 
-  @action setClientHeight(value) {
-    this.clientHeight = value
+  const setClientHeight = (value) => {
+    clientHeight = value
   }
 
-  setContainer = (container) => {
+  const setContainer = (container) => {
     if (container) {
-      this.container = container
+      container = container
       runInAction(() => {
-        this.setScrollTop(container.scrollTop)
-        this.setClientHeight(container.clientHeight)
+        setScrollTop(container.scrollTop)
+        setClientHeight(container.clientHeight)
       })
     }
   }
 
-  scrollToTop() {
-    if (this.container) {
-      this.container.scrollTop = 0
-      this.setScrollTop(0)
+  const scrollToTop = () => {
+    if (container) {
+      container.scrollTop = 0
+      setScrollTop(0)
     }
   }
 
-  @computed get totalHeight() {
-    return this.props.itemHeight * this.props.items.length
-  }
+  const totalHeight = props.itemHeight * props.items.length
 
-  @computed get visibleItemsCount() {
-    return Math.ceil(this.clientHeight / this.props.itemHeight) + 1
-  }
+  const visibleItemsCount = Math.ceil(clientHeight / props.itemHeight) + 1
 
-  @computed get firstItemIndex() {
-    return Math.floor(this.scrollTop / this.props.itemHeight)
-  }
+  const firstItemIndex = Math.floor(scrollTop / props.itemHeight)
 
-  @computed get firstVisibleItemIndex() {
-    return Math.max(0, this.firstItemIndex - this.props.bufferSize)
-  }
+  const firstVisibleItemIndex = Math.max(0, firstItemIndex - props.bufferSize)
 
-  @computed get lastVisibleItemIndex() {
-    return Math.min(this.firstItemIndex + this.props.bufferSize + this.visibleItemsCount, this.props.items.length)
-  }
+  const lastVisibleItemIndex = Math.min(
+    firstItemIndex + props.bufferSize + visibleItemsCount,
+    props.items.length,
+  )
 
-  @computed get visibleItemsOffsetY() {
-    return Math.min(this.firstVisibleItemIndex * this.props.itemHeight, this.totalHeight)
-  }
+  const visibleItemsOffsetY = Math.min(
+    firstVisibleItemIndex * props.itemHeight,
+    totalHeight,
+  )
 
-  @computed get visibleItems() {
-    return this.props.items.slice(this.firstVisibleItemIndex, this.lastVisibleItemIndex)
-  }
+  const visibleItems = props.items.slice(
+    firstVisibleItemIndex,
+    lastVisibleItemIndex,
+  )
 
-  render() {
-    return (
-      <div style={{ display: 'flex', flex: 1, flexDirection: 'row', overflow: 'hidden', WebkitAppRegion: 'no-drag' }}>
+  return (
+    <div
+      style={{
+        display: "flex",
+        flex: 1,
+        flexDirection: "row",
+        overflow: "hidden",
+        WebkitAppRegion: "no-drag",
+      }}
+    >
+      <div
+        ref={setContainer}
+        style={{
+          flex: 1,
+          flexDirection: "column",
+          maxWidth: "100%",
+          overflowY: "overlay",
+        }}
+        onScroll={onScroll}
+      >
         <div
-          ref={this.setContainer}
-          style={{ flex: 1, flexDirection: 'column', maxWidth: '100%', overflowY: 'overlay' }}
-          onScroll={this.onScroll}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            height: totalHeight - visibleItemsOffsetY,
+            transform: `translateY(${visibleItemsOffsetY}px)`,
+            overflow: "hidden",
+            contain: "paint",
+          }}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', height: this.totalHeight - this.visibleItemsOffsetY, transform: `translateY(${this.visibleItemsOffsetY}px)`, overflow: 'hidden', contain: 'paint' }}>
-            {this.visibleItems.map(this.props.renderItem)}
-          </div>
+          {visibleItems.map(props.renderItem)}
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
+
+VirtualList.propTypes = {
+  items: PropTypes.array.isRequired,
+  itemHeight: PropTypes.number.isRequired,
+  renderItem: PropTypes.func.isRequired,
+  bufferSize: PropTypes.number.isRequired,
+}
+
+export default observer(VirtualList)

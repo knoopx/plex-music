@@ -1,24 +1,17 @@
-//      
+import React from "react"
 
-import React from 'react'
-import { VirtualList } from 'ui'
+import { VirtualList } from "ui"
 
-import AlbumListItem from './album-list-item'
+import AlbumListItem from "./album-list-item"
 
-export default class AlbumList extends React.PureComponent {
-  renderRow(row) {
-    return (
-      <AlbumListItem key={row.id} album={row} />
-    )
+const AlbumList = (props) => {
+  const renderRow = (row) => {
+    return <AlbumListItem key={row.id} album={row} />
   }
 
-  render() {
-    return (
-      <VirtualList
-        itemHeight={64}
-        items={this.props.albums}
-        renderItem={this.renderRow}
-      />
-    )
-  }
+  return (
+    <VirtualList itemHeight={64} items={props.albums} renderItem={renderRow} />
+  )
 }
+
+export default AlbumList
