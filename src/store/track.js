@@ -22,7 +22,7 @@ const Media = types.model("Media", {
 export default types
   .model("Track", {
     id: types.identifier,
-    number: types.number,
+    number: types.maybeNull(types.number),
     title: types.string,
     artistName: types.string,
     albumId: types.string,

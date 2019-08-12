@@ -1,5 +1,5 @@
 import PropTypes from "prop-types"
-import React, { useEffect, useState, useRef } from "react"
+import React, { useLayoutEffect, useEffect, useState, useRef } from "react"
 
 const VirtualList = ({ items, itemHeight, children, bufferSize }) => {
   const container = useRef()
@@ -17,7 +17,7 @@ const VirtualList = ({ items, itemHeight, children, bufferSize }) => {
     }
   }, [container])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (container.current) {
       setScrollTop(container.current.scrollTop)
       setClientHeight(container.current.clientHeight)

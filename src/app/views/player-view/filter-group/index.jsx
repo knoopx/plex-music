@@ -2,7 +2,7 @@ import _ from "lodash"
 import React, { useEffect, useState, useRef } from "react"
 import mousetrap from "mousetrap"
 import { inject, observer } from "mobx-react"
-import { FaSearch, FaTimesCircle } from "react-icons/fa"
+import { MdSearch, MdClear } from "react-icons/md"
 
 import { Text, Frame, Spinner, FauxInput } from "ui"
 
@@ -39,7 +39,7 @@ const FilterGroup = (props) => {
       {store.albumStore.isFiltering ? (
         <Spinner size={14} />
       ) : (
-        <FaSearch size={14} />
+        <MdSearch size={14} />
       )}
       <FauxInput
         ref={input}
@@ -55,7 +55,7 @@ const FilterGroup = (props) => {
         {store.albumStore.matches.length} albums(s)
       </Text>
       {shouldDisplayClearIcon && (
-        <FaTimesCircle
+        <MdClear
           size={16}
           color="#888"
           onClick={store.albumStore.clearFilter}
