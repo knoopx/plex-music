@@ -1,29 +1,30 @@
 const path = require("path")
+
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const ExtractCssChunks = require("extract-css-chunks-webpack-plugin")
 
 const { name } = require("./package.json")
 
-const isDevelopment = process.env.NODE_ENV === "development"
+const isDevelopment = process.env._.includes("electron-webpack-dev-server")
 
 const plugins = [
   new HtmlWebpackPlugin({
     title: name,
-    filename: "index.html",
-    template: "src/index.ejs",
+    inject: false,
+    template: require("html-webpack-template"),
+    appMountId: "root",
     hash: true,
   }),
+
   new ExtractCssChunks({
-    filename: "[name].[hash].css",
-    chunkFilename: "[name].[id].[hash].css",
-    hot: isDevelopment,
+    filename: isDevelopment ? "[name].css" : "[hash:8].css",
+    chunkFilename: isDevelopment ? "[name].[id].css" : "[hash:8].[id].css",
   }),
 ]
 
 module.exports = {
-  mode: isDevelopment ? "development" : "production",
-  devtool: isDevelopment ? "eval-source-map" : false,
-  entry: ["./src/index.css", "./src/index.jsx"],
+  target: "electron-renderer",
+  entry: { renderer: ["./src/renderer/index.css", "./src/renderer/index.jsx"] },
   plugins,
   output: {
     publicPath: "/",
@@ -32,7 +33,7 @@ module.exports = {
   },
   resolve: {
     modules: [
-      path.resolve(__dirname, "src"),
+      path.resolve(__dirname, "src/renderer"),
       path.resolve(__dirname, "node_modules"),
     ],
     alias: {
@@ -44,12 +45,27 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: [ExtractCssChunks.loader, "css-loader", "postcss-loader"],
+        use: [
+          {
+            loader: ExtractCssChunks.loader,
+            options: {
+              hot: isDevelopment,
+            },
+          },
+          "css-loader",
+          "postcss-loader",
+        ],
+
         include: [path.resolve(__dirname, "src")],
       },
       {
         test: /\.jsx?$/,
-        use: "babel-loader?cacheDirectory=true",
+        use: {
+          loader: "babel-loader",
+          options: {
+            cacheDirectory: true,
+          },
+        },
         include: [path.resolve(__dirname, "src")],
       },
     ],
