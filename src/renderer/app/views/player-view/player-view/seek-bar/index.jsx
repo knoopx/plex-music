@@ -1,8 +1,6 @@
 import React from "react"
 import { inject, observer } from "mobx-react"
 
-import { Frame } from "ui"
-
 const SeekBar = (props) => {
   const onSeek = (e) => {
     props.store.playbackStore.seekTo(
@@ -48,9 +46,9 @@ const SeekBar = (props) => {
   }
 
   return (
-    <Frame {...props}>
+    <div className="flex-auto bg-white frame" {...props}>
       {props.store.playbackStore.isLoading ? renderLoader() : renderProgress()}
-    </Frame>
+    </div>
   )
 }
 

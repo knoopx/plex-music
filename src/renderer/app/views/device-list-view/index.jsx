@@ -1,6 +1,5 @@
 import React from "react"
 import { inject, observer } from "mobx-react"
-
 import { Text, List, Button, Frame } from "ui"
 
 import DeviceListItem from "./device-list-item"
@@ -25,13 +24,13 @@ const DeviceList = (props) => {
         <Text bold size={24}>
           Choose server
         </Text>
-        <Frame>
+        <div className="frame">
           <List
             className="flex flex-col overflow-y-auto"
             items={store.devices}
             renderItem={renderItem}
           />
-        </Frame>
+        </div>
       </div>
       <div className="flex flex-row items-center p-8">
         <Text>

@@ -3,7 +3,6 @@ import React, { useEffect, useState, useRef } from "react"
 import mousetrap from "mousetrap"
 import { inject, observer } from "mobx-react"
 import { MdSearch, MdClear } from "react-icons/md"
-
 import { Text, Frame, Spinner, FauxInput } from "ui"
 
 const FilterGroup = (props) => {
@@ -32,8 +31,8 @@ const FilterGroup = (props) => {
   const shouldDisplayClearIcon = !_.isEmpty(store.albumStore.query)
 
   return (
-    <Frame
-      className={["flex items-center px-4 bg-white", className]}
+    <div
+      className={["flex items-center px-4 bg-white frame", className]}
       onClick={focusInput}
     >
       {store.albumStore.isFiltering ? (
@@ -61,7 +60,7 @@ const FilterGroup = (props) => {
           onClick={store.albumStore.clearFilter}
         />
       )}
-    </Frame>
+    </div>
   )
 }
 
