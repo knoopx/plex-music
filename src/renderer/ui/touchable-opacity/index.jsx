@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react"
-import { Motion, spring } from "react-motion"
+import { useSpring, animated } from "react-spring"
 
 const TouchableOpacity = ({ style, ...props }) => {
   let timeout
-  const [isMouseDown, setIsMouseDown] = useState(false)
+
+  const [spring, set] = useSpring(() => ({ opacity: 1 }))
 
   const onMouseDown = () => {
-    setIsMouseDown(true)
+    set({ opacity: 0.25 })
   }
 
   const onMouseUp = () => {
     timeout = setTimeout(() => {
-      setIsMouseDown(false)
+      set({ opacity: 1 })
     }, 200)
   }
 
@@ -24,14 +25,11 @@ const TouchableOpacity = ({ style, ...props }) => {
   }, [])
 
   return (
-    <div style={{ ...style }} onMouseDown={onMouseDown}>
-      <Motion
-        defaultStyle={{ opacity: 1 }}
-        style={{ opacity: spring(isMouseDown ? 0.25 : 1) }}
-      >
-        {(animatedStyle) => <div {...props} style={{ ...animatedStyle }} />}
-      </Motion>
-    </div>
+    <animated.div
+      {...props}
+      style={{ ...style, ...spring }}
+      onMouseDown={onMouseDown}
+    />
   )
 }
 
