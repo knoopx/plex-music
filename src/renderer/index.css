@@ -3,7 +3,7 @@
 @tailwind screens;
 
 html {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .bg-gradient {
@@ -14,16 +14,57 @@ html {
   background: linear-gradient(rgb(39, 133, 240), rgb(15, 108, 213));
   color: white;
   .text-grey-dark {
-    color: rgba(255,255,255,0.6);
+    color: rgba(255, 255, 255, 0.6);
   }
 }
 
-.frame {
-  box-shadow: rgb(179, 179, 179) 0px 1px 0px, rgb(179, 179, 179) 0px -1px 0px, rgb(179, 179, 179) 1px 0px 0px, rgb(179, 179, 179) -1px 0px 0px, rgb(179, 179, 179) 0px 1px 1px;
+.text-shadow {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
+.text-component {
+  color: #333;
+}
+
+.text-gray {
+  color: #666
+}
+
+.bg-pane {
+  background-color: #f5f5f4;
+}
+
+.bg-default {
+  background: linear-gradient(to bottom,#fcfcfc 0,#f1f1f1 100%)
+}
+
+.shadow-xs {
+  box-shadow: 0 1px 1px rgba(0,0,0,.06)
+}
+
+.shadow-frame {
+  box-shadow: rgb(179, 179, 179) 0px 1px 0px, rgb(179, 179, 179) 0px -1px 0px,
+    rgb(179, 179, 179) 1px 0px 0px, rgb(179, 179, 179) -1px 0px 0px,
+    rgb(179, 179, 179) 0px 1px 1px;
+}
+
+.border-primary {
+  border-color: #388df8 #388df8 #0866dc;
+}
+
+.border-default {
+  border-color: #c2c0c2 #c2c0c2 #a19fa1;
+}
+
+.bg-primary {
+  background: linear-gradient(to bottom, #6eb4f7 0, #1a82fb 100%);
+}
+
+
 @keyframes spinner-wave {
-  0%, 40%, 100% {
+  0%,
+  40%,
+  100% {
     transform: scaleY(0.4);
   }
   20% {
@@ -55,7 +96,6 @@ html {
   }
 }
 
-
 @keyframes move {
   0% {
     background-position: 0 0;
@@ -70,32 +110,35 @@ html {
   transition: width 500ms ease;
   pointer-events: none;
   height: 100%;
-  background: linear-gradient(rgb(39, 133, 240), rgb(15, 108, 213));;
+  background: linear-gradient(rgb(39, 133, 240), rgb(15, 108, 213));
 
   &-loader {
     border-radius: 2px;
     height: 100%;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(rgb(39, 133, 240), rgb(15, 108, 213));;
+    background: linear-gradient(rgb(39, 133, 240), rgb(15, 108, 213));
 
     &:after {
       content: "";
       position: absolute;
-      top: 0; left: 0; bottom: 0; right: 0;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
       z-index: 1;
       animation: move 2s linear infinite;
       background-size: 25px 25px;
       background-image: linear-gradient(
-       -45deg,
-       rgba(0, 0, 0, 0.05) 25%,
-       transparent 25%,
-       transparent 50%,
-       rgba(0, 0, 0, 0.05) 50%,
-       rgba(0, 0, 0, 0.05) 75%,
-       transparent 75%,
-       transparent
-     );
+        -45deg,
+        rgba(0, 0, 0, 0.05) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(0, 0, 0, 0.05) 50%,
+        rgba(0, 0, 0, 0.05) 75%,
+        transparent 75%,
+        transparent
+      );
     }
   }
 }

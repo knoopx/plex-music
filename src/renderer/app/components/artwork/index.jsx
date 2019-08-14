@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react"
 import asyncQueue from "async/queue"
-import { Motion, spring } from "react-motion"
 import { MdMusicNote } from "react-icons/md"
-
-import { Spinner } from "ui"
+import { Spinner, Fader } from "ui"
 
 const queue = asyncQueue((src, done) => {
   if (src) {
@@ -25,7 +23,7 @@ function Container({ size, borderColor, ...otherProps }) {
 }
 
 const Artwork = (props) => {
-  const { src, size, borderColor } = props
+  const { src, size, style, borderColor } = props
   const [isLoading, setIsLoading] = useState(false)
 
   const innerSize = size * 0.5
@@ -53,11 +51,9 @@ const Artwork = (props) => {
   if (src) {
     return (
       <Container size={size} borderColor={borderColor}>
-        <Motion defaultStyle={{ opacity: 0 }} style={{ opacity: spring(1) }}>
-          {(style) => (
-            <img style={{ width: size, height: size, ...style }} src={src} />
-          )}
-        </Motion>
+        <Fader>
+          <img style={{ width: size, height: size, ...style }} src={src} />
+        </Fader>
       </Container>
     )
   }

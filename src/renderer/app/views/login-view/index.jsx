@@ -1,6 +1,5 @@
 import React from "react"
 import { inject, observer, useLocalStore } from "mobx-react"
-
 import { Text, Button, Input } from "ui"
 
 const LoginView = ({ store }) => {
@@ -24,11 +23,12 @@ const LoginView = ({ store }) => {
       style={{ paddingTop: 37 }}
     >
       <div className="flex flex-col" style={{ width: 300 }}>
-        <Text bold size={24}>
+        <h1 className="mb-4 text-center text-xl font-medium">
           Login to plex.tv
-        </Text>
+        </h1>
+
         <Input
-          className="flex-auto"
+          className="flex-auto mb-2"
           value={state.login}
           placeholder="Username"
           onChange={(e) => {
@@ -36,7 +36,7 @@ const LoginView = ({ store }) => {
           }}
         />
         <Input
-          className="flex-auto"
+          className="flex-auto mb-4"
           value={state.password}
           type="password"
           placeholder="Password"
@@ -44,6 +44,7 @@ const LoginView = ({ store }) => {
             state.setLoginParam("password", e.target.value)
           }}
         />
+
         <Button className="flex-auto" onClick={performLogin}>
           Connect
         </Button>

@@ -1,15 +1,11 @@
 import React from "react"
 import relativeDate from "relative-date"
 import { inject, observer } from "mobx-react"
-
-import { Text } from "ui"
 import { ListItem } from "app/components"
 
-const DeviceListItem = (props) => {
-  const { device } = props
-
+const DeviceListItem = ({ store, device }) => {
   const onClick = () => {
-    props.store.setActiveDevice(props.device)
+    store.setActiveDevice(device)
   }
 
   return (
@@ -19,16 +15,18 @@ const DeviceListItem = (props) => {
       onClick={onClick}
     >
       <div className="flex flex-col mr-4">
-        <Text style={{ fontWeight: "bold", fontSize: 18 }}>{device.name}</Text>
-        <Text style={{ fontSize: 12 }}>{relativeDate(device.lastSeenAt)}</Text>
+        <div className="text-lg font-medium">{device.name}</div>
+        <div className="text-gray-500 text-xs">
+          {relativeDate(device.lastSeenAt)}
+        </div>
       </div>
       <div className="flex flex-col justify-between">
-        <Text style={{ fontSize: 14 }}>
-          {device.product} ({device.productVersion})
-        </Text>
-        <Text style={{ fontSize: 12 }}>
+        <div>
           {device.platform} ({device.platformVersion})
-        </Text>
+        </div>
+        <div className="text-sm">
+          {device.product} ({device.productVersion})
+        </div>
       </div>
     </ListItem>
   )

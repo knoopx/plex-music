@@ -1,5 +1,4 @@
 import React from "react"
-
 import { TouchableOpacity } from "ui"
 
 const ListItem = ({ active, className, ...props }) => {

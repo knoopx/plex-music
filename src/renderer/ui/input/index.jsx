@@ -1,19 +1,13 @@
 import React from "react"
 
-const Input = ({ style, ...props }) => {
+const Input = ({ className, ...props }) => {
   return (
     <input
+      className={[
+        "focus:outline-none px-3 py-2 border border-default border-xs rounded-sm shadow-xs",
+        className,
+      ]}
       {...props}
-      style={{
-        ...style,
-        color: "inherit",
-        WebkitAppearance: "none",
-        border: "none",
-        outline: "none",
-        borderRadius: "2px",
-        alignItems: "center",
-        padding: "0 8px",
-      }}
     />
   )
 }

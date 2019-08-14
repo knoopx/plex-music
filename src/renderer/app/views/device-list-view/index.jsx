@@ -21,10 +21,8 @@ const DeviceList = (props) => {
       style={{ paddingTop: 37 }}
     >
       <div className="flex flex-auto flex-col">
-        <Text bold size={24}>
-          Choose server
-        </Text>
-        <div className="frame">
+        <h1 className="mb-4 text-2xl text-center font-medium">Choose server</h1>
+        <div className="border border-default rounded">
           <List
             className="flex flex-col overflow-y-auto"
             items={store.devices}
@@ -33,10 +31,7 @@ const DeviceList = (props) => {
         </div>
       </div>
       <div className="flex flex-row items-center p-8">
-        <Text>
-          Logged in as
-          {store.loginParams.login}
-        </Text>
+        <span className="mr-8">Logged in as {store.loginParams.login}</span>
         <Button onClick={logOut}>Log Out</Button>
       </div>
     </div>
