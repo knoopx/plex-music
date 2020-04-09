@@ -88,7 +88,7 @@ export default class Account {
 
   async fetchDevices(authToken) {
     const res = await Axios.get('https://plex.tv/api/resources', {
-      params: { includeHttps: 1, includeRelay: 1, 'X-Plex-Token': authToken },
+      params: { includeHttps: 0, includeRelay: 1, 'X-Plex-Token': authToken },
       responseType: 'document',
     })
     return flow(
