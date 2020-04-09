@@ -1,0 +1,16 @@
+appId: net.knoopx.PlexMusic
+productName: Plex Music
+publish:
+  provider: github
+  releaseType: release
+directories:
+  output: release
+files:
+  - package.json
+  - build/**/*
+  - from: dist/electron
+    to: .
+mac:
+  target: zip
+  category: public.app-category.music
+  identity: null
