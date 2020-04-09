@@ -2,9 +2,6 @@ import _ from 'lodash'
 import Axios from 'axios'
 import { action } from 'mobx'
 
-import Device from 'stores/account/device'
-import { Section } from 'models'
-
 import AlbumEndpoint from './album-endpoint'
 import ArtistEndpoint from './artist-endpoint'
 import TrackEndpoint from './track-endpoint'
